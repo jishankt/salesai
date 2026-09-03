@@ -7,11 +7,10 @@ from services.payment import attach_payment_link
 from services.rendering import render_receipt_card
 from services.discovery_engine import is_broad_query, get_discovery_question, compute_satisfaction_score
 
-
+import re
 import requests
 import time
 from bs4 import BeautifulSoup
-
 import urllib.parse
 
 def build_working_product_url(prod: dict) -> str:
@@ -75,7 +74,15 @@ def search_products(query: str, tags: list = None) -> str:
         return f"No products found matching '{query}'. We stock Epson SureColor printers, UltraChrome inks, and fine art media. Please check the model name or ask for recommendations."
 
     top_mode = results[0].get("_match_mode", "CONFIRMED")
-    results = results[:6]
+    
+    # If the top product is an exact match (score >= 300) or user specified a specific model, cap to top 1-2 focused cards
+    top_score = results[0].get("_match_score", 0)
+    is_specific_hardware = top_score >= 300 or any(re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|AM-[A-Z0-9]+|P\d{3,5}|T\d{3,5}|CX-02|CZ-01)\b', query, re.IGNORECASE) for _ in [0])
+    
+    if is_specific_hardware:
+        results = results[:2]
+    else:
+        results = results[:5]
 
     # Instrument query-match logging for evaluation set generation
     try:
@@ -95,9 +102,13 @@ def search_products(query: str, tags: list = None) -> str:
 
     output = []
     
-    # Soft confirmation header if confidence requires user verification
+    # Conversational framing header
     if top_mode == "NEEDS_CONFIRMATION":
-        output.append(f"🔍 I found these close matches for *'{query}'* — did you mean one of these?")
+        output.append(f"🔍 I found these close matches for *'{query}'* — did you mean one of these?\n")
+    elif is_specific_hardware:
+        output.append(f"Here is the official specification and live pricing for the **{results[0]['name']}**:\n")
+    else:
+        output.append(f"Here are the top printing equipment options matching your request:\n")
 
     for r in results:
         stock_label, live_qty = _get_live_availability(r)
@@ -115,6 +126,19 @@ def search_products(query: str, tags: list = None) -> str:
             f"[Draft: {r['_id']}]\n"
             f"━━━━━━━━━━━━━━━━━━━━"
         )
+    
+    # Conversational footer & action pills
+    if is_specific_hardware:
+        output.append(
+            f"\nWould you like me to draft an official Proforma Invoice quotation, check UAE delivery options, or show compatible ink sets?\n\n"
+            f"[Options: Draft Quotation | Compatible Inks & Supplies | Check Delivery & Stock]"
+        )
+    else:
+        output.append(
+            f"\nWould you like more technical details on any of these units, or would you like to prepare a quotation draft?\n\n"
+            f"[Options: Prepare Quotation | Check Delivery | Request Volume Discount]"
+        )
+
     return "\n\n".join(output)
 
 
@@ -128,9 +152,6 @@ def get_printer_consumables(printer_query: str) -> str:
     # Strip common conversational inquiry prefix/suffixes
     q_norm = re.sub(r'^(give\s+me\s+|i\s+want\s+|what\s+|list\s+all\s+the\s+|can\s+you\s+give\s+me\s+)?(consumables\s+for|supplies\s+for|inks?\s+for|cartridges?\s+for|media\s+for|ribbons?\s+for)\s+', '', q_raw).strip()
     q_norm = re.sub(r'\s+(printer|printers|machine|supplies|consumables|inks?|media)$', '', q_norm).strip()
-    if not q_norm:
-        q_norm = q_raw
-        
     q_clean = re.sub(r'[^a-z0-9]', '', q_norm)
     model_tokens = [re.sub(r'[^a-z0-9]', '', w) for w in re.split(r'[\s\-_/]+', q_norm) if len(w) >= 2]
     
@@ -192,12 +213,15 @@ def get_printer_consumables(printer_query: str) -> str:
         
     # Retrieve each matching consumable
     output = []
-    output.append(f"💧 **Compatible Consumables & Supplies for {target_printer['name']}:**\n")
+    output.append(f"💧 **Genuine Compatible Consumables & Supplies for {target_printer['name']}:**\n")
     
+    has_out_of_stock = False
     for c_id in consumable_ids:
         item = Product.find_by_id(c_id)
         if item:
             stock_label, live_qty = _get_live_availability(item)
+            if live_qty == 0 or "Out of Stock" in stock_label:
+                has_out_of_stock = True
             satisfaction = 100
             web_url = build_working_product_url(item)
             output.append(
@@ -212,6 +236,18 @@ def get_printer_consumables(printer_query: str) -> str:
                 f"[Draft: {item['_id']}]\n"
                 f"━━━━━━━━━━━━━━━━━━━━"
             )
+            
+    if has_out_of_stock:
+        output.append(
+            f"\n📌 *Lead Time Note:* Items marked allocation/out of stock are available on regular manufacturer shipment (typically 2–3 business days across the UAE).\n\n"
+            f"Would you like me to prepare a full set quotation draft for your review?\n\n"
+            f"[Options: Draft Full Set Quote | Check Stock & Delivery | Inquire Discount]"
+        )
+    else:
+        output.append(
+            f"\nWould you like me to create an official quotation draft for these supplies, or check same-day UAE delivery terms?\n\n"
+            f"[Options: Draft Quotation | Check Delivery | Request Bulk Discount]"
+        )
             
     return "\n\n".join(output)
 
