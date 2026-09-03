@@ -75,12 +75,13 @@ def search_products(query: str, tags: list = None) -> str:
 
     top_mode = results[0].get("_match_mode", "CONFIRMED")
     
-    # If the top product is an exact match (score >= 300) or user specified a specific model, cap to top 1-2 focused cards
+    # If the user specified a specific model/SKU, restrict output strictly to the 100% matching item
     top_score = results[0].get("_match_score", 0)
-    is_specific_hardware = top_score >= 300 or any(re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|AM-[A-Z0-9]+|P\d{3,5}|T\d{3,5}|CX-02|CZ-01)\b', query, re.IGNORECASE) for _ in [0])
+    top_sat = compute_satisfaction_score(results[0], query)
+    is_specific_hardware = top_score >= 300 or top_sat >= 95.0 or any(re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|AM-[A-Z0-9]+|P\d{3,5}|T\d{3,5}|CX-02|CZ-01)\b', query, re.IGNORECASE) for _ in [0])
     
     if is_specific_hardware:
-        results = results[:2]
+        results = [results[0]]
     else:
         results = results[:5]
 

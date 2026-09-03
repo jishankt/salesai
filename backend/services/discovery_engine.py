@@ -84,11 +84,22 @@ def compute_satisfaction_score(product: Dict[str, Any], query: str, budget: Opti
     """
     Computes a multi-factor satisfaction match score from 60.0% to 100.0%.
     Factors:
+    - Exact SKU / Model match: 100.0%
     - Title / SKU match: 40%
     - Description / Specs match: 30%
     - Budget compliance: 20%
     - Stock readiness: 10%
     """
+    q_clean = re.sub(r'[^a-z0-9]', '', (query or "").lower())
+    name_clean = re.sub(r'[^a-z0-9]', '', product.get("name", "").lower())
+    sku_clean = re.sub(r'[^a-z0-9]', '', product.get("sku", product.get("_id", "")).lower())
+
+    # Direct exact model match (e.g. 'c11ch87401by', 'wfc20750', 'c13t02s100')
+    if (sku_clean and sku_clean in q_clean) or (q_clean and q_clean in sku_clean and len(q_clean) >= 4):
+        return 100.0
+    if product.get("_match_score", 0) >= 300:
+        return 100.0
+
     score = 60.0
     q_words = [w.lower() for w in query.split() if len(w) > 2]
     name_l = product.get("name", "").lower()
