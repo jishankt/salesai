@@ -83,7 +83,69 @@ def check_chemical_compatibility(text: str) -> Tuple[bool, Optional[str]]:
         return True, "ultrachrome_on_sublimation_mismatch"
     return False, None
 
-def validate_ai_response(content: str) -> Tuple[bool, str, str]:
+def extract_pricing_entities(text: str) -> List[float]:
+    """Extracts numeric pricing values associated with currency mentions (AED, Dhs, etc.)."""
+    if not text:
+        return []
+    prices = []
+    # Patterns like '4,500 AED', '4500.00 AED', 'AED 4500', '450 AED'
+    matches = re.findall(r'(?:AED|Dhs|Dh|\$)\s*([\d,]+(?:\.\d{1,2})?)|([\d,]+(?:\.\d{1,2})?)\s*(?:AED|Dhs|Dh|\$)', text, re.IGNORECASE)
+    for m1, m2 in matches:
+        raw = m1 or m2
+        raw_clean = raw.replace(',', '')
+        try:
+            val = float(raw_clean)
+            if val > 0:
+                prices.append(val)
+        except ValueError:
+            continue
+    return prices
+
+def extract_sku_and_spec_tokens(text: str) -> List[str]:
+    """Extracts potential SKU codes, model identifiers, and exact sizing specs."""
+    if not text:
+        return []
+    tokens = set()
+    # SKUs like C13T00E140, T800100, SC-P9500, WF-C579R, CX-02
+    sku_matches = re.findall(r'\b(?:C13T[A-Z0-9]+|T[0-9]{5,7}|SC-[PTF]\d{3,5}[A-Z]*|WF-[A-Z0-9]+|CX-02|CZ-01|AM-C\d{3,5}|EM-C\d{3,5})\b', text, re.IGNORECASE)
+    for s in sku_matches:
+        tokens.add(s.upper())
+    # Sizing / specs like 44-inch, 24-inch, 700ml, 350ml, 110ml, 80gsm
+    spec_matches = re.findall(r'\b(?:\d+[\-\s]*(?:inch|ml|gsm|mm))\b', text, re.IGNORECASE)
+    for sp in spec_matches:
+        tokens.add(re.sub(r'[\s\-]', '', sp.lower()))
+    return list(tokens)
+
+def check_grounding(content: str, last_tool_result: Optional[str] = None) -> Tuple[bool, Optional[str]]:
+    """
+    Grounding check: Ensures that prices and specific SKU/spec tokens stated in the LLM's final reply
+    appear verbatim (or with equivalent numerical value) in the last verified tool output.
+    """
+    if not content or not last_tool_result:
+        return False, None
+
+    reply_prices = extract_pricing_entities(content)
+    if reply_prices:
+        tool_prices = extract_pricing_entities(last_tool_result)
+        # Also check direct integer/float string occurrences in tool output
+        for p in reply_prices:
+            p_int_str = f"{int(p)}" if p.is_integer() else f"{p:.2f}"
+            p_float_str = f"{p:.2f}"
+            if not any(abs(p - tp) < 0.01 for tp in tool_prices) and p_int_str not in last_tool_result and p_float_str not in last_tool_result:
+                return True, f"ungrounded_price_detected:{p:.2f}_AED"
+
+    reply_skus = extract_sku_and_spec_tokens(content)
+    if reply_skus:
+        tool_content_upper = last_tool_result.upper()
+        tool_content_normalized = re.sub(r'[\s\-]', '', last_tool_result.lower())
+        for sku in reply_skus:
+            sku_norm = re.sub(r'[\s\-]', '', sku.lower())
+            if sku not in tool_content_upper and sku_norm not in tool_content_normalized:
+                return True, f"ungrounded_sku_or_spec_detected:{sku}"
+
+    return False, None
+
+def validate_ai_response(content: str, last_tool_result: Optional[str] = None) -> Tuple[bool, str, str]:
     """
     Main validator entrypoint.
     Returns:
@@ -116,6 +178,12 @@ def validate_ai_response(content: str) -> Tuple[bool, str, str]:
     if has_chem_err:
         return False, f"chemical_compatibility_violation:{chem_reason}", ""
 
+    # 6. Tool Grounding Verification
+    if last_tool_result:
+        has_grounding_err, grounding_reason = check_grounding(content, last_tool_result)
+        if has_grounding_err:
+            return False, f"grounding_violation:{grounding_reason}", ""
+
     sanitized = sanitize_and_clean_text(content)
     return True, "valid", sanitized
 
@@ -126,6 +194,8 @@ class ResponseValidator:
     check_competitor_mentions = staticmethod(check_competitor_mentions)
     check_price_bounds = staticmethod(check_price_bounds)
     check_chemical_compatibility = staticmethod(check_chemical_compatibility)
+    check_grounding = staticmethod(check_grounding)
     validate_ai_response = staticmethod(validate_ai_response)
     sanitize_and_clean_text = staticmethod(sanitize_and_clean_text)
+
 

@@ -24,3 +24,5 @@ dist/
 
 # Databases / Data
 db.json
+*.jsonl
+match_eval_logs.jsonl

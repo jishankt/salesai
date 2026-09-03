@@ -1,0 +1,68 @@
+{
+  "intents": {
+    "consumable_query_keywords": [
+      "ink", "cartridge", "consumable", "ribbon", "media", "roll",
+      "waste box", "maintenance box", "cleaning", "tank", "paper",
+      "canvas", "photo black", "matte black", "cyan", "magenta", "yellow"
+    ],
+    "printer_intent_keywords": [
+      "printer", "plotter", "machine", "device", "c400", "c550", "p900",
+      "p700", "p9500", "t5700", "t3100", "cx-02", "cz-01", "sc-p", "sc-t", "wf-"
+    ],
+    "office_keywords": [
+      "office", "workforce", "business", "enterprise", "document",
+      "a4", "a3", "dwf", "multifunction", "copier", "scanner", "scan", "copy"
+    ],
+    "photo_keywords": [
+      "photo", "studio", "event", "passport", "booth", "citizen", "lab"
+    ],
+    "fineart_keywords": [
+      "fine art", "art", "gallery", "canvas", "museum", "photography",
+      "p9500", "p7500", "p900", "p700", "p20000", "p20500", "p5300", "p8500", "p6500"
+    ],
+    "cad_keywords": [
+      "cad", "gis", "blueprint", "technical", "engineering", "architect",
+      "sc-t", "t3200", "t5200", "t7200", "t3100", "t5100", "t7700", "t5700", "t5400", "t3700"
+    ],
+    "hardware_discovery_keywords": [
+      "loking", "looking", "want", "need", "printer", "plotter",
+      "machine", "category", "fine art", "technical", "cad", "office"
+    ]
+  },
+  "boost_rules": {
+    "hardware_discovery": {
+      "match_categories": ["Printers", "Large Format Printer", "Photo Printer", "Business Printer"],
+      "match_name_keywords": ["printer", "plotter"],
+      "boost": 80,
+      "penalty_categories": ["Ink Cartridge", "Maintenance Box", "Accessories"],
+      "penalty": 50
+    },
+    "office": {
+      "match_name_keywords": ["workforce", "enterprise", "wf-", "multifunction", "office", "business", "am-c", "em-c"],
+      "boost": 60,
+      "penalty_name_keywords": ["citizen", "surecolor sc-p"],
+      "penalty": 40
+    },
+    "consumables": {
+      "match_categories": ["Ink Cartridge", "Maintenance Box", "Inks & Consumables", "Media & Paper", "Accessory"],
+      "match_name_keywords": ["ink", "cartridge", "singlepack", "tank", "box"],
+      "boost": 120,
+      "penalty_categories": ["Printers", "Large Format Printer", "Photo Printer", "Business Printer"],
+      "penalty": 90
+    },
+    "photo": {
+      "match_categories": ["Printers", "Photo Printer"],
+      "match_name_keywords": ["citizen", "photo", "sc-p900", "sc-p700", "sc-p5300", "sc-p5000", "cx-02", "cz-01"],
+      "boost": 70,
+      "penalty_name_keywords": ["workforce", "enterprise", "wf-c", "copier", "multi function", "document"],
+      "penalty": 80
+    },
+    "fineart": {
+      "match_categories": ["Printers", "Large Format Printer", "Photo Printer"],
+      "match_name_keywords": ["surecolor sc-p", "fine art", "spectro", "p9500", "p7500", "p20500", "p20000", "p8500", "p6500", "p5300", "p900", "p700"],
+      "boost": 80,
+      "penalty_name_keywords": ["workforce", "enterprise", "wf-c"],
+      "penalty": 80
+    }
+  }
+}

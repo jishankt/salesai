@@ -31,7 +31,7 @@ from tools.handlers import TOOL_MAP, search_products
 from config import Config
 
 def translate_text(text: str, target_lang: str) -> str:
-    if not text or not text.strip() or target_lang == "English":
+    if not text or not text.strip() or target_lang in ("English", "en", "en-US"):
         return text
     prompt = (
         f"You are a professional translator. Translate the following text into {target_lang}. "
@@ -52,6 +52,7 @@ def translate_text(text: str, target_lang: str) -> str:
 def translate_to_english(text: str) -> str:
     if not text or not text.strip():
         return text
+    # Fast path: English ASCII text does not need translation API calls
     if all(ord(c) < 128 for c in text):
         return text
     prompt = (
@@ -485,7 +486,7 @@ def format_reply(reply_text: str, inject_personality: bool = True):
         return []
     
     # Return entire message block intact so multi-card carousels are rendered together in a single carousel track
-    return [{"text": reply_text.strip(), "delay": 0.5, "is_product_card": "━━━━━━━━━━━━━━━━━━━━" in reply_text}]
+    return [{"text": reply_text.strip(), "delay": 0.05, "is_product_card": "━━━━━━━━━━━━━━━━━━━━" in reply_text}]
 
 
 def process_chat_message(session_id: str, user_message_text: str, channel: str = "web", language: str = "English", btn_id: str = ""):
@@ -787,7 +788,14 @@ def process_chat_message(session_id: str, user_message_text: str, channel: str =
 
             # Response validation & anti-hallucination guard
             from services.response_validator import validate_ai_response
-            is_valid, val_reason, sanitized_reply = validate_ai_response(reply_english)
+            # Retrieve the most recent tool execution payload in this turn or session
+            last_tool_payload = None
+            for m in reversed(messages):
+                if m.get("role") == "tool" and m.get("content"):
+                    last_tool_payload = m.get("content")
+                    break
+
+            is_valid, val_reason, sanitized_reply = validate_ai_response(reply_english, last_tool_result=last_tool_payload)
             if not is_valid and not nudged_already:
                 nudged_already = True
                 ChatSession.pop_last_message(session_id)
@@ -795,7 +803,7 @@ def process_chat_message(session_id: str, user_message_text: str, channel: str =
                     "role": "system",
                     "content": (
                         f"🚨 Safety Validator Notice: Your previous output failed safety checks ({val_reason}). "
-                        "Please re-formulate your answer concisely without internal system names, raw JSON, or unrealistic offers."
+                        "Please re-formulate your answer concisely using ONLY the exact prices, SKUs, and specifications from the verified tool results, without internal system names, raw JSON, or ungrounded claims."
                     ),
                 })
                 continue

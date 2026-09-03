@@ -807,20 +807,12 @@ chatForm.addEventListener("submit", async (e) => {
         
         if (data.bubbles && data.bubbles.length > 0) {
             for (const bubble of data.bubbles) {
-                typingIndicator.classList.remove("hidden");
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                await new Promise(resolve => setTimeout(resolve, bubble.delay * 1000));
-                
-                typingIndicator.classList.add("hidden");
                 appendMessage("bot", bubble.text, bubble.audio_url);
                 
                 if (bubble.audio_url) {
                     const audio = new Audio(bubble.audio_url);
                     audio.play().catch(e => console.log("Voice autoplay blocked:", e));
                 }
-                
-                await new Promise(resolve => setTimeout(resolve, 300));
             }
         } else {
             appendMessage("bot", "Sorry, something went wrong on my end.");

@@ -53,6 +53,7 @@ MEM_DB = {
     "orders": {},
     "chat_sessions": {},
     "carts": {},
+    "match_logs": {},
 }
 
 DB_FILE = os.getenv("MEM_DB_FILE", "db.json")

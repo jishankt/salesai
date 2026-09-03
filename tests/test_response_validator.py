@@ -52,5 +52,27 @@ class TestResponseValidator(unittest.TestCase):
         self.assertFalse(invalid_res)
         self.assertEqual(reason, "json_leakage_detected")
 
+    def test_grounding_validation_success_and_failure(self):
+        tool_payload = (
+            "📦 Epson SureColor SC-P9500 44-inch Photo Printer\n"
+            "💵 Price: 4500.00 AED\n"
+            "🆔 Product ID: sc-p9500\n"
+        )
+        
+        # Valid reply with grounded price and model
+        valid_res, _, _ = validate_ai_response("The SC-P9500 is 4500 AED. Would you like to proceed?", last_tool_result=tool_payload)
+        self.assertTrue(valid_res)
+
+        # Invalid reply with fabricated/hallucinated price
+        invalid_price, reason, _ = validate_ai_response("The SC-P9500 is available for 2200 AED.", last_tool_result=tool_payload)
+        self.assertFalse(invalid_price)
+        self.assertIn("grounding_violation:ungrounded_price_detected", reason)
+
+        # Invalid reply with hallucinated SKU
+        invalid_sku, reason_sku, _ = validate_ai_response("We also offer the SC-T7700 for 4500 AED.", last_tool_result=tool_payload)
+        self.assertFalse(invalid_sku)
+        self.assertIn("grounding_violation:ungrounded_sku_or_spec_detected", reason_sku)
+
 if __name__ == "__main__":
     unittest.main()
+

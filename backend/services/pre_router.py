@@ -30,6 +30,10 @@ TYPO_CORRECTIONS = {
     r"\bcosumeables?\b": "consumables",
     r"\bhallo\b": "hello",
     r"\byou ink\b": "your ink",
+    r"\bi trying to\b": "i want to",
+    r"\btrying to buy\b": "want to buy",
+    r"\blooking to buy\b": "want to buy",
+    r"\bwanna buy\b": "want to buy",
 }
 
 # Known UAE / Middle East territories

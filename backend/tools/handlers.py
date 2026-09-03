@@ -77,6 +77,22 @@ def search_products(query: str, tags: list = None) -> str:
     top_mode = results[0].get("_match_mode", "CONFIRMED")
     results = results[:6]
 
+    # Instrument query-match logging for evaluation set generation
+    try:
+        from services.instrumentation import log_search_match
+        top_prod = results[0]
+        sat = compute_satisfaction_score(top_prod, query)
+        log_search_match(
+            user_query=query,
+            matched_product_id=top_prod.get("_id", ""),
+            satisfaction_score=sat,
+            match_score=top_prod.get("_match_score", 0),
+            mode=top_mode,
+            product_name=top_prod.get("name", "")
+        )
+    except Exception as e:
+        pass
+
     output = []
     
     # Soft confirmation header if confidence requires user verification
@@ -383,8 +399,27 @@ def track_order(order_or_session_id: str) -> str:
 
 def add_to_cart(session_id: str, product_id: str, quantity: int = 1) -> str:
     """Add an item to the customer's running cart for this session."""
+    clean_id = (product_id or "").strip()
+    
+    # Confidence floor check if resolving via search or ambiguous identifier
+    prod = Product.find_by_id(clean_id)
+    if not prod:
+        search_res = Product.search_products(clean_id)
+        if search_res:
+            top_match = search_res[0]
+            top_score = top_match.get("_match_score", 0)
+            top_mode = top_match.get("_match_mode", "CONFIRMED")
+            if top_score < 60 or top_mode == "NEEDS_CONFIRMATION":
+                return (
+                    f"⚠️ Low confidence match for *'{clean_id}'*:\n"
+                    f"Did you mean **{top_match['name']}** ({top_match['price']:.2f} AED)?\n"
+                    f"Please confirm by replying: *'Confirm add {top_match['_id']}'* before adding to cart."
+                )
+            prod = top_match
+            clean_id = prod["_id"]
+
     try:
-        view = Cart.add_item(session_id, product_id, quantity)
+        view = Cart.add_item(session_id, clean_id, quantity)
     except ValueError as e:
         return f"Error: {e}"
     lines = [f"• {i['name']} x{i['quantity']} — {i['line_total']:.2f} AED" for i in view["items"]]

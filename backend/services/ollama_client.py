@@ -143,9 +143,19 @@ def chat_completion(messages, tools=None, temperature=0.2, format=None):
         
         # If all Groq models exhausted, fallback to deterministic reply or Ollama
 
-    # Local Ollama Execution
+    # Fast Connectivity Probing for local Ollama to avoid 45-second blocking when server is offline
     url = f"{Config.OLLAMA_API_URL}/api/chat"
-    candidate_models = [Config.OLLAMA_MODEL, "qwen3:14b", "qwen2.5:latest", "llama3.1:latest"]
+    timeout_sec = min(int(getattr(Config, "OLLAMA_TIMEOUT_SECONDS", 12)), 15)
+
+    # Check connection quickly (1.5s) before attempting deep model generation
+    try:
+        ping_res = requests.get(f"{Config.OLLAMA_API_URL}/api/tags", timeout=1.5)
+        if ping_res.status_code != 200:
+            raise OllamaError(f"Ollama server {Config.OLLAMA_API_URL} not healthy (status {ping_res.status_code})")
+    except Exception as e:
+        raise OllamaError(f"Ollama server unreachable at {Config.OLLAMA_API_URL}: {e}")
+
+    candidate_models = [Config.OLLAMA_MODEL, "qwen2.5:14b", "qwen2.5:latest", "llama3.1:latest"]
     
     last_err = None
     for target_model in candidate_models:
@@ -157,8 +167,8 @@ def chat_completion(messages, tools=None, temperature=0.2, format=None):
             "stream": False,
             "options": {
                 "temperature": temperature,
-                "num_predict": 350,       # Concise, snappy sales agent responses
-                "num_ctx": 4096,          # Fast KV cache utilization
+                "num_predict": 250,       # Snappy sales agent responses
+                "num_ctx": 2048,          # Faster context window
             },
         }
         if tools:
@@ -167,7 +177,7 @@ def chat_completion(messages, tools=None, temperature=0.2, format=None):
             payload["format"] = format
 
         try:
-            res = requests.post(url, json=payload, timeout=Config.OLLAMA_TIMEOUT_SECONDS)
+            res = requests.post(url, json=payload, timeout=timeout_sec)
             if res.status_code == 404 and "not found" in res.text.lower():
                 continue # Try next locally available model while target is pulling
             res.raise_for_status()

@@ -64,6 +64,28 @@ def test_checkout_cart_happy_path(sample_product_id):
     assert "empty" in view.lower()
 
 
+def test_add_to_cart_confidence_floor():
+    session_id = "test-session-cart-confidence"
+    Cart.clear(session_id)
+    # Using an ambiguous query that triggers score < 60 / NEEDS_CONFIRMATION
+    ambiguous_query = "something mysterious or undefined"
+    result = add_to_cart(session_id, ambiguous_query, 1)
+    # Should either report not found or request explicit confirmation
+    assert "Low confidence match" in result or "not found" in result
+
+def test_search_products_instrumentation_logging():
+    from backend.tools.handlers import search_products
+    from backend.services.instrumentation import export_eval_dataset
+    
+    res = search_products("Epson SureColor SC-P900 photo printer")
+    assert "SC P900" in res or "SC-P900" in res or "Photo Printer" in res
+    
+    logs = export_eval_dataset()
+    assert len(logs) > 0
+    assert any("SC-P900" in l.get("query", "") or "P900" in l.get("product_name", "") or "P900" in l.get("query", "") for l in logs)
+
+
+
 def test_create_order_requires_name_and_contact(sample_product_id):
     session_id = "test-session-order-1"
     items = [{"product_id": sample_product_id, "quantity": 1}]

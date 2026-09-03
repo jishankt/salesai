@@ -9,21 +9,25 @@ from typing import Tuple, Optional, Dict, Any, List
 
 BROAD_CATEGORY_PATTERNS = {
     "ink": [
-        r"^(?:no\s+)?(?:do\s+you\s+have\s+|i\s+need\s+|i\s+want\s+|show\s+me\s+|give\s+me\s+|wanna\s+)?(?:some\s+)?(?:inks?|cartridges?|bottles?|toners?)\s*\??$",
+        r"(?:inks?|cartridges?|bottles?|toners?)",
     ],
     "printer": [
-        r"^(?:new\s+printing\s+shop|new\s+shop|printing\s+business|new\s+business|event\s+setup|my\s+business)$",
-        r"^(?:recommend\s+a\s+printer|need\s+a\s+printer|want\s+a\s+printer|looking\s+for\s+a\s+printer|buy\s+a\s+printer|buy\s+a\s+large\s+format\s+printer|large\s+format\s+printer|i\s+want\s+to\s+buy\s+a\s+large\s+format\s+printer\s+for\s+my\s+business.*)$",
-        r"^(?:no\s+)?(?:i\s+)?(?:want\s+(?:to\s+)?(?:know\s+about|buy|purchase)|know\s+about|tell\s+me\s+about|tell\s+about|details\s+about|info\s+about|information\s+about|show\s+me|want|need|looking\s+for|have\s+any|check)?\s*(?:a\s+|the\s+|some\s+)?(?:large\s+format\s+)?(?:printers?|plotters?|machines?)(?:\s+for\s+(?:my\s+)?(?:business|shop|office))?\s*\??$",
+        r"(?:new\s+printing\s+shop|new\s+shop|printing\s+business|new\s+business|event\s+setup|my\s+business)",
+        r"(?:recommend|need|want|looking\s+for|trying\s+to\s+buy|buy|purchase|get|show\s+me|check).*(?:new\s+|large\s+format\s+)?(?:printers?|plotters?|machines?)",
         r"^(?:printers?|plotters?|machines?)$"
     ],
     "paper": [
-        r"^(?:no\s+)?(?:do\s+you\s+have\s+|i\s+need\s+|i\s+want\s+|show\s+me\s+|give\s+me\s+|wanna\s+)?(?:some\s+)?(?:papers?|canvas|canvas\s+rolls?|rolls?|media)\s*\??$",
+        r"(?:papers?|canvas|canvas\s+rolls?|rolls?|media)",
     ],
     "scanner": [
-        r"^(?:no\s+)?(?:do\s+you\s+have\s+|i\s+need\s+|i\s+want\s+|show\s+me\s+|give\s+me\s+|wanna\s+)?(?:some\s+)?(?:scanners?)\s*\??$",
+        r"(?:scanners?)",
     ]
 }
+
+SPECIFIC_EXCLUSIONS = [
+    # If the user mentioned a specific model name/code or specific ink color, it's NOT a broad query
+    r"\b(?:sc-p\d+|sc-t\d+|sc-f\d+|p9500|p7500|p900|p700|t5700|t3100|t7700|p20000|p20500|p5300|cx-02|cz-01|wf-c\d+|am-c\d+|c13t\d+|t800\d+|photo\s+black|matte\s+black|cyan|magenta|yellow|700ml|350ml|110ml)\b"
+]
 
 CATEGORY_DISCOVERY_PROMPTS = {
     "ink": (
@@ -57,9 +61,18 @@ def is_broad_query(query: str) -> Tuple[bool, Optional[str]]:
     if not query:
         return False, None
     q = query.strip().lower()
+    
+    # If specific model or SKU is present, do not intercept as broad
+    for excl in SPECIFIC_EXCLUSIONS:
+        if re.search(excl, q):
+            return False, None
+
+    # Strip greeting prefix if attached to the sentence
+    q_norm = re.sub(r'^(?:hi|hello|hey|greetings|good\s+morning|good\s+afternoon|good\s+evening)[,\s!\-]+', '', q).strip()
+
     for cat, patterns in BROAD_CATEGORY_PATTERNS.items():
         for pat in patterns:
-            if re.match(pat, q):
+            if re.search(pat, q_norm):
                 return True, cat
     return False, None
 

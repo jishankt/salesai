@@ -25,6 +25,32 @@ def _stem(word: str) -> str:
     return word
 
 
+import json
+import os
+
+_MATCHER_BOOSTS_CONFIG = None
+
+def _get_matcher_boosts_config():
+    global _MATCHER_BOOSTS_CONFIG
+    if _MATCHER_BOOSTS_CONFIG is not None:
+        return _MATCHER_BOOSTS_CONFIG
+    # Check default config path in backend/matcher_boosts.json or local root
+    possible_paths = [
+        os.path.join(os.path.dirname(__file__), "..", "matcher_boosts.json"),
+        os.path.join(os.path.dirname(__file__), "matcher_boosts.json"),
+        os.path.join(os.path.abspath(os.getcwd()), "backend", "matcher_boosts.json")
+    ]
+    for p in possible_paths:
+        if os.path.exists(p):
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    _MATCHER_BOOSTS_CONFIG = json.load(f)
+                    return _MATCHER_BOOSTS_CONFIG
+            except Exception as e:
+                pass
+    _MATCHER_BOOSTS_CONFIG = {"intents": {}, "boost_rules": {}}
+    return _MATCHER_BOOSTS_CONFIG
+
 class Product:
     @classmethod
     def get_collection(cls):
@@ -97,7 +123,27 @@ class Product:
                 return list(MEM_DB["products"].values())
             scored_results = []
             clean_query = query_str.strip().lower()
-            is_consumable_query = any(k in clean_query for k in ["ink", "cartridge", "consumable", "ribbon", "media", "roll", "waste box", "maintenance box", "cleaning"])
+            
+            # Load boost configuration tables
+            cfg = _get_matcher_boosts_config()
+            intents = cfg.get("intents", {})
+            boost_rules = cfg.get("boost_rules", {})
+
+            consumable_kws = intents.get("consumable_query_keywords", ["ink", "cartridge", "consumable", "ribbon", "media", "roll", "waste box", "maintenance box", "cleaning", "tank"])
+            printer_kws = intents.get("printer_intent_keywords", ["printer", "plotter", "machine", "device", "c400", "c550", "p900", "p700", "p9500", "t5700", "t3100", "cx-02", "cz-01"])
+            office_kws = intents.get("office_keywords", ["office", "workforce", "business", "enterprise", "document", "a4", "a3", "dwf", "multifunction", "copier", "scanner", "scan", "copy"])
+            photo_kws = intents.get("photo_keywords", ["photo", "studio", "event", "passport", "booth", "citizen", "lab"])
+            fineart_kws = intents.get("fineart_keywords", ["fine art", "art", "gallery", "canvas", "museum", "photography", "p9500", "p7500", "p900", "p700", "p20000", "p20500", "p5300", "p8500", "p6500"])
+            cad_kws = intents.get("cad_keywords", ["cad", "gis", "blueprint", "technical", "engineering", "architect", "sc-t", "t3200", "t5200", "t7200", "t3100", "t5100", "t7700", "t5700", "t5400", "t3700"])
+            hw_disc_kws = intents.get("hardware_discovery_keywords", ["loking", "looking", "want", "need", "printer", "plotter", "machine", "category", "fine art", "technical", "cad", "office"])
+
+            is_consumable_query = any(k in clean_query for k in consumable_kws)
+            is_printer_intent = any(k in clean_query for k in printer_kws) and not is_consumable_query
+            is_office_query = any(k in clean_query for k in office_kws)
+            is_photo_query = any(k in clean_query for k in photo_kws)
+            is_fineart_query = any(k in clean_query for k in fineart_kws)
+            is_cad_query = any(k in clean_query for k in cad_kws)
+            is_hardware_discovery = any(k in clean_query for k in hw_disc_kws) and not any(k in clean_query for k in ["ink", "cartridge", "consumable", "ribbon"])
             
             for p in MEM_DB["products"].values():
                 name_l = p["name"].lower()
@@ -110,9 +156,6 @@ class Product:
                 # If user specifically asked for ink/consumables, exclude hardware machines from ranking top
                 if is_consumable_query and cat == "Printers" and not any(k in clean_query for k in ["printer", "machine", "device", "model"]):
                     continue
-                
-                # If query is for a printer / hardware, don't return maintenance boxes or inks as exact matches
-                is_printer_intent = any(k in clean_query for k in ["printer", "plotter", "machine", "device", "c400", "c550", "p900", "p700", "p9500", "t5700", "t3100", "cx-02", "cz-01"]) and not is_consumable_query
 
                 # Exact SKU / Product ID / full name match
                 if clean_query == pid_l or clean_query == sku_l or clean_query == name_l:
@@ -146,51 +189,45 @@ class Product:
                     elif w in desc_l:
                         score += 10
                 
-                # Semantic category & application intent boosting
-                is_office_query = any(k in clean_query for k in ["office", "workforce", "business", "enterprise", "document", "a4", "a3", "dwf", "multifunction", "copier", "scanner", "scan", "copy"])
-                is_photo_query = any(k in clean_query for k in ["photo", "studio", "event", "passport", "booth", "citizen", "lab"])
-                is_fineart_query = any(k in clean_query for k in ["fine art", "art", "gallery", "canvas", "museum", "photography", "p9500", "p7500", "p900", "p700", "p20000", "p20500", "p5300", "p8500", "p6500"])
-                is_cad_query = any(k in clean_query for k in ["cad", "gis", "blueprint", "technical", "engineering", "architect", "sc-t", "t3200", "t5200", "t7200", "t3100", "t5100", "t7700", "t5700", "t5400", "t3700"])
-
-                # If query indicates category discovery / printer selection (not explicitly asking for ink), prioritize hardware machines
-                is_hardware_discovery = any(k in clean_query for k in ["loking", "looking", "want", "need", "printer", "plotter", "machine", "category", "fine art", "technical", "cad", "office"]) and not any(k in clean_query for k in ["ink", "cartridge", "consumable", "ribbon"])
-
+                # Apply data-driven boost rules
                 if is_hardware_discovery:
-                    if cat in ("Printers", "Large Format Printer", "Photo Printer", "Business Printer") or "printer" in name_l or "plotter" in name_l:
-                        score += 80
-                    elif cat in ("Ink Cartridge", "Maintenance Box", "Accessories"):
-                        score -= 50
+                    rule = boost_rules.get("hardware_discovery", {})
+                    if cat in rule.get("match_categories", []) or any(k in name_l for k in rule.get("match_name_keywords", [])):
+                        score += rule.get("boost", 80)
+                    elif cat in rule.get("penalty_categories", []):
+                        score -= rule.get("penalty", 50)
 
                 if is_office_query:
-                    if any(k in name_l for k in ["workforce", "enterprise", "wf-", "multifunction", "office", "business", "am-c", "em-c"]):
-                        score += 60
-                    elif "citizen" in name_l or "surecolor sc-p" in name_l:
-                        score -= 40
+                    rule = boost_rules.get("office", {})
+                    if any(k in name_l for k in rule.get("match_name_keywords", [])):
+                        score += rule.get("boost", 60)
+                    elif any(k in name_l for k in rule.get("penalty_name_keywords", [])):
+                        score -= rule.get("penalty", 40)
 
-                # Consumables / Ink Intent Boosting
-                is_consumable_query = any(k in clean_query for k in ["ink", "inks", "cartridge", "cartridges", "tank", "maintenance box", "ribbon", "paper", "canvas", "photo black", "matte black", "cyan", "magenta", "yellow"])
                 if is_consumable_query:
-                    if cat in ("Ink Cartridge", "Maintenance Box", "Inks & Consumables", "Media & Paper", "Accessory") or any(k in name_l for k in ["ink", "cartridge", "singlepack", "tank", "box"]):
-                        score += 120
-                    elif cat in ("Printers", "Large Format Printer", "Photo Printer", "Business Printer"):
-                        score -= 90
-
-                if not is_consumable_query:
+                    rule = boost_rules.get("consumables", {})
+                    if cat in rule.get("match_categories", []) or any(k in name_l for k in rule.get("match_name_keywords", [])):
+                        score += rule.get("boost", 120)
+                    elif cat in rule.get("penalty_categories", []):
+                        score -= rule.get("penalty", 90)
+                else:
                     # Penalize inks and maintenance boxes when user is searching for printers/hardware
                     if cat in ("Ink Cartridge", "Maintenance Box", "Inks & Consumables", "Accessory") or "maintenance box" in name_l:
                         score -= 80
 
                     if is_photo_query:
-                        if (cat in ("Printers", "Photo Printer") or "printer" in name_l) and ("citizen" in name_l or "photo" in name_l or "sc-p900" in name_l or "sc-p700" in name_l or "sc-p5300" in name_l or "sc-p5000" in name_l or "cx-02" in name_l or "cz-01" in name_l):
-                            score += 70
-                        elif any(k in name_l for k in ["workforce", "enterprise", "wf-c", "copier", "multi function", "document"]):
-                            score -= 80
+                        rule = boost_rules.get("photo", {})
+                        if (cat in rule.get("match_categories", []) or "printer" in name_l) and any(k in name_l for k in rule.get("match_name_keywords", [])):
+                            score += rule.get("boost", 70)
+                        elif any(k in name_l for k in rule.get("penalty_name_keywords", [])):
+                            score -= rule.get("penalty", 80)
 
                     if is_fineart_query:
-                        if (cat in ("Printers", "Large Format Printer", "Photo Printer") or "printer" in name_l) and any(k in name_l for k in ["surecolor sc-p", "fine art", "spectro", "p9500", "p7500", "p20500", "p20000", "p8500", "p6500", "p5300", "p900", "p700"]):
-                            score += 80
-                        elif any(k in name_l for k in ["workforce", "enterprise", "wf-c"]):
-                            score -= 80
+                        rule = boost_rules.get("fineart", {})
+                        if (cat in rule.get("match_categories", []) or "printer" in name_l) and any(k in name_l for k in rule.get("match_name_keywords", [])):
+                            score += rule.get("boost", 80)
+                        elif any(k in name_l for k in rule.get("penalty_name_keywords", [])):
+                            score -= rule.get("penalty", 80)
 
                 # Budget / Under <price> filtering
                 under_match = re.search(r'\b(?:under|below|less than|max|budget|within)\s*(\d{2,6})\b', clean_query)
