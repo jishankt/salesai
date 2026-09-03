@@ -75,15 +75,71 @@ def search_products(query: str, tags: list = None) -> str:
 
     top_mode = results[0].get("_match_mode", "CONFIRMED")
     
+    # Detect broad category queries from discovery pills (these should show ALL printers in the category)
+    ql = query.lower()
+    _EXCLUDED_CATS = ("Ink Cartridge", "Maintenance Box", "Inks & Consumables", "Accessory", "Media & Paper")
+    def _is_office_printer(p):
+        nl = p.get("name","").lower()
+        return (("workforce" in nl or "am-c" in nl or "am c" in nl or "em-c" in nl) 
+                and p.get("category","") not in _EXCLUDED_CATS
+                and "scanner" not in nl and " ds-" not in nl and " ds " not in nl and " es-" not in nl and " es " not in nl
+                and "bag" not in nl)
+    def _is_citizen_printer(p):
+        nl = p.get("name","").lower()
+        return ("citizen" in nl 
+                and p.get("category","") not in _EXCLUDED_CATS
+                and "bag" not in nl and "media" not in nl and "ribbon" not in nl)
+    def _is_cad_plotter(p):
+        nl = p.get("name","").lower()
+        return (("sc-t" in nl or "sc t" in nl or "plotter" in nl) 
+                and p.get("category","") not in _EXCLUDED_CATS)
+    def _is_fineart_printer(p):
+        nl = p.get("name","").lower()
+        return (("sc-p" in nl or "sc p" in nl) 
+                and p.get("category","") not in _EXCLUDED_CATS)
+    
+    CATEGORY_FILTERS = {
+        "technical": _is_cad_plotter,
+        "cad": _is_cad_plotter,
+        "plotter": _is_cad_plotter,
+        "office": _is_office_printer,
+        "enterprise": _is_office_printer,
+        "workforce": _is_office_printer,
+        "citizen": _is_citizen_printer,
+        "photo booth": _is_citizen_printer,
+        "fine art": _is_fineart_printer,
+    }
+    
+    # Determine if this is a category query by checking for category keywords
+    matched_cat_filter = None
+    for cat_kw, cat_filter in CATEGORY_FILTERS.items():
+        if cat_kw in ql:
+            matched_cat_filter = cat_filter
+            break
+    
+    is_category_query = matched_cat_filter is not None
+    
     # If the user specified a specific model/SKU, restrict output strictly to the 100% matching item
     top_score = results[0].get("_match_score", 0)
     top_sat = compute_satisfaction_score(results[0], query)
-    is_specific_hardware = top_score >= 300 or top_sat >= 95.0 or any(re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|AM-[A-Z0-9]+|P\d{3,5}|T\d{3,5}|CX-02|CZ-01)\b', query, re.IGNORECASE) for _ in [0])
+    is_specific_hardware = not is_category_query and (top_score >= 300 or top_sat >= 95.0 or any(re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z][0-9]{3,5}[A-Z]*|AM-[A-Z0-9]+|CX-02|CZ-01|CY-02)\b', query, re.IGNORECASE) for _ in [0]))
     
     if is_specific_hardware:
         results = [results[0]]
+    elif is_category_query:
+        # Filter results to only include items from the correct category, then show all
+        filtered = [r for r in results if matched_cat_filter(r)]
+        # Deduplicate by product name (keep first occurrence with highest score)
+        seen_names = set()
+        deduped = []
+        for r in filtered:
+            name_key = r.get("name", "").strip()
+            if name_key not in seen_names:
+                seen_names.add(name_key)
+                deduped.append(r)
+        results = deduped if deduped else results[:10]
     else:
-        results = results[:5]
+        results = results[:10]
 
     # Instrument query-match logging for evaluation set generation
     try:
@@ -108,6 +164,18 @@ def search_products(query: str, tags: list = None) -> str:
         output.append(f"🔍 I found these close matches for *'{query}'* — did you mean one of these?\n")
     elif is_specific_hardware:
         output.append(f"Here is the official specification and live pricing for the **{results[0]['name']}**:\n")
+    elif is_category_query:
+        # Friendly category name for the header
+        cat_names = {"technical": "Technical / CAD Plotters", "cad": "Technical / CAD Plotters", "plotter": "Technical / CAD Plotters",
+                     "office": "Office & Enterprise Printers", "enterprise": "Office & Enterprise Printers", "workforce": "Office & Enterprise Printers",
+                     "citizen": "Photo Booth & Event Printers", "photo booth": "Photo Booth & Event Printers",
+                     "fine art": "Fine Art & Photography Printers"}
+        cat_label = "Printers"
+        for ck, cv in cat_names.items():
+            if ck in ql:
+                cat_label = cv
+                break
+        output.append(f"Here are all **{len(results)} {cat_label}** we carry:\n")
     else:
         output.append(f"Here are the top printing equipment options matching your request:\n")
 

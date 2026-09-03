@@ -216,6 +216,16 @@ def resolve_conversational_subject(session_id: str, user_text: str) -> str:
         if re.search(r'\b(?:it|that|this one|that printer|the printer)\b', t) and len(t.split()) <= 4:
             is_anaphoric = True
             
+    # Direct mapping for Category Pills
+    if t in ("technical / cad", "technical", "cad", "cad plotters", "technical plotters"):
+        return "Epson SureColor SC-T CAD Technical Plotter"
+    if t in ("office & enterprise", "office", "enterprise", "workforce", "business printers", "office printers"):
+        return "Epson WorkForce Business Office Printer"
+    if t in ("photo booth", "photo booth printers", "citizen", "citizen photo"):
+        return "Citizen Photo Printer"
+    if t in ("fine art & photo", "fine art", "photo printers", "fine art photo"):
+        return "Epson SureColor SC-P Fine Art Photo Printer"
+
     # Check if user is asking for more products / next batch in the same category (e.g. "i want more", "more list", "show more printers")
     is_more_request = any(k in t for k in ["i want more", "want more", "more list", "show more", "more printers", "more models", "other models", "see more", "next", "more"])
     if is_more_request:
