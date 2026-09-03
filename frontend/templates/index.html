@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales AI — Enterprise AI Sales Assistant & CRM</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v={{ range(1, 100000) | random }}">
+    <style>
+        /* Light Mode in Embedded Widget (Default) */
+        body.embedded-widget {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background: #ffffff;
+        }
+        body.embedded-widget .app-container {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+            background: #ffffff;
+        }
+        body.embedded-widget .sidebar {
+            display: none !important;
+        }
+        body.embedded-widget .chat-area {
+            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        body.embedded-widget .chat-header {
+            background: linear-gradient(135deg, #0076a8 0%, #0098d4 60%, #00a884 100%) !important;
+            padding: 12px 14px !important;
+            border-bottom: 1px solid rgba(255,255,255,0.15) !important;
+            color: #ffffff !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 8px !important;
+            flex-shrink: 0 !important;
+            min-height: 58px !important;
+        }
+        body.embedded-widget .avatar-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+        body.embedded-widget .chat-header .avatar {
+            width: 36px !important;
+            height: 36px !important;
+            background: rgba(255,255,255,0.2) !important;
+            color: #ffffff !important;
+            border: 1.5px solid rgba(255,255,255,0.4) !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1rem;
+        }
+        body.embedded-widget .avatar-status.online {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 9px;
+            height: 9px;
+            background: #10b981;
+            border: 2px solid #0076a8;
+            border-radius: 50%;
+        }
+        body.embedded-widget .bot-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+            flex: 1;
+            margin-left: 2px;
+        }
+        body.embedded-widget .bot-info h1 {
+            font-size: 0.92rem !important;
+            font-weight: 700 !important;
+            color: #ffffff !important;
+            margin: 0 !important;
+            line-height: 1.2 !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            letter-spacing: -0.2px;
+        }
+        body.embedded-widget .bot-info .subtitle {
+            color: #bbf7d0 !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 1px;
+        }
+        body.embedded-widget .bot-info .subtitle::before {
+            content: "";
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #bbf7d0;
+        }
+        body.embedded-widget .lang-buttons-container {
+            display: flex !important;
+            background: rgba(0, 0, 0, 0.18) !important;
+            padding: 2px !important;
+            border-radius: 16px !important;
+            gap: 1px !important;
+            margin: 0 !important;
+            flex-shrink: 0 !important;
+        }
+        body.embedded-widget .lang-btn {
+            background: transparent !important;
+            color: rgba(255,255,255,0.8) !important;
+            border: none !important;
+            padding: 3px 7px !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            border-radius: 14px !important;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        body.embedded-widget .lang-btn.active {
+            background: #ffffff !important;
+            color: #0076a8 !important;
+            font-weight: 800 !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+        }
+        body.embedded-widget #new-chat-btn {
+            background: rgba(255,255,255,0.18) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255,255,255,0.25) !important;
+            width: 32px !important;
+            height: 32px !important;
+            padding: 0 !important;
+            border-radius: 8px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex-shrink: 0 !important;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        body.embedded-widget #new-chat-btn:hover {
+            background: rgba(255,255,255,0.3) !important;
+        }
+        body.embedded-widget #new-chat-btn span {
+            display: none !important;
+        }
+        body.embedded-widget #theme-toggle-btn {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: rgba(255,255,255,0.18) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255,255,255,0.25) !important;
+            width: 32px !important;
+            height: 32px !important;
+            padding: 0 !important;
+            border-radius: 8px !important;
+            flex-shrink: 0 !important;
+            cursor: pointer;
+            margin-right: 0 !important;
+            transition: all 0.2s ease;
+        }
+        body.embedded-widget #theme-toggle-btn:hover {
+            background: rgba(255,255,255,0.3) !important;
+        }
+        body.embedded-widget .chat-header a[href="/admin"] {
+            display: none !important;
+        }
+        
+        /* Light Theme Message Styling */
+        body.embedded-widget[data-theme="light"] .messages-container {
+            background: #f1f5f9;
+            padding: 16px;
+        }
+        body.embedded-widget[data-theme="light"] .message.bot .bubble {
+            background: #ffffff;
+            color: #1e293b;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        body.embedded-widget[data-theme="light"] .message.user .bubble {
+            background: #0076a8;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 118, 168, 0.25);
+        }
+        body.embedded-widget[data-theme="light"] .message.user .time {
+            color: rgba(255,255,255,0.7);
+        }
+        body.embedded-widget[data-theme="light"] .chat-footer {
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            padding: 10px 14px;
+        }
+        body.embedded-widget[data-theme="light"] .chat-form input {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            color: #0f172a;
+            border-radius: 24px;
+        }
+        body.embedded-widget[data-theme="light"] .chat-form input:focus {
+            border-color: #0076a8;
+            background: #ffffff;
+        }
+        body.embedded-widget[data-theme="light"] .chat-form button[type="submit"] {
+            background: linear-gradient(135deg, #0076a8 0%, #00a884 100%);
+            color: #ffffff;
+            border-radius: 50%;
+        }
+
+        /* Dark Theme in Embedded Widget */
+        body.embedded-widget:not([data-theme="light"]) {
+            background: #0b141a;
+        }
+        body.embedded-widget:not([data-theme="light"]) .app-container {
+            background: #111b21;
+        }
+        body.embedded-widget:not([data-theme="light"]) .chat-area {
+            background: #0b141a;
+        }
+        body.embedded-widget:not([data-theme="light"]) .messages-container {
+            background: #0b141a;
+            padding: 16px;
+        }
+        body.embedded-widget:not([data-theme="light"]) .message.bot .bubble {
+            background: #202c33;
+            color: #e9edef;
+            border: 1px solid #222e35;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+        body.embedded-widget:not([data-theme="light"]) .message.user .bubble {
+            background: #005c4b;
+            color: #e9edef;
+            box-shadow: 0 2px 8px rgba(0, 92, 75, 0.4);
+        }
+        body.embedded-widget:not([data-theme="light"]) .message.user .time {
+            color: rgba(233, 237, 239, 0.6);
+        }
+        body.embedded-widget:not([data-theme="light"]) .chat-footer {
+            background: #202c33;
+            border-top: 1px solid #222e35;
+            padding: 10px 14px;
+        }
+        body.embedded-widget:not([data-theme="light"]) .chat-form input {
+            background: #2a3942;
+            border: 1px solid #222e35;
+            color: #e9edef;
+            border-radius: 24px;
+        }
+        body.embedded-widget:not([data-theme="light"]) .chat-form input:focus {
+            border-color: #00a884;
+            background: #2a3942;
+        }
+        body.embedded-widget:not([data-theme="light"]) .chat-form button[type="submit"] {
+            background: linear-gradient(135deg, #00a884 0%, #25d366 100%);
+            color: #ffffff;
+            border-radius: 50%;
+        }
+        body.embedded-widget:not([data-theme="light"]) .chat-form button[type="button"] {
+            color: #8696a0;
+        }
+    </style>
+    <script>
+        if (new URLSearchParams(window.location.search).get('embed') === '1') {
+            document.documentElement.classList.add('embedded-widget');
+            const savedTheme = localStorage.getItem("sales_ai_theme") || "light";
+            window.addEventListener('DOMContentLoaded', () => {
+                document.body.classList.add('embedded-widget');
+                if (savedTheme === "light") {
+                    document.body.setAttribute("data-theme", "light");
+                } else {
+                    document.body.removeAttribute("data-theme");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar - Lead Status & Database Monitor -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2 data-translate="crm_monitor"><i class="fa-solid fa-bolt-lightning"></i> Sales AI</h2>
+                    <span class="live-pill"><span class="pulse-dot"></span> LIVE</span>
+                </div>
+                <p data-translate="crm_subtitle">Real-time Lead Qualification & Intelligence</p>
+            </div>
+            
+            <!-- Sidebar Navigation Tabs -->
+            <div class="sidebar-switch-tabs" style="display: flex; gap: 8px; padding: 10px 14px; background: var(--header-bg); border-bottom: 1px solid var(--border-color);">
+                <button id="tab-btn-lead" class="btn btn-secondary active" style="flex: 1; padding: 6px 10px; font-size: 0.78rem;" onclick="switchSidebarTab('lead')">
+                    <i class="fa-solid fa-user-shield"></i> <span data-translate="active_lead_profile">Lead CRM</span>
+                </button>
+                <button id="tab-btn-catalog" class="btn btn-secondary" style="flex: 1; padding: 6px 10px; font-size: 0.78rem;" onclick="switchSidebarTab('catalog')">
+                    <i class="fa-solid fa-boxes-stacked"></i> <span data-translate="available_catalog">Catalog</span>
+                </button>
+            </div>
+
+            <!-- Lead Status Card -->
+            <div id="sidebar-lead-panel" class="status-card" style="margin: 12px; border-radius: 12px; background: var(--inner-bg); border: 1px solid var(--inner-border); padding: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                    <h3 style="margin: 0; font-size: 0.88rem; font-weight: 700; text-transform: uppercase; color: var(--text-primary);"><i class="fa-solid fa-id-card" style="color: var(--wa-teal); margin-right: 6px;"></i> Active Lead Profile</h3>
+                    <span id="lead-status" class="value badge status-prospect"><i class="fa-solid fa-filter"></i> Prospect</span>
+                </div>
+                <div class="profile-fields">
+                    <div class="field">
+                        <span class="label" data-translate="session_id">Session ID</span>
+                        <span id="lead-session-id" class="value" style="font-family: monospace; font-size: 0.8rem; color: var(--wa-teal);">Initializing...</span>
+                    </div>
+                    <div class="field">
+                        <span class="label" data-translate="territory_label">Territory / Country</span>
+                        <span id="lead-territory" class="value badge status-empty">Not Set</span>
+                    </div>
+                    <div class="field">
+                        <span class="label" data-translate="name_label">Lead Name</span>
+                        <span id="lead-name" class="value badge status-empty"><i class="fa-regular fa-circle-question"></i> Not Provided</span>
+                    </div>
+                    <div class="field">
+                        <span class="label" data-translate="contact_label">Contact Info</span>
+                        <span id="lead-contact" class="value badge status-empty"><i class="fa-regular fa-envelope"></i> Not Provided</span>
+                    </div>
+                    <div class="field">
+                        <span class="label" data-translate="needs_label">Analyzed Needs</span>
+                        <span id="lead-needs" class="value" style="font-style: italic; color: var(--text-secondary); text-align: right; max-width: 60%;">Not Analyzed Yet</span>
+                    </div>
+                    <div class="field">
+                        <span class="label" data-translate="budget_label">Target Budget</span>
+                        <span id="lead-budget" class="value badge status-empty">Not Set</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Catalog Card -->
+            <div id="sidebar-catalog-panel" class="catalog-card" style="display: none; flex: 1; flex-direction: column; overflow: hidden; padding: 12px 14px;">
+                <div class="search-wrapper" style="margin-bottom: 10px;">
+                    <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; color: var(--text-muted);"></i>
+                    <input type="text" id="catalog-filter-input" placeholder="Search catalog items..." style="width: 100%; padding: 7px 10px 7px 30px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--search-input-bg); color: var(--text-primary); font-size: 0.8rem; outline: none;">
+                </div>
+                <div id="products-list" class="products-list">
+                    <div class="loading-products" data-translate="loading_catalog" style="font-size: 0.85rem; color: var(--text-muted); padding: 10px; text-align: center;">
+                        <i class="fa-solid fa-spinner fa-spin"></i> Syncing catalog items...
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-area">
+            <header class="chat-header">
+                <div class="avatar-container">
+                    <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="avatar-status online"></div>
+                </div>
+                <div class="bot-info">
+                    <h1>Kepler Sales Agent</h1>
+                    <span class="subtitle" data-translate="active_consultant">online</span>
+                </div>
+
+                <button id="new-chat-btn" class="btn btn-secondary" title="Start fresh session" style="margin-left: auto; padding: 6px 12px; font-size: 0.8rem;">
+                    <i class="fa-solid fa-rotate-right"></i> <span data-translate="new_chat">New</span>
+                </button>
+                <button id="theme-toggle-btn" class="btn btn-secondary" title="Toggle dark/light theme" style="padding: 6px 12px; font-size: 0.8rem; margin-right: 6px;">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="/admin" class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem; text-decoration: none;">
+                    <i class="fa-solid fa-sliders"></i> <span data-translate="admin_console">Admin</span>
+                </a>
+            </header>
+
+            <div id="chat-messages" class="messages-container">
+                <!-- Welcome Message -->
+                <div class="message bot animate-fade-in">
+                    <div id="welcome-message-bubble" class="bubble glass-bubble">
+                        👋 Hey! I'm your <strong>Kepler Sales Agent</strong>. How can I help you today? Looking for Epson Large Format printers, Citizen photo printers, genuine inks, or fine art canvas rolls?
+                    </div>
+                    <span class="time">Just now</span>
+                </div>
+                
+                <!-- Typing Indicator -->
+                <div id="typing-indicator" class="message bot hidden animate-fade-in">
+                    <div class="bubble glass-bubble" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px;">
+                        <span style="font-size: 0.82rem; color: var(--text-secondary);">typing</span>
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="chat-footer">
+                <form id="chat-form" class="chat-form">
+                    <input type="text" id="chat-input" placeholder="Type a message" autocomplete="off" required>
+                    <button type="button" id="mic-btn" title="Voice Input (Speech to Text)">
+                        <i class="fa-solid fa-microphone"></i>
+                    </button>
+                    <button type="submit" title="Send">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div id="image-lightbox-modal" onclick="if(event.target===this) window.closeImageLightbox()" style="display: none; position: fixed; inset: 0; z-index: 999999; background: rgba(0, 0, 0, 0.88); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px;">
+        <div style="position: relative; max-width: 90vw; max-height: 90vh; display: flex; flex-direction: column; align-items: center;">
+            <button onclick="window.closeImageLightbox()" style="position: absolute; top: -18px; right: -18px; z-index: 1000000; background: #ef4444; border: 2px solid #ffffff; color: #ffffff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.5); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.15)'" onmouseout="this.style.transform='scale(1)'" title="Close (or press Esc)">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div style="background: #ffffff; padding: 16px; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; max-height: 80vh; max-width: 80vw; overflow: hidden;">
+                <img id="lightbox-img" src="" alt="Product Image" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: 8px;">
+            </div>
+            <div id="lightbox-caption" style="color: #ffffff; margin-top: 14px; font-weight: 600; font-size: 1.05rem; text-align: center; text-shadow: 0 2px 6px rgba(0,0,0,0.9);"></div>
+        </div>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/app.js') }}?v={{ range(1, 100000) | random }}"></script>
+</body>
+</html>

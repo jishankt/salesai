@@ -1,0 +1,26 @@
+# Environments
+venv/
+.venv/
+env/
+
+# Configuration
+.env
+
+# Cache files
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Executables and large binaries
+cloudflared.exe
+
+# Log files
+*.log
+
+# Node & Frontend dependencies
+node_modules/
+dist/
+.npm/
+
+# Databases / Data
+db.json

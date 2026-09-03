@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment — Order {{ order._id }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #0c1317;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #e9edef;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 480px;
+            background: #111b21;
+            border: 1px solid #222e35;
+            border-radius: 16px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Top WhatsApp Header */
+        .card-top {
+            background: #008069;
+            padding: 24px 28px;
+            text-align: center;
+            color: #ffffff;
+        }
+        .card-top .icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+        .card-top h1 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        .card-top p {
+            font-size: 0.82rem;
+            opacity: 0.85;
+            margin-top: 4px;
+            font-family: monospace;
+        }
+
+        /* Status badge */
+        .status-row {
+            display: flex;
+            justify-content: center;
+            padding: 14px;
+            border-bottom: 1px solid #222e35;
+            background: #202c33;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+        .status-badge.unpaid {
+            background: rgba(239,68,68,0.15);
+            border: 1px solid rgba(239,68,68,0.3);
+            color: #fca5a5;
+        }
+        .status-badge.paid {
+            background: rgba(0,168,132,0.15);
+            border: 1px solid rgba(0,168,132,0.3);
+            color: #25d366;
+        }
+
+        /* Order summary */
+        .summary {
+            padding: 20px 24px;
+            border-bottom: 1px solid #222e35;
+            background: #111b21;
+        }
+        .summary-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #8696a0;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.88rem;
+        }
+        .summary-row .key { color: #8696a0; }
+        .summary-row .val { font-weight: 600; color: #e9edef; }
+        .item-line {
+            background: #182229;
+            border: 1px solid #222e35;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+        }
+        .item-line .qty {
+            color: #00a884;
+            font-weight: 600;
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px dashed #222e35;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .total-row .amount {
+            color: #25d366;
+            font-weight: 800;
+        }
+
+        /* Action buttons */
+        .actions {
+            padding: 20px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #202c33;
+        }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.15s ease;
+        }
+        .btn:active { transform: scale(0.98); }
+
+        .btn-paid {
+            background: #00a884;
+            color: white;
+        }
+        .btn-paid:hover { background: #02906f; }
+
+        .btn-unpaid {
+            background: rgba(239,68,68,0.08);
+            border: 1px solid rgba(239,68,68,0.25);
+            color: #fca5a5;
+        }
+        .btn-unpaid:hover { background: rgba(239,68,68,0.14); }
+
+        /* Overlays */
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15,23,42,0.97);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            text-align: center;
+            padding: 40px;
+            border-radius: 28px;
+        }
+        .overlay.active { opacity: 1; pointer-events: all; }
+
+        .spinner {
+            width: 52px; height: 52px;
+            border: 4px solid rgba(255,255,255,0.08);
+            border-top-color: #ec4899;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .check-circle {
+            width: 80px; height: 80px;
+            background: rgba(16,185,129,0.1);
+            border: 2px solid #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: #10b981;
+            margin-bottom: 20px;
+            animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+        @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+
+        .cross-circle {
+            width: 80px; height: 80px;
+            background: rgba(239,68,68,0.1);
+            border: 2px solid #ef4444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: #ef4444;
+            margin-bottom: 20px;
+            animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="overlay">
+            <div class="spinner"></div>
+            <p style="font-weight:500; color:#94a3b8;">Processing...</p>
+        </div>
+
+        <!-- Paid Success Overlay -->
+        <div id="paid-overlay" class="overlay">
+            <div class="check-circle"><i class="fa-solid fa-check"></i></div>
+            <h2 style="font-size:1.4rem; font-weight:700; color:#10b981; margin-bottom:10px;">Payment Confirmed! ✅</h2>
+            <p style="color:#94a3b8; font-size:0.92rem; line-height:1.6;">
+                Order <span style="font-family:monospace; color:#f8fafc; font-weight:600;">{{ order._id }}</span>
+                has been marked as <strong style="color:#10b981;">PAID</strong>.
+            </p>
+            <p style="color:#64748b; font-size:0.82rem; margin-top:14px; display:flex; align-items:center; gap:6px;">
+                <span style="display:inline-block; width:8px; height:8px; background:#ec4899; border-radius:50%; animation: spin 1s linear infinite;"></span>
+                Redirecting back to chat...
+            </p>
+        </div>
+
+        <!-- Unpaid Cancelled Overlay -->
+        <div id="unpaid-overlay" class="overlay">
+            <div class="cross-circle"><i class="fa-solid fa-xmark"></i></div>
+            <h2 style="font-size:1.4rem; font-weight:700; color:#ef4444; margin-bottom:10px;">Marked as Unpaid</h2>
+            <p style="color:#94a3b8; font-size:0.92rem; line-height:1.6;">
+                Order <span style="font-family:monospace; color:#f8fafc; font-weight:600;">{{ order._id }}</span>
+                has been left as <strong style="color:#ef4444;">UNPAID</strong>.
+            </p>
+            <p style="color:#64748b; font-size:0.82rem; margin-top:14px; display:flex; align-items:center; gap:6px;">
+                <span style="display:inline-block; width:8px; height:8px; background:#ef4444; border-radius:50%; animation: spin 1s linear infinite;"></span>
+                Redirecting back to chat...
+            </p>
+        </div>
+
+        <!-- Header -->
+        <div class="card-top">
+            <div class="icon">🛒</div>
+            <h1>Order Payment</h1>
+            <p>{{ order._id }}</p>
+        </div>
+
+        <!-- Current Status -->
+        <div class="status-row">
+            {% if order['payment_status'] == 'paid' %}
+                <span class="status-badge paid"><i class="fa-solid fa-circle-check"></i> PAID</span>
+            {% else %}
+                <span class="status-badge unpaid"><i class="fa-solid fa-clock"></i> AWAITING PAYMENT</span>
+            {% endif %}
+        </div>
+
+        <!-- Order Summary -->
+        <div class="summary">
+            <div class="summary-label">Order Details</div>
+            <div class="summary-row">
+                <span class="key">Customer</span>
+                <span class="val">{{ order['customer_name'] or "—" }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="key">Contact</span>
+                <span class="val" style="font-family:monospace; font-size:0.85rem;">{{ order['customer_contact'] or "—" }}</span>
+            </div>
+
+            <div class="summary-label" style="margin-top:18px;">Items</div>
+            {% for item in order['items'] %}
+            <div class="item-line">
+                <span>{{ item['name'] }}</span>
+                <span class="qty">x{{ item['quantity'] }} &nbsp; {{ (item['price'] * item['quantity'])|round(2) }} AED</span>
+            </div>
+            {% endfor %}
+
+            <div class="total-row">
+                <span>Total</span>
+                <span class="amount">{{ order['total_amount']|round(2) }} AED</span>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="actions">
+            <button id="btn-paid" class="btn btn-paid" onclick="markPayment('paid')">
+                <i class="fa-solid fa-circle-check"></i> Mark as PAID
+            </button>
+            <button id="btn-unpaid" class="btn btn-unpaid" onclick="markPayment('unpaid')">
+                <i class="fa-solid fa-circle-xmark"></i> Leave as Unpaid
+            </button>
+        </div>
+    </div>
+
+    <script>
+        async function markPayment(status) {
+            document.getElementById("loading-overlay").classList.add("active");
+
+            await new Promise(r => setTimeout(r, 900));
+
+            try {
+                const res = await fetch("/api/admin/orders/{{ order['_id'] }}/payment", {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ payment_status: status })
+                });
+                const data = await res.json();
+
+                document.getElementById("loading-overlay").classList.remove("active");
+
+                if (data.status === "success") {
+                    if (status === "paid") {
+                        document.getElementById("paid-overlay").classList.add("active");
+                        // Redirect back to chat after 2.5 seconds
+                        setTimeout(() => {
+                            window.location.href = "/";
+                        }, 2500);
+                    } else {
+                        document.getElementById("unpaid-overlay").classList.add("active");
+                        setTimeout(() => {
+                            window.location.href = "/";
+                        }, 2500);
+                    }
+                } else {
+                    alert("Error: " + (data.error || "Unknown error"));
+                }
+            } catch (err) {
+                document.getElementById("loading-overlay").classList.remove("active");
+                alert("Network error. Please try again.");
+            }
+        }
+
+        // If order is already paid, disable the paid button
+        {% if order['payment_status'] == 'paid' %}
+        document.getElementById("btn-paid").disabled = true;
+        document.getElementById("btn-paid").style.opacity = "0.4";
+        document.getElementById("btn-paid").style.cursor = "not-allowed";
+        document.getElementById("btn-paid").innerHTML = '<i class="fa-solid fa-circle-check"></i> Already Paid';
+        {% endif %}
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+/* ==========================================================================
+   Kepler Sales Agent — Embeddable Floating Chat Widget Styles
+   Kepler Brand Colors: #0076a8 (Blue), #00a884 (Teal Accent), #0c1a24 (Navy)
+   ========================================================================== */
+
+#kepler-chat-launcher {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0076a8 0%, #0098d4 50%, #00a884 100%);
+    box-shadow: 0 8px 25px rgba(0, 118, 168, 0.4), 0 4px 10px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999990;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid #ffffff;
+}
+
+#kepler-chat-launcher:hover {
+    transform: scale(1.08) translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 118, 168, 0.5), 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+#kepler-chat-launcher svg, #kepler-chat-launcher i {
+    color: #ffffff;
+    font-size: 26px;
+    transition: transform 0.3s ease;
+}
+
+#kepler-chat-launcher.open svg.chat-icon, #kepler-chat-launcher.open i.chat-icon {
+    display: none;
+}
+
+#kepler-chat-launcher.open svg.close-icon, #kepler-chat-launcher.open i.close-icon {
+    display: block !important;
+}
+
+#kepler-chat-launcher svg.close-icon, #kepler-chat-launcher i.close-icon {
+    display: none;
+    font-size: 22px;
+}
+
+/* Launcher Notification Badge / Pulse */
+#kepler-chat-launcher .kepler-pulse-dot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 14px;
+    height: 14px;
+    background: #10b981;
+    border: 2.5px solid #ffffff;
+    border-radius: 50%;
+    animation: kepler-pulse 2.2s infinite;
+}
+
+@keyframes kepler-pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Tooltip on Launcher Hover */
+#kepler-launcher-tooltip {
+    position: fixed;
+    bottom: 32px;
+    right: 94px;
+    background: #0f172a;
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.12);
+    z-index: 999989;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(10px);
+    transition: all 0.25s ease;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+}
+
+#kepler-chat-launcher:hover + #kepler-launcher-tooltip {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Pop-up Chat Container */
+#kepler-popup-widget {
+    position: fixed;
+    bottom: 96px;
+    right: 24px;
+    width: 400px;
+    max-width: calc(100vw - 32px);
+    height: 620px;
+    max-height: calc(100vh - 120px);
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 30, 60, 0.2), 0 0 0 1px rgba(0, 118, 168, 0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 999995;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(24px) scale(0.95);
+    transform-origin: bottom right;
+    transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+#kepler-popup-widget.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+/* Outer Top Bar in Widget Container */
+.kepler-widget-header {
+    display: none; /* Hidden to eliminate double header bars inside iframe */
+}
+
+/* Widget Messages Frame / Area */
+#kepler-widget-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #ffffff;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    #kepler-popup-widget {
+        bottom: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        max-width: 100vw;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    #kepler-chat-launcher {
+        bottom: 16px;
+        right: 16px;
+        width: 56px;
+        height: 56px;
+    }
+}
