@@ -100,13 +100,15 @@ def get_conversational_intercept(text: str) -> Tuple[bool, Optional[str]]:
     if re.search(r'\b(?:where (?:is|are|you) (?:your )?(?:compnay|company|located|office|ocated)|company location|where is kepler|your office|where (?:can|do) i (?:buy|order|purchase|get)|how to (?:buy|order|purchase)|where to buy)\b', t):
         return True, "Kepler Tech LLC is located in Dubai, UAE (Al Maktoum Tower, Deira). We supply, deliver, and install equipment directly across Dubai, Abu Dhabi, Sharjah, and all GCC countries! 🚚\n\nWould you like me to prepare an official Proforma Invoice / Quotation draft with delivery terms?"
 
-    # 5. Delivery & Territory Questions
-    if re.search(r'\b(?:delivery|deliver|shipping|ship|do you deliver|can you deliver|deliver to|ship to)\b.*\b(?:abu dhabi|sharjah|dubai|al ain|ajman|rak|fujairah|uae|musaffah|gcc|saudi)\b|\b(?:where do you deliver|delivery areas|delivery locations)\b', t):
-        return True, "Yes! Kepler Tech provides direct delivery across all UAE Emirates (Dubai, Abu Dhabi, Sharjah, Ajman, RAK, Fujairah, Al Ain) and across the GCC! 🚚 Complimentary delivery is available on qualifying commercial orders."
+    # 5. Delivery & Territory Questions & Stock Checks
+    if re.search(r'\b(?:check stock & delivery|check delivery & stock|check stock|check delivery|delivery options?|delivery terms?)\b', t) or (
+        re.search(r'\b(?:delivery|deliver|shipping|ship|do you deliver|can you deliver|deliver to|ship to)\b.*\b(?:abu dhabi|sharjah|dubai|al ain|ajman|rak|fujairah|uae|musaffah|gcc|saudi)\b|\b(?:where do you deliver|delivery areas|delivery locations)\b', t)
+    ):
+        return True, "🚚 **Kepler Tech Delivery & Stock Information:**\n\n• **Direct Dispatch:** All in-stock printers, genuine inks, and maintenance supplies ship directly from our Dubai central warehouse.\n• **UAE Delivery:** 24–48 hours across Dubai, Abu Dhabi, Sharjah, Ajman, RAK, and Al Ain.\n• **GCC Freight:** Regular dispatch to Saudi Arabia, Oman, Qatar, Bahrain, and Kuwait.\n• **Complimentary Delivery:** Included on qualifying commercial hardware and volume supply orders.\n\nWould you like me to prepare an official Proforma Invoice quotation draft with delivery details included?\n\n[Options: Draft Quotation | Inquire Discount | Inks & Consumables]"
 
     # 6. Discount & Commercial Pricing Policy
-    if re.search(r'\b(?:give me (?:a )?discounts?|any discount|discount for products?|best price|special offer|what discount|discount do you give|bulk discount|who give you the (?:permission|prermisssion))\b', t):
-        return True, "We offer standard catalog pricing with an automatic 10% volume discount on orders of 5+ units, plus custom project quotes for commercial studios. Which equipment or consumables are you considering? 💼"
+    if re.search(r'\b(?:inquire discount|request (?:bulk|volume) discount|give me (?:a )?discounts?|any discount|discount for products?|best price|special offer|what discount|discount do you give|bulk discount|who give you the (?:permission|prermisssion))\b', t):
+        return True, "💼 **Kepler Tech Commercial Discount Policy:**\n\n• **Standard Catalog Orders:** Transparent live pricing in AED.\n• **Volume Discount:** Automatic **10% discount** applied on orders of 5+ units / full cartridge supply bundles.\n• **Commercial Project Pricing:** Special enterprise & studio rates available on complete hardware + consumable setups.\n\nWould you like me to prepare a customized quotation draft with discount terms for your setup?\n\n[Options: Draft Quotation | Check Stock & Delivery | Inks & Consumables]"
 
     # 7. Conversational Clarification on Single-Word Confusion ("what", "huh", "pardon", "sorry")
     if t in ("what", "what?", "huh", "huh?", "pardon", "sorry?", "i don't understand", "idk"):

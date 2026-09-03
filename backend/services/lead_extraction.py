@@ -43,10 +43,14 @@ def looks_like_product_question(text: str) -> bool:
     confirm_blacklist = {
         "proceed", "confirm", "yes", "ok", "okay", "sure", "correct", "place", "place order",
         "go ahead", "checkout", "nope", "cancel", "yep", "yeah", "order proceed",
+        "inquire discount", "check stock & delivery", "check delivery & stock", "check stock",
+        "check delivery", "draft quotation", "draft full set quote", "prepare quotation",
+        "request bulk discount", "request volume discount"
     }
-    if any(w in confirm_blacklist for w in words):
-        if not any(k in words for k in ["ink", "canvas", "box", "printer", "p9500", "p7500", "p9000", "cx-02"]):
-            return False
+    if clean in confirm_blacklist or any(clean.startswith(cb) for cb in confirm_blacklist):
+        return False
+    if any(w in confirm_blacklist for w in words) and not any(k in words for k in ["sc-p9500", "sc-f100", "wf-c20750", "cx-02", "cz-01"]):
+        return False
 
     product_keywords = [
         "p9500", "p7500", "p9000", "p20000", "p8000", "p6000", "p5000", "t3200", "t5200", "t7200",

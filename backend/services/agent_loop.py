@@ -507,8 +507,11 @@ def process_chat_message(session_id: str, user_message_text: str, channel: str =
     lead = Lead.get_by_session(session_id)
     session = ChatSession.get_or_create(session_id)
 
-    # Intercept "Create draft for" command to start the drafting wizard
-    if normalized_input.strip().lower().startswith("create draft for"):
+    # Intercept "Create draft for", "Draft Quotation", "Draft Full Set Quote", "Prepare Quotation" commands to start the drafting wizard
+    norm_l = normalized_input.strip().lower()
+    is_draft_command = norm_l.startswith("create draft for") or norm_l in ("draft quotation", "draft quote", "prepare quotation", "draft full set quote", "create quotation")
+    
+    if is_draft_command:
         match = re.search(r'\(([^)]+)\)|for\s+([A-Za-z0-9\-]+)$', user_message_text, re.IGNORECASE)
         prod_id = None
         if match:
@@ -521,6 +524,16 @@ def process_chat_message(session_id: str, user_message_text: str, channel: str =
                 if p["_id"].lower() in user_message_text.lower():
                     prod_id = p["_id"]
                     break
+                    
+        # If no explicit ID in command text, check last discussed product from history
+        if not prod_id:
+            from services.pre_router import extract_last_mentioned_product_from_history
+            from models.product import Product
+            last_prod = extract_last_mentioned_product_from_history(session.get("messages", []))
+            if last_prod:
+                found_p = Product.search_products(last_prod)
+                if found_p:
+                    prod_id = found_p[0]["_id"]
 
         if prod_id:
             Cart.clear(session_id)
@@ -543,6 +556,8 @@ def process_chat_message(session_id: str, user_message_text: str, channel: str =
             else:
                 checkout_reply = checkout_cart(session_id, lead["name"], lead["contact"])
                 ChatSession.add_message(session_id, "user", user_message_english, original_content=user_message_text)
+                ChatSession.add_message(session_id, "assistant", checkout_reply)
+                return format_reply(checkout_reply)
                 ChatSession.add_message(session_id, "assistant", checkout_reply)
                 return format_reply(checkout_reply)
 
