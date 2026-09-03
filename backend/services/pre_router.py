@@ -30,6 +30,12 @@ TYPO_CORRECTIONS = {
     r"\bcosumabls?\b": "consumables",
     r"\bconsumabl\b": "consumable",
     r"\bconsumabls\b": "consumables",
+    r"\bmainatance\b": "maintenance",
+    r"\bmaintanance\b": "maintenance",
+    r"\bmaintenence\b": "maintenance",
+    r"\bmaintance\b": "maintenance",
+    r"\bmaintanence\b": "maintenance",
+    r"\bmaintenace\b": "maintenance",
     r"\bhallo\b": "hello",
     r"\byou ink\b": "your ink",
     r"\bi trying to\b": "i want to",
@@ -227,7 +233,10 @@ def resolve_conversational_subject(session_id: str, user_text: str) -> str:
                     return "Citizen Photo Printer"
 
     # Check if user is asking for ink/consumables for the previously discussed printer
-    ink_triggers = ["ink", "inks", "consumables", "consumable", "supplies", "supply", "cartridge", "cartridges", "ribbon", "media", "paper", "cleaning"]
+    ink_triggers = [
+        "ink", "inks", "consumables", "consumable", "supplies", "supply", "cartridge", "cartridges",
+        "ribbon", "media", "paper", "cleaning", "maintenance", "maintenance box", "waste box", "waste ink", "maintenance tank"
+    ]
     is_asking_for_ink = any(k in t for k in ink_triggers)
     
     if is_anaphoric:
@@ -256,7 +265,7 @@ def resolve_conversational_subject(session_id: str, user_text: str) -> str:
     # Check negative correction intent (e.g. "these are not F100 inks", "not for this printer", "wrong inks")
     is_correction = any(k in t for k in ["these are not", "this is not", "not f100", "wrong ink", "not the ink", "not for f100", "not for sc-f100", "incorrect ink", "different ink"])
     if is_correction:
-        m = re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|P\d{3,5}[A-Z0-9]*|T\d{3,5}[A-Z0-9]*|F\d{3,4}[A-Z0-9]*|C\d{4,5}[A-Z0-9]*|CX-02W|CX-02|CX02|CZ-01|CY-02)\b', user_text, re.IGNORECASE)
+        m = re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|AM-[A-Z0-9]+|P\d{3,5}[A-Z0-9]*|T\d{3,5}[A-Z0-9]*|F\d{3,4}[A-Z0-9]*|C\d{4,5}[A-Z0-9]*|CX-02W|CX-02|CX02|CZ-01|CY-02)\b', user_text, re.IGNORECASE)
         if m:
             printer_code = m.group(1).upper()
             return f"get_printer_consumables for {printer_code}"
@@ -265,9 +274,9 @@ def resolve_conversational_subject(session_id: str, user_text: str) -> str:
         if last_prod:
             return f"get_printer_consumables for {last_prod}"
 
-    # If user mentions specific printer + ink in a single phrase e.g. "ink for WF-C5890" or "cx-02 consumables"
+    # If user mentions specific printer + ink / supplies / maintenance in a single phrase e.g. "maintenance box for f100" or "cx-02 consumables"
     if is_asking_for_ink:
-        m = re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|P\d{3,5}[A-Z0-9]*|T\d{3,5}[A-Z0-9]*|F\d{3,4}[A-Z0-9]*|C\d{4,5}[A-Z0-9]*|CX-02W|CX-02|CX02|CZ-01|CY-02)\b', user_text, re.IGNORECASE)
+        m = re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|AM-[A-Z0-9]+|P\d{3,5}[A-Z0-9]*|T\d{3,5}[A-Z0-9]*|F\d{3,4}[A-Z0-9]*|C\d{4,5}[A-Z0-9]*|CX-02W|CX-02|CX02|CZ-01|CY-02)\b', user_text, re.IGNORECASE)
         if m:
             printer_code = m.group(1).upper()
             return f"get_printer_consumables for {printer_code}"

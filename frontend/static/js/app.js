@@ -575,11 +575,21 @@ function appendMessage(sender, text, audioUrl = null, timestamp = null) {
                 `;
             }).join("");
 
+            // Separate top introductory header from closing option pills
+            let introHeader = introText;
+            let closingPills = "";
+            const pillsMatch = introText.match(/<div class="quick-reply-container"[\s\S]*?<\/div>/);
+            if (pillsMatch) {
+                closingPills = pillsMatch[0];
+                introHeader = introText.replace(pillsMatch[0], "").trim();
+            }
+
             formattedText = `
-                ${introText ? `<div style="margin-bottom: 8px;">${introText}</div>` : ''}
+                ${introHeader ? `<div style="margin-bottom: 8px;">${introHeader}</div>` : ''}
                 <div class="product-carousel-track">
                     ${cardHtmls}
                 </div>
+                ${closingPills ? `<div style="margin-top: 8px;">${closingPills}</div>` : ''}
             `;
         }
     } else {
