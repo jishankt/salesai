@@ -419,7 +419,7 @@
     "row_id": "6242",
     "name": "Epson Maintenance Box - C13T671300",
     "price": 180.0,
-    "stock": 0,
+    "stock": 10,
     "description": "Genuine OEM Epson Maintenance Box - C13T671300 designed for reliable printer maintenance and waste ink collection.",
     "tags": [
       "Maintenance Box",
@@ -427,11 +427,11 @@
       "C13T671300",
       "6242"
     ],
-    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/05/citizen-consumables.webp",
+    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/03/Epson-C20600-Printer-Maintenance-Box-1-300x300.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-maintenance-box-c13t671300/",
     "category": "Maintenance Box",
     "consumables": [],
-    "availability": "Out of Stock"
+    "availability": "In Stock"
   },
   {
     "_id": "C13T44Q440",
@@ -2345,7 +2345,7 @@
       "C13T02S100",
       "7161"
     ],
-    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2018/04/Ink-300x300.jpg",
+    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/04/WorkForce-Enterprise-WF-C20750-Black-Ink-C13T02S100-300x300.webp",
     "website_url": "https://www.keplertechllc.com/product/c13t02s100-epson-workforce-enterprise-wf-c20750-black-ink/",
     "category": "Ink Cartridge",
     "consumables": [
@@ -2372,7 +2372,7 @@
       "C13T02S300",
       "7164"
     ],
-    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2018/04/Ink-300x300.jpg",
+    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/04/WorkForce-Enterprise-WF-C20750-Magenta-Ink-C13T02S300-300x300.webp",
     "website_url": "https://www.keplertechllc.com/product/c13t02s300-epson-workforce-enterprise-wf-c20750-magenta-ink/",
     "category": "Ink Cartridge",
     "consumables": [
@@ -2399,7 +2399,7 @@
       "C13T02S200",
       "7168"
     ],
-    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2018/04/Ink-300x300.jpg",
+    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/04/WorkForce-Enterprise-WF-C20750-Cyan-Ink-C13T02S200-300x300.webp",
     "website_url": "https://www.keplertechllc.com/product/c13t02s200-epson-workforce-enterprise-wf-c20750-cyan-ink/",
     "category": "Ink Cartridge",
     "consumables": [
@@ -2426,7 +2426,7 @@
       "C13T02S400",
       "7171"
     ],
-    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2018/04/Ink-300x300.jpg",
+    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/04/WorkForce-Enterprise-WF-C20750-Yellow-Ink-C13T02S400-300x300.webp",
     "website_url": "https://www.keplertechllc.com/product/c13t02s400-epson-workforce-enterprise-wf-c20750-yellow-ink/",
     "category": "Ink Cartridge",
     "consumables": [
