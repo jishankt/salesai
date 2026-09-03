@@ -658,6 +658,9 @@ def process_chat_message(session_id: str, user_message_text: str, channel: str =
         ChatSession.add_message(session_id, "assistant", intercept_reply, original_content=reply_translated)
         return format_reply(reply_translated)
 
+    # Save user message to session history first
+    ChatSession.add_message(session_id, "user", user_message_english, original_content=user_message_text)
+
     # Context Resolution: Resolve 'send details' / 'that printer' / 'it' to the exact product previously discussed
     resolved_query = resolve_conversational_subject(session_id, user_message_english)
     is_product_question = _deterministic_product_prefetch(session_id, resolved_query)
@@ -665,8 +668,6 @@ def process_chat_message(session_id: str, user_message_text: str, channel: str =
     save_lead_signals_if_any(session_id, user_message_english)
 
     forced_payment_link_holder = {"link": None}
-
-    ChatSession.add_message(session_id, "user", user_message_english, original_content=user_message_text)
 
     session = ChatSession.get_or_create(session_id)
     context = get_system_context(session_id)
@@ -726,9 +727,10 @@ def process_chat_message(session_id: str, user_message_text: str, channel: str =
             content = content_text
             if not content.strip():
                 if assistant_message.get("_connection_error"):
-                    # On offline Ollama, provide direct synthesized reply from the tool output
+                    # On offline Ollama, provide direct synthesized reply from the latest tool output
+                    fresh_sess = ChatSession.get_or_create(session_id)
                     last_tool_msg = None
-                    for msg in reversed(session.get("messages", [])):
+                    for msg in reversed(fresh_sess.get("messages", [])):
                         if msg.get("role") == "tool" and msg.get("content"):
                             last_tool_msg = msg
                             break
