@@ -136,7 +136,7 @@ def get_printer_consumables(printer_query: str) -> str:
     
     # 1. Search across all products in catalog
     all_prods = Product.get_all_products()
-    printers = [p for p in all_prods if p.get("category") == "Printers" or "printer" in p.get("name", "").lower()]
+    printers = [p for p in all_prods if p.get("category") in ("Printers", "Business Printer", "Large Format Printer", "Photo Printer") or "printer" in p.get("name", "").lower()]
     
     target_printer = None
     best_score = -1
@@ -149,7 +149,7 @@ def get_printer_consumables(printer_query: str) -> str:
         p_words = [re.sub(r'[^a-z0-9]', '', w) for w in re.split(r'[\s\-_/]+', p_name) if w]
         
         score = 0
-        # Exact compact string match (e.g. 'scp900' in 'epsonsurecolorscp900photoprinter' or 'cx02' == 'cx02')
+        # Exact compact string match (e.g. 'scp900' in 'epsonsurecolorscp900photoprinter' or 'wfc529r' in 'epsonworkforceprowfc529rbusinessprinter')
         if q_clean == p_clean or q_clean == p_id_clean:
             score += 200
         elif q_clean in p_clean or q_clean in p_id_clean:
@@ -159,23 +159,36 @@ def get_printer_consumables(printer_query: str) -> str:
             if mtok in p_words or mtok == p_id_clean:
                 score += 50
                 
+        # Tie-break / Quality booster: Prefer records with populated consumables
+        if pr.get("consumables"):
+            score += 25
+
         if score > best_score and score >= 80:
             best_score = score
             target_printer = pr
+        elif score == best_score and pr.get("consumables") and (not target_printer or not target_printer.get("consumables")):
+            target_printer = pr
             
     if not target_printer:
-        search_res = Product.search_products(q_norm)
+        search_res = Product.search_products(f"{q_norm} printer")
         if search_res:
-            target_printer = search_res[0]
+            # Pick first result that has consumables if any
+            with_cons = [p for p in search_res if p.get("consumables")]
+            target_printer = with_cons[0] if with_cons else search_res[0]
         
     if not target_printer:
         # Fallback to direct search for inks
-        return search_products(f"{printer_query} ink")
+        return search_products(f"{q_norm} ink")
         
     consumable_ids = target_printer.get("consumables", [])
     if not consumable_ids:
-        # Fallback to general search for this printer's inks/media
-        return search_products(f"{target_printer.get('name')} ink")
+        # Fallback to general search for this printer's model code + inks/media
+        model_code = q_norm
+        # Extract short model name like WF-C529R or SC-P9500
+        m_code_match = re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|AM-[A-Z0-9]+|P\d{3,5}[A-Z0-9]*|T\d{3,5}[A-Z0-9]*|F\d{3,4}[A-Z0-9]*|C\d{4,5}[A-Z0-9]*|CX-02W|CX-02|CX02|CZ-01|CY-02)\b', target_printer.get('name', ''), re.IGNORECASE)
+        if m_code_match:
+            model_code = m_code_match.group(1).upper()
+        return search_products(f"{model_code} ink")
         
     # Retrieve each matching consumable
     output = []

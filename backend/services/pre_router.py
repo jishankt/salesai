@@ -25,15 +25,26 @@ TYPO_CORRECTIONS = {
     r"\babudabi\b": "abu dhabi",
     r"\bryadh\b": "riyadh",
     r"\bsupplay\b": "supply",
-    r"\bsupplays\b": "supplies",
     r"\bcosumables?\b": "consumables",
     r"\bcosumeables?\b": "consumables",
+    r"\bcosumabls?\b": "consumables",
+    r"\bconsumabl\b": "consumable",
+    r"\bconsumabls\b": "consumables",
     r"\bhallo\b": "hello",
     r"\byou ink\b": "your ink",
     r"\bi trying to\b": "i want to",
     r"\btrying to buy\b": "want to buy",
     r"\blooking to buy\b": "want to buy",
     r"\bwanna buy\b": "want to buy",
+    r"\bwanr\b": "want to",
+    r"\bwanr\s+buy\b": "want to buy",
+    r"\bprinetr\b": "printer",
+    r"\bprinetrs\b": "printers",
+    r"\bprnter\b": "printer",
+    r"\bprnters\b": "printers",
+    r"\blookin\b": "looking",
+    r"\bbyu\b": "buy",
+    r"\binkss?\b": "inks",
 }
 
 # Known UAE / Middle East territories
@@ -79,9 +90,9 @@ def get_conversational_intercept(text: str) -> Tuple[bool, Optional[str]]:
     if re.search(r'\b(?:leaning ability|learning ability|do you learn|can you learn|do you remember me)\b', t):
         return True, "I remember and track our full conversation during your active session to assist your order accurately. What printing equipment or supplies can I assist you with?"
 
-    # 4. Company Location & Office info
-    if re.search(r'\b(?:where (?:is|are|you) (?:your )?(?:compnay|company|located|office|ocated)|company location|where is kepler|your office)\b', t):
-        return True, "Kepler Tech LLC is located in Dubai, UAE (Al Maktoum Tower, Deira / Dubai). We supply and deliver across Dubai, Abu Dhabi, Sharjah, and all GCC countries! 🚚"
+    # 4. Company Location & Office info / Where to Buy
+    if re.search(r'\b(?:where (?:is|are|you) (?:your )?(?:compnay|company|located|office|ocated)|company location|where is kepler|your office|where (?:can|do) i (?:buy|order|purchase|get)|how to (?:buy|order|purchase)|where to buy)\b', t):
+        return True, "Kepler Tech LLC is located in Dubai, UAE (Al Maktoum Tower, Deira). We supply, deliver, and install equipment directly across Dubai, Abu Dhabi, Sharjah, and all GCC countries! 🚚\n\nWould you like me to prepare an official Proforma Invoice / Quotation draft with delivery terms?"
 
     # 5. Delivery & Territory Questions
     if re.search(r'\b(?:delivery|deliver|shipping|ship|do you deliver|can you deliver|deliver to|ship to)\b.*\b(?:abu dhabi|sharjah|dubai|al ain|ajman|rak|fujairah|uae|musaffah|gcc|saudi)\b|\b(?:where do you deliver|delivery areas|delivery locations)\b', t):
@@ -91,7 +102,11 @@ def get_conversational_intercept(text: str) -> Tuple[bool, Optional[str]]:
     if re.search(r'\b(?:give me (?:a )?discounts?|any discount|discount for products?|best price|special offer|what discount|discount do you give|bulk discount|who give you the (?:permission|prermisssion))\b', t):
         return True, "We offer standard catalog pricing with an automatic 10% volume discount on orders of 5+ units, plus custom project quotes for commercial studios. Which equipment or consumables are you considering? 💼"
 
-    # 6. Compliments & General pleasantries
+    # 7. Conversational Clarification on Single-Word Confusion ("what", "huh", "pardon", "sorry")
+    if t in ("what", "what?", "huh", "huh?", "pardon", "sorry?", "i don't understand", "idk"):
+        return True, "I'm here to help you find the right printing equipment or supplies at Kepler Tech! 😊\n\nWould you like me to create an official quotation draft for your equipment, check live stock, or list compatible inks?\n\n[Options: Prepare Quotation | Check Stock & Delivery | Inks & Consumables]"
+
+    # 8. Compliments & General pleasantries
     if re.search(r'\b(?:good ai|good model|nice bot|great job|you are good|well done|thank you|thanks)\b', t) and not any(k in t for k in ["price", "cost", "printer", "ink", "canvas"]):
         return True, "Thank you! I'm here to ensure you get the exact right printing solution. Let me know what you need or if you'd like me to recommend a setup."
 

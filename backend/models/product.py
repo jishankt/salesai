@@ -153,8 +153,9 @@ class Product:
                 sku_l = p.get("sku", "").lower()
                 cat = p.get("category", "")
                 
-                # If user specifically asked for ink/consumables, exclude hardware machines from ranking top
-                if is_consumable_query and cat == "Printers" and not any(k in clean_query for k in ["printer", "machine", "device", "model"]):
+                # If user specifically asked for ink/consumables, exclude hardware printer units from ranking top
+                is_printer_unit = cat in ("Printers", "Business Printer", "Large Format Printer", "Photo Printer") or "printer" in name_l
+                if is_consumable_query and is_printer_unit and cat not in ("Ink Cartridge", "Maintenance Box", "Inks & Consumables", "Media & Paper", "Accessory"):
                     continue
 
                 # Exact SKU / Product ID / full name match
@@ -169,7 +170,9 @@ class Product:
                         continue
 
                 if clean_query in name_l:
-                    if is_printer_intent and cat in ("Ink Cartridge", "Maintenance Box", "Inks & Consumables"):
+                    if is_consumable_query and is_printer_unit and cat not in ("Ink Cartridge", "Maintenance Box", "Inks & Consumables", "Media & Paper", "Accessory"):
+                        pass
+                    elif is_printer_intent and cat in ("Ink Cartridge", "Maintenance Box", "Inks & Consumables"):
                         pass # Don't boost maintenance boxes with printer name in their title
                     else:
                         p_copy = dict(p)

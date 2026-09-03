@@ -9,7 +9,7 @@ from typing import Tuple, Optional, Dict, Any, List
 
 BROAD_CATEGORY_PATTERNS = {
     "ink": [
-        r"(?:inks?|cartridges?|bottles?|toners?)",
+        r"^(?:no\s+)?(?:do\s+you\s+have\s+|i\s+need\s+|i\s+want\s+|show\s+me\s+|give\s+me\s+|wanna\s+)?(?:some\s+)?(?:inks?|cartridges?|bottles?|toners?)\s*\??$",
     ],
     "printer": [
         r"(?:new\s+printing\s+shop|new\s+shop|printing\s+business|new\s+business|event\s+setup|my\s+business)",
@@ -17,16 +17,16 @@ BROAD_CATEGORY_PATTERNS = {
         r"^(?:printers?|plotters?|machines?)$"
     ],
     "paper": [
-        r"(?:papers?|canvas|canvas\s+rolls?|rolls?|media)",
+        r"^(?:no\s+)?(?:do\s+you\s+have\s+|i\s+need\s+|i\s+want\s+|show\s+me\s+|give\s+me\s+|wanna\s+)?(?:some\s+)?(?:papers?|canvas|canvas\s+rolls?|rolls?|media)\s*\??$",
     ],
     "scanner": [
-        r"(?:scanners?)",
+        r"^(?:no\s+)?(?:do\s+you\s+have\s+|i\s+need\s+|i\s+want\s+|show\s+me\s+|give\s+me\s+|wanna\s+)?(?:some\s+)?(?:scanners?)\s*\??$",
     ]
 }
 
 SPECIFIC_EXCLUSIONS = [
     # If the user mentioned a specific model name/code or specific ink color, it's NOT a broad query
-    r"\b(?:sc-p\d+|sc-t\d+|sc-f\d+|p9500|p7500|p900|p700|t5700|t3100|t7700|p20000|p20500|p5300|cx-02|cz-01|wf-c\d+|am-c\d+|c13t\d+|t800\d+|photo\s+black|matte\s+black|cyan|magenta|yellow|700ml|350ml|110ml)\b"
+    r"\b(?:sc-p\d+[a-z0-9]*|sc-t\d+[a-z0-9]*|sc-f\d+[a-z0-9]*|p\d{3,5}[a-z0-9]*|t\d{3,5}[a-z0-9]*|f\d{3,4}[a-z0-9]*|cx-02[a-z0-9]*|cz-01|cy-02|wf-[a-z0-9]+|am-[a-z0-9]+|em-[a-z0-9]+|c13t\d+|t800\d+|photo\s+black|matte\s+black|cyan|magenta|yellow|700ml|350ml|110ml|1\.6l)\b"
 ]
 
 CATEGORY_DISCOVERY_PROMPTS = {

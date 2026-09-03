@@ -80,8 +80,8 @@ def save_mem_db():
         return
     with _lock:
         try:
-            with open(DB_FILE, "w") as f:
-                json.dump(MEM_DB, f, default=json_serial, indent=2)
+            with open(DB_FILE, "w", encoding="utf-8") as f:
+                json.dump(MEM_DB, f, default=json_serial, indent=2, ensure_ascii=False)
         except Exception as e:
             print(f"Failed to save in-memory database to file: {e}")
 
@@ -93,7 +93,7 @@ def load_mem_db():
 
     if os.path.exists(DB_FILE):
         try:
-            with open(DB_FILE, "r") as f:
+            with open(DB_FILE, "r", encoding="utf-8") as f:
                 loaded = json.load(f, object_hook=datetime_parser)
                 for key in MEM_DB:
                     if key in loaded:
@@ -104,7 +104,7 @@ def load_mem_db():
 
     # Always reload and sync products from products.json to prevent stale catalog data
     try:
-        with open("products.json", "r") as f:
+        with open("products.json", "r", encoding="utf-8") as f:
             products_list = json.load(f)
             for p in products_list:
                 pid = p.get("_id")
