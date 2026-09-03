@@ -290,8 +290,8 @@
     "website_url": "https://www.keplertechllc.com/product/citizen-cx02-digital-photo-printer/",
     "category": "Photo Printer",
     "consumables": [
-      "CX02-MEDIA-4X6",
-      "CX02-MEDIA-6X8"
+      "CX2.4x6",
+      "CX2.6X8"
     ]
   },
   {
@@ -2312,8 +2312,8 @@
     "website_url": "https://www.keplertechllc.com/product/citizen-cx-02w-8-large-photo-printer/",
     "category": "Photo Printer",
     "consumables": [
-      "CX02-MEDIA-4X6",
-      "CX02-MEDIA-6X8"
+      "CX2.4x6",
+      "CX2.6X8"
     ]
   },
   {
@@ -7672,10 +7672,7 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/05/Untitled-1.webp",
     "website_url": "https://www.keplertechllc.com/product/citizen-cx-02-printer-carry-bag/",
     "category": "Accessory",
-    "consumables": [
-      "CX02-MEDIA-4X6",
-      "CX02-MEDIA-6X8"
-    ],
+    "consumables": [],
     "availability": "Out of Stock"
   },
   {
@@ -7695,9 +7692,7 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/05/Untitled-1-1.webp",
     "website_url": "https://www.keplertechllc.com/product/citizen-cz-01-printer-carry-bag/",
     "category": "Accessory",
-    "consumables": [
-      "CZ01-MEDIA-4X6"
-    ],
+    "consumables": [],
     "availability": "Out of Stock"
   },
   {
@@ -17366,5 +17361,93 @@
       "C13T46SD00",
       "C13T699700"
     ]
+  },
+  {
+    "_id": "CZ01-MEDIA-4X6",
+    "sku": "CZ01-MEDIA-4X6",
+    "row_id": "CZ01-4X6",
+    "name": "Citizen CZ-01 4x6 inch Dye-Sub Photo Media Set",
+    "price": 450.0,
+    "stock": 10,
+    "availability": "In Stock",
+    "description": "Genuine OEM Citizen CZ-01 4x6 inch Dye-Sublimation Photo Paper and Ribbon Set (2 rolls, 300 prints).",
+    "tags": [
+      "Citizen",
+      "CZ-01",
+      "Media",
+      "Paper",
+      "Dye-Sub",
+      "Photo"
+    ],
+    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/05/citizen-consumables.webp",
+    "website_url": "https://www.keplertechllc.com/product/citizen-cz01-photo-printer/",
+    "category": "Media & Paper",
+    "consumables": []
+  },
+  {
+    "_id": "C13T946240",
+    "sku": "C13T946240",
+    "row_id": "T946240",
+    "name": "C13T946240 Epson WF-C5290/WF-C5790 Series XXL Cyan Ink Cartridge",
+    "price": 380.0,
+    "stock": 10,
+    "availability": "In Stock",
+    "description": "Genuine OEM C13T946240 Epson WorkForce Pro WF-C5290 / WF-C5790 XXL Cyan Ink Cartridge (5,000 pages).",
+    "tags": [
+      "Epson",
+      "WorkForce",
+      "WF-C5290",
+      "WF-C5790",
+      "Cyan",
+      "Ink"
+    ],
+    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2018/04/Ink-300x300.jpg",
+    "website_url": "https://www.keplertechllc.com/product/c13t946240/",
+    "category": "Ink Cartridge",
+    "consumables": []
+  },
+  {
+    "_id": "C13T946340",
+    "sku": "C13T946340",
+    "row_id": "T946340",
+    "name": "C13T946340 Epson WF-C5290/WF-C5790 Series XXL Magenta Ink Cartridge",
+    "price": 380.0,
+    "stock": 10,
+    "availability": "In Stock",
+    "description": "Genuine OEM C13T946340 Epson WorkForce Pro WF-C5290 / WF-C5790 XXL Magenta Ink Cartridge (5,000 pages).",
+    "tags": [
+      "Epson",
+      "WorkForce",
+      "WF-C5290",
+      "WF-C5790",
+      "Magenta",
+      "Ink"
+    ],
+    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2018/04/Ink-300x300.jpg",
+    "website_url": "https://www.keplertechllc.com/product/c13t946340/",
+    "category": "Ink Cartridge",
+    "consumables": []
+  },
+  {
+    "_id": "C13T946440",
+    "sku": "C13T946440",
+    "row_id": "T946440",
+    "name": "C13T946440 Epson WF-C5290/WF-C5790 Series XXL Yellow Ink Cartridge",
+    "price": 380.0,
+    "stock": 10,
+    "availability": "In Stock",
+    "description": "Genuine OEM C13T946440 Epson WorkForce Pro WF-C5290 / WF-C5790 XXL Yellow Ink Cartridge (5,000 pages).",
+    "tags": [
+      "Epson",
+      "WorkForce",
+      "WF-C5290",
+      "WF-C5790",
+      "Yellow",
+      "Ink"
+    ],
+    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2018/04/Ink-300x300.jpg",
+    "website_url": "https://www.keplertechllc.com/product/c13t946440/",
+    "category": "Ink Cartridge",
+    "consumables": []
   }
 ]
