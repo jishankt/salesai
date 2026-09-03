@@ -190,11 +190,11 @@ def resolve_conversational_subject(session_id: str, user_text: str) -> str:
         
     # Scanner Category Options
     if t in ("a4 business scanner", "business scanner"):
-        return "Epson WorkForce Document Scanner A4"
+        return "Epson WorkForce DS-70 Business Scanner"
     if t in ("a3 large format flatbed", "a3 flatbed", "large format flatbed"):
-        return "Epson Expression A3 Graphic Flatbed Scanner"
+        return "Epson Expression 12000XL Photo Scanner"
     if t in ("high-speed document scanner", "high speed scanner", "document scanner"):
-        return "Epson WorkForce DS Document Scanner"
+        return "Epson WorkForce DS-900WN High-Speed Network Document Scanner"
 
     if t in ("full set", "just inks", "just the inks", "just maintenance box", "just the maintenance box", "all inks"):
         session = ChatSession.get_or_create(session_id)

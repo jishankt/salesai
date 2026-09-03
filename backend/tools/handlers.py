@@ -97,17 +97,23 @@ def search_products(query: str, tags: list = None) -> str:
         nl = p.get("name","").lower()
         return (("sc-p" in nl or "sc p" in nl) 
                 and p.get("category","") not in _EXCLUDED_CATS)
+    def _is_scanner_device(p):
+        nl = p.get("name","").lower()
+        return ("scanner" in nl or p.get("category","") == "Scanner") and p.get("category","") not in ("Ink Cartridge", "Maintenance Box", "Inks & Consumables")
     
     CATEGORY_FILTERS = {
         "technical": _is_cad_plotter,
         "cad": _is_cad_plotter,
         "plotter": _is_cad_plotter,
-        "office": _is_office_printer,
-        "enterprise": _is_office_printer,
-        "workforce": _is_office_printer,
+        "scanner": _is_scanner_device,
+        "flatbed": _is_scanner_device,
+        "document scanner": _is_scanner_device,
         "citizen": _is_citizen_printer,
         "photo booth": _is_citizen_printer,
         "fine art": _is_fineart_printer,
+        "office": _is_office_printer,
+        "enterprise": _is_office_printer,
+        "workforce": _is_office_printer,
     }
     
     # Determine if this is a category query by checking for category keywords
@@ -166,10 +172,11 @@ def search_products(query: str, tags: list = None) -> str:
         output.append(f"Here is the official specification and live pricing for the **{results[0]['name']}**:\n")
     elif is_category_query:
         # Friendly category name for the header
-        cat_names = {"technical": "Technical / CAD Plotters", "cad": "Technical / CAD Plotters", "plotter": "Technical / CAD Plotters",
-                     "office": "Office & Enterprise Printers", "enterprise": "Office & Enterprise Printers", "workforce": "Office & Enterprise Printers",
+        cat_names = {"scanner": "Scanners", "flatbed": "Flatbed Scanners", "document scanner": "Document Scanners",
+                     "technical": "Technical / CAD Plotters", "cad": "Technical / CAD Plotters", "plotter": "Technical / CAD Plotters",
                      "citizen": "Photo Booth & Event Printers", "photo booth": "Photo Booth & Event Printers",
-                     "fine art": "Fine Art & Photography Printers"}
+                     "fine art": "Fine Art & Photography Printers",
+                     "office": "Office & Enterprise Printers", "enterprise": "Office & Enterprise Printers", "workforce": "Office & Enterprise Printers"}
         cat_label = "Printers"
         for ck, cv in cat_names.items():
             if ck in ql:

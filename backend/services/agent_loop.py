@@ -467,8 +467,10 @@ def _ensure_details_in_reply(content: str, session_id: str) -> str:
         # For search/recommend/consumables tools, we MUST have the divider to split them into separate cards with buttons
         elif last_tool_msg.get("name") in ("search_products", "recommend_products", "get_printer_consumables"):
             if "━━━━━━━━━━━━━━━━━━━━" not in content and "📦" not in content:
-                content = content.strip() + "\n\n" + tool_content.strip()
-                ChatSession.update_last_assistant_message(session_id, content)
+                # Do not re-append if tool_content is already in content (e.g. discovery questions)
+                if tool_content.strip() not in content.strip():
+                    content = content.strip() + "\n\n" + tool_content.strip()
+                    ChatSession.update_last_assistant_message(session_id, content)
         else:
             # For other tools, verify general detail keywords
             has_details = "aed" in content.lower() or "price" in content.lower() or "total" in content.lower()
@@ -656,7 +658,12 @@ def process_chat_message(session_id: str, user_message_text: str, channel: str =
     # Only trigger if we haven't already just asked the discovery question in the previous turn
     from services.discovery_engine import is_broad_query, get_discovery_question
     is_broad, broad_cat = is_broad_query(user_message_english)
-    asked_discovery_already = "which printing category" in last_assistant_text or "what type of printing" in last_assistant_text or "what printer model do you have" in last_assistant_text
+    asked_discovery_already = (
+        "which printing category" in last_assistant_text or 
+        "what type of printing" in last_assistant_text or 
+        "what printer model do you have" in last_assistant_text or
+        "what document size do you need to scan" in last_assistant_text
+    )
     
     if is_broad and broad_cat and not asked_discovery_already:
         discovery_reply = get_discovery_question(broad_cat)

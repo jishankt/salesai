@@ -20,13 +20,15 @@ BROAD_CATEGORY_PATTERNS = {
         r"^(?:no\s+)?(?:do\s+you\s+have\s+|i\s+need\s+|i\s+want\s+|show\s+me\s+|give\s+me\s+|wanna\s+)?(?:some\s+)?(?:papers?|canvas|canvas\s+rolls?|rolls?|media)\s*\??$",
     ],
     "scanner": [
-        r"^(?:no\s+)?(?:do\s+you\s+have\s+|i\s+need\s+|i\s+want\s+|show\s+me\s+|give\s+me\s+|wanna\s+)?(?:some\s+)?(?:scanners?)\s*\??$",
+        r"(?:buy|purchase|need|want|looking\s+for|trying\s+to\s+buy|show\s+me|get|check|have)?.*(?:scanners?)\s*\??$",
     ]
 }
 
 SPECIFIC_EXCLUSIONS = [
     # If the user mentioned a specific model name/code or specific ink color, it's NOT a broad query
-    r"\b(?:sc-p\d+[a-z0-9]*|sc-t\d+[a-z0-9]*|sc-f\d+[a-z0-9]*|p\d{3,5}[a-z0-9]*|t\d{3,5}[a-z0-9]*|f\d{3,4}[a-z0-9]*|cx-02[a-z0-9]*|cz-01|cy-02|wf-[a-z0-9]+|am-[a-z0-9]+|em-[a-z0-9]+|c13t\d+|t800\d+|photo\s+black|matte\s+black|cyan|magenta|yellow|700ml|350ml|110ml|1\.6l)\b"
+    r"\b(?:sc-p\d+[a-z0-9]*|sc-t\d+[a-z0-9]*|sc-f\d+[a-z0-9]*|p\d{3,5}[a-z0-9]*|t\d{3,5}[a-z0-9]*|f\d{3,4}[a-z0-9]*|cx-02[a-z0-9]*|cz-01|cy-02|wf-[a-z0-9]+|am-[a-z0-9]+|em-[a-z0-9]+|ds-[a-z0-9]+|es-[a-z0-9]+|12000xl|c13t\d+|t800\d+|photo\s+black|matte\s+black|cyan|magenta|yellow|700ml|350ml|110ml|1\.6l)\b",
+    # Do not intercept specific pill choices from discovery prompts
+    r"(?:a4\s+business|a3\s+large\s+format|high-speed\s+document|flatbed|artistic\s+canvas|fine\s+art\s+smooth|photo\s+gloss)"
 ]
 
 CATEGORY_DISCOVERY_PROMPTS = {
