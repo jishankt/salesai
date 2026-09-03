@@ -18,11 +18,22 @@
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-p9500-large-format-printer/",
     "category": "Large Format Printer",
     "consumables": [
-      "C13T44Q140",
+      "C13T699700",
+      "C13T44J240",
       "C13T44Q240",
-      "C13T44Q340",
-      "C13T44Q440",
-      "C13T699700"
+      "C13T44J740",
+      "C13T44Q740",
+      "C13T44JB40",
+      "C13T44QB40",
+      "C13T44J940",
+      "C13T44J840",
+      "C13T44JA40",
+      "C13T44QA40",
+      "C13T44JD40",
+      "C13T44QD40",
+      "C13T44J640",
+      "C13T44J440",
+      "C13T44Q440"
     ],
     "availability": "Out of Stock"
   },
@@ -953,11 +964,28 @@
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-p9000-44-large-format-printer/",
     "category": "Large Format Printer",
     "consumables": [
-      "C13T47A100",
-      "C13T47A200",
-      "C13T47A300",
-      "C13T47A400",
-      "C13T47AD00",
+      "C13T54X100",
+      "C13T54X200",
+      "C13T54X300",
+      "C13T54X400",
+      "C13T54X500",
+      "C13T54X600",
+      "C13T54X700",
+      "C13T54X800",
+      "C13T54X900",
+      "C13T54XA00",
+      "C13T54XB00",
+      "C13T55K100",
+      "C13T55K200",
+      "C13T55K300",
+      "C13T55K400",
+      "C13T55K500",
+      "C13T55K600",
+      "C13T55K700",
+      "C13T55K800",
+      "C13T55K900",
+      "C13T55KA00",
+      "C13T55KB00",
       "C13T699700"
     ],
     "availability": "Out of Stock"
@@ -3053,6 +3081,10 @@
     "website_url": "https://www.keplertechllc.com/product/epson-workforce-pro-wf-c529r-business-printer/",
     "category": "Business Printer",
     "consumables": [
+      "C13T01C100",
+      "C13T01C200",
+      "C13T01C300",
+      "C13T01C400",
       "C13T01D100",
       "C13T01D200",
       "C13T01D300",
@@ -3080,6 +3112,10 @@
     "website_url": "https://www.keplertechllc.com/product/epson-workforce-pro-wf-c579r-dtwf-multifunction-printer/",
     "category": "Business Printer",
     "consumables": [
+      "C13T01C100",
+      "C13T01C200",
+      "C13T01C300",
+      "C13T01C400",
       "C13T01D100",
       "C13T01D200",
       "C13T01D300",
@@ -3431,7 +3467,12 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/04/Epson-WorkForce-M5299-Business-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-workforce-pro-wf-m5299-monochrome-printer/",
     "category": "Business Printer",
-    "consumables": [],
+    "consumables": [
+      "C13T964140",
+      "C13T965140",
+      "C13T966140",
+      "C13T671600"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -4005,7 +4046,24 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/04/T-Series-SC-T5200-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t5200-36-large-format-printer/",
     "category": "Printer",
-    "consumables": [],
+    "consumables": [
+      "C13T692100",
+      "C13T692200",
+      "C13T692300",
+      "C13T692400",
+      "C13T692500",
+      "C13T693100",
+      "C13T693200",
+      "C13T693300",
+      "C13T694100",
+      "C13T693500",
+      "C13T693400",
+      "C13T694200",
+      "C13T694300",
+      "C13T694400",
+      "C13T694500",
+      "C13T619300"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -4026,7 +4084,24 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/04/Epson-SureColor-SC-T7200-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t7200-44-large-format-printer/",
     "category": "Printer",
-    "consumables": [],
+    "consumables": [
+      "C13T692100",
+      "C13T692200",
+      "C13T692300",
+      "C13T692400",
+      "C13T692500",
+      "C13T693100",
+      "C13T693200",
+      "C13T693300",
+      "C13T694100",
+      "C13T693500",
+      "C13T693400",
+      "C13T694200",
+      "C13T694300",
+      "C13T694400",
+      "C13T694500",
+      "C13T619300"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -4107,7 +4182,21 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/04/Epson-SureColor-SC-T5405-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t5405-36-wireless-printer/",
     "category": "Printer",
-    "consumables": [],
+    "consumables": [
+      "C13T41E240",
+      "C13T41E340",
+      "C13T41E440",
+      "C13T41E540",
+      "C13T41F240",
+      "C13T41F340",
+      "C13T41F440",
+      "C13T41F540",
+      "C13T41R240",
+      "C13T41R340",
+      "C13T41R440",
+      "C13T41R540",
+      "C13T699700"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -7062,11 +7151,22 @@
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-p9500-large-format-printer-spectro/",
     "category": "Large Format Printer",
     "consumables": [
-      "C13T44Q140",
+      "C13T699700",
+      "C13T44J240",
       "C13T44Q240",
-      "C13T44Q340",
-      "C13T44Q440",
-      "C13T699700"
+      "C13T44J740",
+      "C13T44Q740",
+      "C13T44JB40",
+      "C13T44QB40",
+      "C13T44J940",
+      "C13T44J840",
+      "C13T44JA40",
+      "C13T44QA40",
+      "C13T44JD40",
+      "C13T44QD40",
+      "C13T44J640",
+      "C13T44J440",
+      "C13T44Q440"
     ],
     "availability": "Out of Stock"
   },
@@ -7109,11 +7209,22 @@
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-p7500-24-printer-spectro/",
     "category": "Large Format Printer",
     "consumables": [
-      "C13T44Q140",
+      "C13T699700",
+      "C13T44J240",
       "C13T44Q240",
-      "C13T44Q340",
-      "C13T44Q440",
-      "C13T699700"
+      "C13T44J740",
+      "C13T44Q740",
+      "C13T44JB40",
+      "C13T44QB40",
+      "C13T44J940",
+      "C13T44J840",
+      "C13T44JA40",
+      "C13T44QA40",
+      "C13T44JD40",
+      "C13T44QD40",
+      "C13T44J640",
+      "C13T44J440",
+      "C13T44Q440"
     ],
     "availability": "Out of Stock"
   },
@@ -7235,7 +7346,24 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/04/Epson-SureColor-T3200-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t3200-ps-printer-with-adobe-postscript-unit/",
     "category": "Printer",
-    "consumables": [],
+    "consumables": [
+      "C13T692100",
+      "C13T692200",
+      "C13T692300",
+      "C13T692400",
+      "C13T692500",
+      "C13T693100",
+      "C13T693200",
+      "C13T693300",
+      "C13T694100",
+      "C13T693500",
+      "C13T693400",
+      "C13T694200",
+      "C13T694300",
+      "C13T694400",
+      "C13T694500",
+      "C13T619300"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -7256,7 +7384,21 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/04/Epson-SureColor-T3405-Wireless-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t3405-24-wireless-printer-without-stand/",
     "category": "Printer",
-    "consumables": [],
+    "consumables": [
+      "C13T41E240",
+      "C13T41E340",
+      "C13T41E440",
+      "C13T41E540",
+      "C13T41F240",
+      "C13T41F340",
+      "C13T41F440",
+      "C13T41F540",
+      "C13T41R240",
+      "C13T41R340",
+      "C13T41R440",
+      "C13T41R540",
+      "C13T699700"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -7278,6 +7420,10 @@
     "website_url": "https://www.keplertechllc.com/product/epson-workforcepro-wf-c579r-d2twf-multifunction-printer/",
     "category": "Business Printer",
     "consumables": [
+      "C13T01C100",
+      "C13T01C200",
+      "C13T01C300",
+      "C13T01C400",
       "C13T01D100",
       "C13T01D200",
       "C13T01D300",
@@ -7305,11 +7451,16 @@
     "website_url": "https://www.keplertechllc.com/product/epson-workforce-pro-wf-c579r-dwf-multifunction-printer/",
     "category": "Business Printer",
     "consumables": [
+      "C13T01C100",
+      "C13T01C200",
+      "C13T01C300",
+      "C13T01C400",
       "C13T01D100",
       "C13T01D200",
       "C13T01D300",
       "C13T01D400",
-      "C13T671600"
+      "C13T671600",
+      "C11CG05201"
     ],
     "availability": "Out of Stock"
   },
@@ -7336,6 +7487,10 @@
       "C13T05A200",
       "C13T05A300",
       "C13T05A400",
+      "C13T05B140",
+      "C13T05B240",
+      "C13T05B340",
+      "C13T05B440",
       "C13T671400"
     ],
     "availability": "Out of Stock"
@@ -7363,6 +7518,10 @@
       "C13T05A200",
       "C13T05A300",
       "C13T05A400",
+      "C13T05B140",
+      "C13T05B240",
+      "C13T05B340",
+      "C13T05B440",
       "C13T671400"
     ],
     "availability": "Out of Stock"
@@ -10636,7 +10795,14 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/06/WorkForce-Enterprise​-AM-C4000​-2.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-workforce-enterprise-am-c6000-printer/",
     "category": "Business Printer",
-    "consumables": [],
+    "consumables": [
+      "C13T08G100",
+      "C13T08G200",
+      "C13T08G300",
+      "C13T08G400",
+      "C12C937181",
+      "C11CG05201"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -10884,11 +11050,16 @@
     "category": "Printer",
     "consumables": [
       "C13T47A100",
+      "C13T47A800",
+      "C13T47AD00",
       "C13T47A200",
       "C13T47A300",
       "C13T47A400",
-      "C13T47AD00",
-      "C13T699700"
+      "C13T47A500",
+      "C13T47A600",
+      "C13T47A700",
+      "C13T47A900",
+      "C12C935711"
     ],
     "availability": "Out of Stock"
   },
@@ -11007,11 +11178,11 @@
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-f100-printer/",
     "category": "Printer",
     "consumables": [
-      "C13T49N100",
+      "C13S210125",
       "C13T49N200",
-      "C13T49N300",
       "C13T49N400",
-      "C13S210125"
+      "C13T49N100",
+      "C13T49N300"
     ],
     "availability": "Out of Stock"
   },
@@ -11020,7 +11191,7 @@
     "sku": "C13T49N100",
     "row_id": "11264",
     "name": "C13T49N100 Epson Dye Sublimation Black Ink",
-    "price": 220.0,
+    "price": 110.0,
     "stock": 10,
     "description": "Genuine OEM C13T49N100 Epson Dye Sublimation Black Ink delivering vibrant, archival-grade prints with wide color gamut.",
     "tags": [
@@ -11029,17 +11200,18 @@
       "C13T49N100",
       "11264"
     ],
-    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2018/04/Ink-300x300.jpg",
+    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/07/Dye-Sublimation-Black-T49N100-140mL-600x600.webp",
     "website_url": "https://www.keplertechllc.com/product/c13t49n100-epson-dye-sublimation-black-ink/",
     "category": "Ink Cartridge",
-    "consumables": []
+    "consumables": [],
+    "availability": "In Stock"
   },
   {
     "_id": "C13T49N300",
     "sku": "C13T49N300",
     "row_id": "11269",
     "name": "C13T49N300 Epson Dye Sublimation Magenta Ink",
-    "price": 220.0,
+    "price": 110.0,
     "stock": 10,
     "description": "Genuine OEM C13T49N300 Epson Dye Sublimation Magenta Ink delivering vibrant, archival-grade prints with wide color gamut.",
     "tags": [
@@ -11048,18 +11220,19 @@
       "C13T49N300",
       "11269"
     ],
-    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2018/04/Ink-300x300.jpg",
+    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/07/Dye-Sublimation-Magenta-T49N300-140mL-600x600.webp",
     "website_url": "https://www.keplertechllc.com/product/c13t49n300-epson-dye-sublimation-magenta-ink/",
     "category": "Ink Cartridge",
-    "consumables": []
+    "consumables": [],
+    "availability": "In Stock"
   },
   {
     "_id": "C13T49N200",
     "sku": "C13T49N200",
     "row_id": "11272",
     "name": "C13T49N200 Epson Dye Sublimation Cyan Ink",
-    "price": 220.0,
-    "stock": 0,
+    "price": 110.0,
+    "stock": 10,
     "description": "Genuine OEM C13T49N200 Epson Dye Sublimation Cyan Ink delivering vibrant, archival-grade prints with wide color gamut.",
     "tags": [
       "Ink Cartridge",
@@ -11071,15 +11244,15 @@
     "website_url": "https://www.keplertechllc.com/product/c13t49n200-epson-dye-sublimation-cyan-ink/",
     "category": "Ink Cartridge",
     "consumables": [],
-    "availability": "Out of Stock"
+    "availability": "In Stock"
   },
   {
     "_id": "C13T49N400",
     "sku": "C13T49N400",
     "row_id": "11279",
     "name": "C13T49N400 Epson Dye Sublimation Yellow Ink",
-    "price": 220.0,
-    "stock": 0,
+    "price": 110.0,
+    "stock": 10,
     "description": "Genuine OEM C13T49N400 Epson Dye Sublimation Yellow Ink delivering vibrant, archival-grade prints with wide color gamut.",
     "tags": [
       "Ink Cartridge",
@@ -11087,19 +11260,19 @@
       "C13T49N400",
       "11279"
     ],
-    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/07/Dye-Sublimation-Yellow-T49N400-140mL.webp",
+    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/07/Dye-Sublimation-Yellow-T49N400-140mL-600x600.webp",
     "website_url": "https://www.keplertechllc.com/product/c13t49n400-epson-dye-sublimation-yellow-ink/",
     "category": "Ink Cartridge",
     "consumables": [],
-    "availability": "Out of Stock"
+    "availability": "In Stock"
   },
   {
     "_id": "C13S210125",
     "sku": "C13S210125",
     "row_id": "11282",
     "name": "C13S210125 Epson Maintenance Box",
-    "price": 180.0,
-    "stock": 0,
+    "price": 210.0,
+    "stock": 10,
     "description": "Genuine OEM C13S210125 Epson Maintenance Box designed for reliable printer maintenance and waste ink collection.",
     "tags": [
       "Maintenance Box",
@@ -11107,11 +11280,11 @@
       "C13S210125",
       "11282"
     ],
-    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/07/Maintenance-Box-S210125.webp",
+    "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/07/Maintenance-Box-S210125-600x600.webp",
     "website_url": "https://www.keplertechllc.com/product/c13s210125-epson-maintenance-box/",
     "category": "Maintenance Box",
     "consumables": [],
-    "availability": "Out of Stock"
+    "availability": "In Stock"
   },
   {
     "_id": "C11CK23402BY",
@@ -11132,10 +11305,17 @@
     "website_url": "https://www.keplertechllc.com/product/epson-workforce-pro-wf-c5890-dwf-printer/",
     "category": "Business Printer",
     "consumables": [
+      "C12C938211",
       "C13T11C140",
+      "C13T11C240",
+      "C13T11C340",
+      "C13T11C440",
       "C13T11D140",
+      "C13T11D240",
+      "C13T11D340",
+      "C13T11D440",
       "C13T11E140",
-      "C12C938211"
+      "C11CG05201"
     ],
     "availability": "Out of Stock"
   },
@@ -11882,11 +12062,15 @@
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t3100-wireless-printer-with-stand/",
     "category": "Printer",
     "consumables": [
+      "C13S210057",
+      "C13T40C140",
+      "C13T40C240",
+      "C13T40C340",
+      "C13T40C440",
       "C13T40D140",
       "C13T40D240",
       "C13T40D340",
-      "C13T40D440",
-      "C13T699700"
+      "C13T40D440"
     ],
     "availability": "Out of Stock"
   },
@@ -13831,7 +14015,22 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2024/01/Epson-Sure-Color-SC-T3700E-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t3700e-printer/",
     "category": "Printer",
-    "consumables": [],
+    "consumables": [
+      "C13S210115",
+      "C13S210116",
+      "C13T50M100",
+      "C13T50M200",
+      "C13T50M300",
+      "C13T50M400",
+      "C13T50M800",
+      "C13T50MF00",
+      "C13T50U100",
+      "C13T50U200",
+      "C13T50U300",
+      "C13T50U400",
+      "C13T50U80N",
+      "C13T50UF00"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -13852,7 +14051,22 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2024/01/Epson-Sure-Color-SC-T3700E-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t3700d-printer/",
     "category": "Printer",
-    "consumables": [],
+    "consumables": [
+      "C13S210115",
+      "C13S210116",
+      "C13T50M100",
+      "C13T50M200",
+      "C13T50M300",
+      "C13T50M400",
+      "C13T50M800",
+      "C13T50MF00",
+      "C13T50U100",
+      "C13T50U200",
+      "C13T50U300",
+      "C13T50U400",
+      "C13T50U80N",
+      "C13T50UF00"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -13873,7 +14087,22 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2024/01/Epson-SureColor-SC-T3700DE-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t3700de-printer/",
     "category": "Printer",
-    "consumables": [],
+    "consumables": [
+      "C13S210115",
+      "C13S210116",
+      "C13T50M100",
+      "C13T50M200",
+      "C13T50M300",
+      "C13T50M400",
+      "C13T50M800",
+      "C13T50MF00",
+      "C13T50U100",
+      "C13T50U200",
+      "C13T50U300",
+      "C13T50U400",
+      "C13T50U80N",
+      "C13T50UF00"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -13943,13 +14172,20 @@
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t7700d-large-format-printer/",
     "category": "Printer",
     "consumables": [
+      "C13S210115",
+      "C13S210116",
+      "C13T50M100",
+      "C13T50M200",
+      "C13T50M300",
+      "C13T50M400",
+      "C13T50M800",
+      "C13T50MF00",
       "C13T50U100",
-      "C13T50U80N",
       "C13T50U200",
       "C13T50U300",
       "C13T50U400",
-      "C13T50UF00",
-      "C13T699700"
+      "C13T50U80N",
+      "C13T50UF00"
     ],
     "availability": "Out of Stock"
   },
@@ -13972,13 +14208,14 @@
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t7700dl-technical-printer/",
     "category": "Printer",
     "consumables": [
-      "C13T50U100",
-      "C13T50U80N",
-      "C13T50U200",
-      "C13T50U300",
-      "C13T50U400",
-      "C13T50UF00",
-      "C13T699700"
+      "C13S210115",
+      "C13S210116",
+      "C13T53A100",
+      "C13T53A200",
+      "C13T53A300",
+      "C13T53A400",
+      "C13T53A800",
+      "C13T53A900"
     ],
     "availability": "Out of Stock"
   },
@@ -14971,7 +15208,22 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2024/02/Epson-SureColor-SC-P6500D-Large-Format-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-p6500de-printer/",
     "category": "Printer",
-    "consumables": [],
+    "consumables": [
+      "C13S210115",
+      "C13S210116",
+      "C13T48M100",
+      "C13T48M200",
+      "C13T48M300",
+      "C13T48M400",
+      "C13T48M800",
+      "C13T48ME00",
+      "C13T48U100",
+      "C13T48U200",
+      "C13T48U300",
+      "C13T48U400",
+      "C13T48U800",
+      "C13T48UE00"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -14993,11 +15245,20 @@
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-p6500e-printer/",
     "category": "Printer",
     "consumables": [
-      "C13T44Q140",
-      "C13T44Q240",
-      "C13T44Q340",
-      "C13T44Q440",
-      "C13T699700"
+      "C13S210115",
+      "C13S210116",
+      "C13T48M100",
+      "C13T48M200",
+      "C13T48M300",
+      "C13T48M400",
+      "C13T48M800",
+      "C13T48ME00",
+      "C13T48U100",
+      "C13T48U200",
+      "C13T48U300",
+      "C13T48U400",
+      "C13T48U800",
+      "C13T48UE00"
     ],
     "availability": "Out of Stock"
   },
@@ -15070,7 +15331,14 @@
       "C13T56F300",
       "C13T56F400",
       "C13T56F500",
-      "C13T699700"
+      "C13T56F600",
+      "C13T56F700",
+      "C13T56F800",
+      "C13T56F900",
+      "C13T56FA00",
+      "C13T56FB00",
+      "C13T56FD00",
+      "C13T619300"
     ],
     "availability": "Out of Stock"
   },
@@ -15932,11 +16200,15 @@
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t5100m-plotter-printer/",
     "category": "Printer",
     "consumables": [
+      "C13S210057",
+      "C13T40C140",
+      "C13T40C240",
+      "C13T40C340",
+      "C13T40C440",
       "C13T40D140",
       "C13T40D240",
       "C13T40D340",
-      "C13T40D440",
-      "C13S210057"
+      "C13T40D440"
     ],
     "availability": "Out of Stock"
   },
@@ -15962,8 +16234,7 @@
       "C13T49N100",
       "C13T49N200",
       "C13T49N300",
-      "C13T49N400",
-      "C13S210057"
+      "C13T49N400"
     ],
     "availability": "Out of Stock"
   },
@@ -16195,13 +16466,14 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2024/01/Epson-SureColor-SC-T7700DL-Technical-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t7700dl-technical-printer/",
     "consumables": [
-      "C13T50U100",
-      "C13T50U80N",
-      "C13T50U200",
-      "C13T50U300",
-      "C13T50U400",
-      "C13T50UF00",
-      "C13T699700"
+      "C13S210115",
+      "C13S210116",
+      "C13T53A100",
+      "C13T53A200",
+      "C13T53A300",
+      "C13T53A400",
+      "C13T53A800",
+      "C13T53A900"
     ],
     "availability": "Out of Stock"
   },
@@ -16227,13 +16499,20 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2024/01/Epson-SC-T7700D-Technical-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t7700d-large-format-printer/",
     "consumables": [
+      "C13S210115",
+      "C13S210116",
+      "C13T50M100",
+      "C13T50M200",
+      "C13T50M300",
+      "C13T50M400",
+      "C13T50M800",
+      "C13T50MF00",
       "C13T50U100",
-      "C13T50U80N",
       "C13T50U200",
       "C13T50U300",
       "C13T50U400",
-      "C13T50UF00",
-      "C13T699700"
+      "C13T50U80N",
+      "C13T50UF00"
     ],
     "availability": "Out of Stock"
   },
@@ -16379,11 +16658,19 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/04/Epson-SureColor-SC-T5405-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t5405-36-wireless-printer/",
     "consumables": [
-      "C13T41E140",
       "C13T41E240",
       "C13T41E340",
       "C13T41E440",
-      "C13S210057"
+      "C13T41E540",
+      "C13T41F240",
+      "C13T41F340",
+      "C13T41F440",
+      "C13T41F540",
+      "C13T41R240",
+      "C13T41R340",
+      "C13T41R440",
+      "C13T41R540",
+      "C13T699700"
     ],
     "availability": "Out of Stock"
   },
@@ -16408,11 +16695,15 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2026/01/SC-T5100M.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t5100m-plotter-printer/",
     "consumables": [
+      "C13S210057",
+      "C13T40C140",
+      "C13T40C240",
+      "C13T40C340",
+      "C13T40C440",
       "C13T40D140",
       "C13T40D240",
       "C13T40D340",
-      "C13T40D440",
-      "C13S210057"
+      "C13T40D440"
     ],
     "availability": "Out of Stock"
   },
@@ -16463,13 +16754,20 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2024/01/Epson-Sure-Color-SC-T3700E-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t3700d-printer/",
     "consumables": [
+      "C13S210115",
+      "C13S210116",
       "C13T50M100",
-      "C13T50M800",
       "C13T50M200",
       "C13T50M300",
       "C13T50M400",
+      "C13T50M800",
       "C13T50MF00",
-      "C13T699700"
+      "C13T50U100",
+      "C13T50U200",
+      "C13T50U300",
+      "C13T50U400",
+      "C13T50U80N",
+      "C13T50UF00"
     ],
     "availability": "Out of Stock"
   },
@@ -16493,13 +16791,20 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2024/01/Epson-SureColor-SC-T3700DE-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t3700de-printer/",
     "consumables": [
+      "C13S210115",
+      "C13S210116",
       "C13T50M100",
-      "C13T50M800",
       "C13T50M200",
       "C13T50M300",
       "C13T50M400",
+      "C13T50M800",
       "C13T50MF00",
-      "C13T699700"
+      "C13T50U100",
+      "C13T50U200",
+      "C13T50U300",
+      "C13T50U400",
+      "C13T50U80N",
+      "C13T50UF00"
     ],
     "availability": "Out of Stock"
   },
@@ -16522,13 +16827,20 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2024/01/Epson-Sure-Color-SC-T3700E-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t3700e-printer/",
     "consumables": [
+      "C13S210115",
+      "C13S210116",
       "C13T50M100",
-      "C13T50M800",
       "C13T50M200",
       "C13T50M300",
       "C13T50M400",
+      "C13T50M800",
       "C13T50MF00",
-      "C13T699700"
+      "C13T50U100",
+      "C13T50U200",
+      "C13T50U300",
+      "C13T50U400",
+      "C13T50U80N",
+      "C13T50UF00"
     ],
     "availability": "Out of Stock"
   },
@@ -16553,11 +16865,15 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/08/Epson-SureColor-SC-T3100-–-Wireless-Printer-With-Stand.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-t3100-wireless-printer/",
     "consumables": [
+      "C13S210057",
+      "C13T40C140",
+      "C13T40C240",
+      "C13T40C340",
+      "C13T40C440",
       "C13T40D140",
       "C13T40D240",
       "C13T40D340",
-      "C13T40D440",
-      "C13T699700"
+      "C13T40D440"
     ],
     "availability": "Out of Stock"
   },
@@ -16749,7 +17065,8 @@
       "C13T08G200",
       "C13T08G300",
       "C13T08G400",
-      "C12C937181"
+      "C12C937181",
+      "C11CG05201"
     ],
     "availability": "Out of Stock"
   },
@@ -16779,7 +17096,14 @@
       "C13T56F300",
       "C13T56F400",
       "C13T56F500",
-      "C13T699700"
+      "C13T56F600",
+      "C13T56F700",
+      "C13T56F800",
+      "C13T56F900",
+      "C13T56FA00",
+      "C13T56FB00",
+      "C13T56FD00",
+      "C13T619300"
     ],
     "availability": "Out of Stock"
   },
@@ -16912,11 +17236,20 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2024/03/Epson-SureColor-SC-P6500E-Printer.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-surecolor-sc-p6500e-printer/",
     "consumables": [
-      "C13T44Q140",
-      "C13T44Q240",
-      "C13T44Q340",
-      "C13T44Q440",
-      "C13T699700"
+      "C13S210115",
+      "C13S210116",
+      "C13T48M100",
+      "C13T48M200",
+      "C13T48M300",
+      "C13T48M400",
+      "C13T48M800",
+      "C13T48ME00",
+      "C13T48U100",
+      "C13T48U200",
+      "C13T48U300",
+      "C13T48U400",
+      "C13T48U800",
+      "C13T48UE00"
     ],
     "availability": "Out of Stock"
   },
