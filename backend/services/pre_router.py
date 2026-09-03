@@ -233,18 +233,19 @@ def resolve_conversational_subject(session_id: str, user_text: str) -> str:
                     return "Citizen Photo Printer"
 
     # Check if user is asking for ink/consumables for the previously discussed printer
-    ink_triggers = [
-        "ink", "inks", "consumables", "consumable", "supplies", "supply", "cartridge", "cartridges",
-        "ribbon", "media", "paper", "cleaning", "maintenance", "maintenance box", "waste box", "waste ink", "maintenance tank"
-    ]
-    is_asking_for_ink = any(k in t for k in ink_triggers)
+    is_asking_for_maint = any(k in t for k in ["maintenance", "maintenance box", "waste box", "waste ink", "maintenance tank", "tank"])
+    is_asking_for_inks = any(k in t for k in ["ink", "inks", "cartridge", "cartridges", "bottle", "bottles", "ribbon", "media", "paper"]) and not is_asking_for_maint
+    is_asking_for_all = any(k in t for k in ["consumables", "consumable", "supplies", "supply", "full set", "all consumables"])
+    is_asking_for_ink = is_asking_for_maint or is_asking_for_inks or is_asking_for_all
     
+    cons_sub_type = "maintenance" if is_asking_for_maint else ("inks" if is_asking_for_inks else "all")
+
     if is_anaphoric:
         session = ChatSession.get_or_create(session_id)
         last_prod = extract_last_mentioned_product_from_history(session.get("messages", []))
         if last_prod:
             if is_asking_for_ink:
-                return f"get_printer_consumables for {last_prod}"
+                return f"get_printer_consumables for {last_prod}|type={cons_sub_type}"
             return f"Give details and quotation for {last_prod}"
             
     # Check standalone number / volume responses (e.g. user replies "2000" or "500" to volume question)
@@ -268,18 +269,18 @@ def resolve_conversational_subject(session_id: str, user_text: str) -> str:
         m = re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|AM-[A-Z0-9]+|P\d{3,5}[A-Z0-9]*|T\d{3,5}[A-Z0-9]*|F\d{3,4}[A-Z0-9]*|C\d{4,5}[A-Z0-9]*|CX-02W|CX-02|CX02|CZ-01|CY-02)\b', user_text, re.IGNORECASE)
         if m:
             printer_code = m.group(1).upper()
-            return f"get_printer_consumables for {printer_code}"
+            return f"get_printer_consumables for {printer_code}|type={cons_sub_type}"
         session = ChatSession.get_or_create(session_id)
         last_prod = extract_last_mentioned_product_from_history(session.get("messages", []))
         if last_prod:
-            return f"get_printer_consumables for {last_prod}"
+            return f"get_printer_consumables for {last_prod}|type={cons_sub_type}"
 
     # If user mentions specific printer + ink / supplies / maintenance in a single phrase e.g. "maintenance box for f100" or "cx-02 consumables"
     if is_asking_for_ink:
         m = re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|AM-[A-Z0-9]+|P\d{3,5}[A-Z0-9]*|T\d{3,5}[A-Z0-9]*|F\d{3,4}[A-Z0-9]*|C\d{4,5}[A-Z0-9]*|CX-02W|CX-02|CX02|CZ-01|CY-02)\b', user_text, re.IGNORECASE)
         if m:
             printer_code = m.group(1).upper()
-            return f"get_printer_consumables for {printer_code}"
+            return f"get_printer_consumables for {printer_code}|type={cons_sub_type}"
         if re.search(r'\b(?:it|that|this|the printer|my printer)\b', t):
             session = ChatSession.get_or_create(session_id)
             last_prod = extract_last_mentioned_product_from_history(session.get("messages", []))

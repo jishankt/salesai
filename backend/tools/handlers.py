@@ -143,16 +143,31 @@ def search_products(query: str, tags: list = None) -> str:
     return "\n\n".join(output)
 
 
-def get_printer_consumables(printer_query: str) -> str:
+def get_printer_consumables(printer_query: str, consumable_filter: str = "all") -> str:
     """
     Fetches the exact compatible inks, media rolls, ribbons, and maintenance supplies
     linked to the specified printer model, presenting only those matching consumables as cards.
+    Supports filtering by type ('maintenance', 'inks', or 'all').
     """
     import re
     q_raw = (printer_query or "").strip().lower()
+
+    # Extract sub-type filter if embedded in printer_query (e.g. 'F100|type=maintenance')
+    if "|type=" in q_raw:
+        parts = q_raw.split("|type=")
+        q_raw = parts[0].strip()
+        consumable_filter = parts[1].strip().lower()
+
+    # Check for keywords if filter not explicitly set
+    if consumable_filter == "all":
+        if any(k in q_raw for k in ["maintenance", "maintenance box", "waste box", "waste ink", "maintenance tank", "tank"]):
+            consumable_filter = "maintenance"
+        elif any(k in q_raw for k in ["ink", "inks", "cartridge", "cartridges", "bottle", "bottles", "ribbon", "media", "paper"]):
+            consumable_filter = "inks"
+
     # Strip common conversational inquiry prefix/suffixes
-    q_norm = re.sub(r'^(give\s+me\s+|i\s+want\s+|what\s+|list\s+all\s+the\s+|can\s+you\s+give\s+me\s+)?(consumables\s+for|supplies\s+for|inks?\s+for|cartridges?\s+for|media\s+for|ribbons?\s+for)\s+', '', q_raw).strip()
-    q_norm = re.sub(r'\s+(printer|printers|machine|supplies|consumables|inks?|media)$', '', q_norm).strip()
+    q_norm = re.sub(r'^(give\s+me\s+|i\s+want\s+|what\s+|list\s+all\s+the\s+|can\s+you\s+give\s+me\s+)?(maintenance\s+box\s+for|maintenance\s+tank\s+for|consumables\s+for|supplies\s+for|inks?\s+for|cartridges?\s+for|media\s+for|ribbons?\s+for)\s+', '', q_raw).strip()
+    q_norm = re.sub(r'\s+(printer|printers|machine|supplies|consumables|inks?|media|maintenance\s+box|maintenance\s+tank|waste\s+box)$', '', q_norm).strip()
     q_clean = re.sub(r'[^a-z0-9]', '', q_norm)
     model_tokens = [re.sub(r'[^a-z0-9]', '', w) for w in re.split(r'[\s\-_/]+', q_norm) if len(w) >= 2]
     
@@ -194,59 +209,79 @@ def get_printer_consumables(printer_query: str) -> str:
     if not target_printer:
         search_res = Product.search_products(f"{q_norm} printer")
         if search_res:
-            # Pick first result that has consumables if any
             with_cons = [p for p in search_res if p.get("consumables")]
             target_printer = with_cons[0] if with_cons else search_res[0]
         
     if not target_printer:
-        # Fallback to direct search for inks
         return search_products(f"{q_norm} ink")
         
     consumable_ids = target_printer.get("consumables", [])
     if not consumable_ids:
-        # Fallback to general search for this printer's model code + inks/media
         model_code = q_norm
-        # Extract short model name like WF-C529R or SC-P9500
         m_code_match = re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|AM-[A-Z0-9]+|P\d{3,5}[A-Z0-9]*|T\d{3,5}[A-Z0-9]*|F\d{3,4}[A-Z0-9]*|C\d{4,5}[A-Z0-9]*|CX-02W|CX-02|CX02|CZ-01|CY-02)\b', target_printer.get('name', ''), re.IGNORECASE)
         if m_code_match:
             model_code = m_code_match.group(1).upper()
         return search_products(f"{model_code} ink")
         
-    # Retrieve each matching consumable
+    # Retrieve and filter matching consumables
+    items = []
+    for c_id in consumable_ids:
+        it = Product.find_by_id(c_id)
+        if it:
+            cat_l = it.get("category", "").lower()
+            name_l = it.get("name", "").lower()
+            is_maint = "maintenance" in cat_l or "maintenance box" in name_l or "waste" in name_l
+            
+            if consumable_filter == "maintenance" and not is_maint:
+                continue
+            if consumable_filter == "inks" and is_maint:
+                continue
+            items.append(it)
+
+    # If filter was too restrictive and returned nothing, fallback to all consumables
+    if not items:
+        for c_id in consumable_ids:
+            it = Product.find_by_id(c_id)
+            if it:
+                items.append(it)
+
     output = []
-    output.append(f"💧 **Genuine Compatible Consumables & Supplies for {target_printer['name']}:**\n")
+    if consumable_filter == "maintenance":
+        output.append(f"📦 **Genuine Maintenance Box & Waste Ink Tank for {target_printer['name']}:**\n")
+    elif consumable_filter == "inks":
+        output.append(f"💧 **Genuine Compatible Inks & Cartridges for {target_printer['name']}:**\n")
+    else:
+        output.append(f"💧 **Genuine Compatible Consumables & Supplies for {target_printer['name']}:**\n")
     
     has_out_of_stock = False
-    for c_id in consumable_ids:
-        item = Product.find_by_id(c_id)
-        if item:
-            stock_label, live_qty = _get_live_availability(item)
-            if live_qty == 0 or "Out of Stock" in stock_label:
-                has_out_of_stock = True
-            satisfaction = 100
-            web_url = build_working_product_url(item)
-            output.append(
-                f"━━━━━━━━━━━━━━━━━━━━\n"
-                f"🎯 *Match Satisfaction: {satisfaction}%*\n"
-                f"📦 *{item['name']}*\n"
-                f"💵 *Price:* {item['price']:.2f} AED\n"
-                f"📊 *Availability:* {stock_label}\n"
-                f"📝 *Description:* {item['description']}\n"
-                f"🔗 *Website:* {web_url}\n"
-                f"🆔 *Product ID:* `{item['_id']}`\n"
-                f"[Draft: {item['_id']}]\n"
-                f"━━━━━━━━━━━━━━━━━━━━"
-            )
-            
+    for item in items:
+        stock_label, live_qty = _get_live_availability(item)
+        if live_qty == 0 or "Out of Stock" in stock_label:
+            has_out_of_stock = True
+        satisfaction = 100
+        web_url = build_working_product_url(item)
+        output.append(
+            f"━━━━━━━━━━━━━━━━━━━━\n"
+            f"🎯 *Match Satisfaction: {satisfaction}%*\n"
+            f"📦 *{item['name']}*\n"
+            f"💵 *Price:* {item['price']:.2f} AED\n"
+            f"📊 *Availability:* {stock_label}\n"
+            f"📝 *Description:* {item['description']}\n"
+            f"🔗 *Website:* {web_url}\n"
+            f"🆔 *Product ID:* `{item['_id']}`\n"
+            f"[Draft: {item['_id']}]\n"
+            f"━━━━━━━━━━━━━━━━━━━━"
+        )
+        
     if has_out_of_stock:
         output.append(
             f"\n📌 *Lead Time Note:* Items marked allocation/out of stock are available on regular manufacturer shipment (typically 2–3 business days across the UAE).\n\n"
-            f"Would you like me to prepare a full set quotation draft for your review?\n\n"
-            f"[Options: Draft Full Set Quote | Check Stock & Delivery | Inquire Discount]"
+            f"Would you like me to prepare a quotation draft for your review?\n\n"
+            f"[Options: Draft Quotation | Check Stock & Delivery | Inquire Discount]"
         )
     else:
         output.append(
-            f"\nWould you like me to create an official quotation draft for these supplies, or check same-day UAE delivery terms?\n\n"
+            f"\nWould you like me to create an official quotation draft, or check same-day UAE delivery terms?\n\n"
             f"[Options: Draft Quotation | Check Delivery | Request Bulk Discount]"
         )
             
