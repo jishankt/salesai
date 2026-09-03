@@ -12,12 +12,17 @@
         return scripts[scripts.length - 1];
     })();
 
-    let serverOrigin = "http://127.0.0.1:5000";
+    let serverOrigin = window.location.origin;
     if (scriptTag && scriptTag.src) {
         try {
             const urlObj = new URL(scriptTag.src);
-            serverOrigin = urlObj.origin;
+            if (urlObj.origin && urlObj.origin !== "null") {
+                serverOrigin = urlObj.origin;
+            }
         } catch (e) {}
+    }
+    if (!serverOrigin || serverOrigin === "null" || serverOrigin.startsWith("file:")) {
+        serverOrigin = "https://compression-outstanding-citations-madrid.trycloudflare.com";
     }
 
     // 1. Inject Stylesheet

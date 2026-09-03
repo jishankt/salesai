@@ -145,7 +145,23 @@ def check_grounding(content: str, last_tool_result: Optional[str] = None) -> Tup
 
     return False, None
 
-def validate_ai_response(content: str, last_tool_result: Optional[str] = None) -> Tuple[bool, str, str]:
+def count_questions(text: str) -> int:
+    """Counts the number of distinct questions asked in text."""
+    if not text:
+        return 0
+    # Count question marks or interrogative clauses
+    q_marks = text.count("?")
+    return q_marks
+
+def check_question_count(content: str, action: Optional[str] = None) -> Tuple[bool, Optional[str]]:
+    """Ensures that during qualification, at most one question is asked per turn."""
+    if action == "ask_qualification":
+        q_count = count_questions(content)
+        if q_count > 1:
+            return True, f"multiple_questions_in_qualification:{q_count}"
+    return False, None
+
+def validate_ai_response(content: str, last_tool_result: Optional[str] = None, action: Optional[str] = None) -> Tuple[bool, str, str]:
     """
     Main validator entrypoint.
     Returns:
@@ -184,6 +200,12 @@ def validate_ai_response(content: str, last_tool_result: Optional[str] = None) -
         if has_grounding_err:
             return False, f"grounding_violation:{grounding_reason}", ""
 
+    # 7. Single Question Enforcement for Qualification
+    if action:
+        has_q_err, q_reason = check_question_count(content, action)
+        if has_q_err:
+            return False, f"question_count_violation:{q_reason}", ""
+
     sanitized = sanitize_and_clean_text(content)
     return True, "valid", sanitized
 
@@ -195,6 +217,7 @@ class ResponseValidator:
     check_price_bounds = staticmethod(check_price_bounds)
     check_chemical_compatibility = staticmethod(check_chemical_compatibility)
     check_grounding = staticmethod(check_grounding)
+    check_question_count = staticmethod(check_question_count)
     validate_ai_response = staticmethod(validate_ai_response)
     sanitize_and_clean_text = staticmethod(sanitize_and_clean_text)
 

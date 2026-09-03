@@ -57,7 +57,8 @@ if (!sessionId) {
     sessionId = 'session_' + Math.random().toString(36).substring(2, 11);
     localStorage.setItem("sales_ai_session_id", sessionId);
 }
-document.getElementById("lead-session-id").textContent = sessionId;
+const leadSessionEl = document.getElementById("lead-session-id");
+if (leadSessionEl) leadSessionEl.textContent = sessionId;
 
 const chatMessages = document.getElementById("chat-messages");
 const chatForm = document.getElementById("chat-form");
@@ -257,21 +258,23 @@ themeToggleBtn.addEventListener("click", () => {
     }
 });
 
-productsList.addEventListener("click", (e) => {
-    const btn = e.target.closest(".view-details-btn, .add-to-cart-btn");
-    if (!btn) return;
-    
-    const prodId = btn.getAttribute("data-id");
-    const prodName = btn.getAttribute("data-name");
-    if (!prodId) return;
+if (productsList) {
+    productsList.addEventListener("click", (e) => {
+        const btn = e.target.closest(".view-details-btn, .add-to-cart-btn");
+        if (!btn) return;
+        
+        const prodId = btn.getAttribute("data-id");
+        const prodName = btn.getAttribute("data-name");
+        if (!prodId) return;
 
-    chatInput.value = prodId;
-    if (typeof chatForm.requestSubmit === "function") {
-        chatForm.requestSubmit();
-    } else {
-        chatForm.dispatchEvent(new Event("submit"));
-    }
-});
+        chatInput.value = prodId;
+        if (typeof chatForm.requestSubmit === "function") {
+            chatForm.requestSubmit();
+        } else {
+            chatForm.dispatchEvent(new Event("submit"));
+        }
+    });
+}
 
 // Sidebar switcher between Lead CRM & Product Catalog
 window.switchSidebarTab = function(tab) {

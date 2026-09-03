@@ -113,6 +113,15 @@ class TestHallucinationAndEdgeCases(unittest.TestCase):
             text2 = " ".join(b["text"] for b in b2)
             self.assertIn("Tariq", text2)
 
+    def test_customer_frustration_and_apology(self):
+        """Customer expresses anger/frustration; system should apologize politely and offer assistance or escalation"""
+        session_id = "test-frustration-session"
+        ChatSession.get_or_create(session_id)
+        bubbles = process_chat_message(session_id, "I am really frustrated and annoyed with this service!")
+        self.assertTrue(bubbles)
+        text = " ".join(b["text"] for b in bubbles).lower()
+        self.assertIn("sorry", text)
+
 if __name__ == "__main__":
     unittest.main()
 

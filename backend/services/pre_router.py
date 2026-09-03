@@ -118,6 +118,10 @@ def get_conversational_intercept(text: str) -> Tuple[bool, Optional[str]]:
     if re.search(r'\b(?:good ai|good model|nice bot|great job|you are good|well done|thank you|thanks)\b', t) and not any(k in t for k in ["price", "cost", "printer", "ink", "canvas"]):
         return True, "Thank you! I'm here to ensure you get the exact right printing solution. Let me know what you need or if you'd like me to recommend a setup."
 
+    # 9. Customer Frustration / Annoyance / Complaint Handling with sincere apology
+    if re.search(r'\b(?:angry|annoyed|frustrated|irritated|upset|terrible|horrible|useless|bad service|worst service|stupid bot|waste of time|not helping|stop repeating|you don\'t understand|you dont understand|nonsense|disappointed)\b', t):
+        return True, "I am truly sorry for the frustration and inconvenience! 🙏 We deeply value your time. I want to make sure your requirements are handled properly — would you like me to connect you with our senior human sales specialist right now?\n\n[Options: Connect with Specialist | Check Stock & Delivery | Inquire Discount]"
+
     return False, None
 
 def extract_last_mentioned_product_from_history(messages: list) -> Optional[str]:

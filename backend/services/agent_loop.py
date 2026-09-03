@@ -493,6 +493,21 @@ def format_reply(reply_text: str, inject_personality: bool = True):
 
 def process_chat_message(session_id: str, user_message_text: str, channel: str = "web", language: str = "English", btn_id: str = ""):
     """Returns chat response bubbles: [{"text": ..., "delay": ...}, ...]"""
+    # Check feature flag for deterministic conversation state graph orchestrator
+    if getattr(Config, "USE_CONVERSATION_ORCHESTRATOR", False):
+        from orchestration.orchestrator import ConversationOrchestrator
+        res = ConversationOrchestrator.process_message(session_id, user_message_text, client_type=channel)
+        content = res.get("content", "")
+        # Record into chat history
+        session = ChatSession.get_or_create(session_id)
+        ChatSession.add_message(session_id, "user", user_message_text)
+        ChatSession.add_message(session_id, "assistant", content)
+        
+        # Translate if user requested non-English
+        if language and language not in ("English", "en", "en-US"):
+            content = translate_text(content, language)
+        return format_reply(content)
+
     # Normalize typos and transcribe noise
     normalized_input = normalize_user_input(user_message_text)
     

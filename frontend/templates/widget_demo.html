@@ -164,19 +164,32 @@
 </head>
 <body>
 
-    <!-- Mock Kepler Navbar -->
+    <!-- Kepler Navbar matching keplertechllc.com -->
+    <div style="background: #ffffff; border-bottom: 1px solid #f1f5f9; padding: 8px 40px; display: flex; justify-content: flex-end; gap: 20px; font-size: 0.8rem; color: #64748b;">
+        <span style="cursor: pointer;"><i class="fa-solid fa-truck-fast" style="color: #0076a8;"></i> Track Your Order</span>
+        <span>|</span>
+        <span style="cursor: pointer;"><i class="fa-regular fa-user" style="color: #0076a8;"></i> My Account</span>
+    </div>
     <nav class="kepler-nav">
         <div class="brand-logo">
-            <i class="fa-solid fa-print" style="color: #00a884;"></i>
-            KEPLER <span>TECH</span>
+            <span style="color: #0076a8; font-size: 1.6rem; font-weight: 900; letter-spacing: -0.5px;">KEPLER</span>
         </div>
         <ul class="nav-links">
-            <li><a href="#">Printers</a></li>
-            <li><a href="#">OEM Inks</a></li>
-            <li><a href="#">Canvas & Media</a></li>
-            <li><a href="#">Scanners</a></li>
-            <li><a href="/admin">Admin Console</a></li>
+            <li><a href="#" style="color: #0076a8; font-weight: 700;">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">ERP Solutions</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="/admin" style="background: #e6f4fa; color: #0076a8; padding: 4px 10px; border-radius: 6px;">Admin</a></li>
         </ul>
+        <div style="display: flex; align-items: center; gap: 16px; font-size: 0.9rem; font-weight: 700; color: #0f172a;">
+            <i class="fa-regular fa-heart" style="font-size: 1.1rem; color: #475569; cursor: pointer;"></i>
+            <div style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                <i class="fa-solid fa-bag-shopping" style="color: #0076a8;"></i>
+                <span>AED 0.00</span>
+            </div>
+        </div>
     </nav>
 
     <!-- Hero Content -->
@@ -196,10 +209,10 @@
         <!-- Integration Guide Card -->
         <div class="embed-guide-card">
             <h3><i class="fa-solid fa-code" style="color: #00a884;"></i> How to Embed on Kepler Site</h3>
-            <p style="font-size: 0.9rem; color: #64748b;">Simply copy and paste this one line before the closing <code>&lt;/body&gt;</code> tag on <strong>keplertechllc.com</strong>:</p>
-            <div class="code-snippet">&lt;script src="http://127.0.0.1:5000/static/js/kepler-widget.js" async defer&gt;&lt;/script&gt;</div>
+            <p style="font-size: 0.9rem; color: #64748b;">Simply copy and paste this one line before the closing <code>&lt;/body&gt;</code> tag on <strong>keplertechllc.com</strong> (or any static webpage):</p>
+            <div class="code-snippet">&lt;script src="https://compression-outstanding-citations-madrid.trycloudflare.com/static/js/kepler-widget.js" async defer&gt;&lt;/script&gt;</div>
             <p style="font-size: 0.85rem; color: #10b981; font-weight: 600;">
-                <i class="fa-solid fa-circle-check"></i> Floating launcher icon & popup are currently active on the bottom-right corner of this page!
+                <i class="fa-solid fa-circle-check"></i> Floating launcher icon & popup box are active on the bottom-right corner! Click the icon or button above to chat.
             </p>
         </div>
     </main>

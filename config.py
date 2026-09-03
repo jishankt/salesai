@@ -70,4 +70,5 @@ class Config:
     KEPLER_API_KEY = os.getenv("KEPLER_API_KEY", "")
     KEPLER_API_SECRET = os.getenv("KEPLER_API_SECRET", "")
     KEPLER_COMPANY = os.getenv("KEPLER_COMPANY", "Kepler")
-
+    # --- Orchestration Engine ---
+    USE_CONVERSATION_ORCHESTRATOR = _env_bool("USE_CONVERSATION_ORCHESTRATOR", False)

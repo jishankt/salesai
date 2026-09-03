@@ -177,7 +177,28 @@
         body.embedded-widget #theme-toggle-btn:hover {
             background: rgba(255,255,255,0.3) !important;
         }
-        body.embedded-widget .chat-header a[href="/admin"] {
+        body.embedded-widget #widget-close-btn {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: rgba(255,255,255,0.18) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255,255,255,0.25) !important;
+            width: 32px !important;
+            height: 32px !important;
+            padding: 0 !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        body.embedded-widget #widget-close-btn:hover {
+            background: rgba(239, 68, 68, 0.8) !important;
+            border-color: rgba(239, 68, 68, 0.9) !important;
+        }
+        body.embedded-widget #header-admin-link {
+            display: none !important;
+        }
+        body:not(.embedded-widget) #widget-close-btn {
             display: none !important;
         }
         
@@ -376,9 +397,12 @@
                 <button id="theme-toggle-btn" class="btn btn-secondary" title="Toggle dark/light theme" style="padding: 6px 12px; font-size: 0.8rem; margin-right: 6px;">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-                <a href="/admin" class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem; text-decoration: none;">
+                <a href="/admin" id="header-admin-link" class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem; text-decoration: none;">
                     <i class="fa-solid fa-sliders"></i> <span data-translate="admin_console">Admin</span>
                 </a>
+                <button id="widget-close-btn" class="btn btn-secondary" title="Minimize chat" onclick="if(window.parent && window.parent.closeKeplerChat) window.parent.closeKeplerChat();" style="display: none; padding: 6px 10px; font-size: 0.85rem; border-radius: 8px;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </header>
 
             <div id="chat-messages" class="messages-container">
