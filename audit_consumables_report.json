@@ -1,0 +1,1924 @@
+{
+  "total_printers_audited": 113,
+  "printers_with_mapped_consumables": 101,
+  "printers_successfully_rendering_cards": 96,
+  "printers_with_empty_consumables": 12,
+  "details": [
+    {
+      "printer_id": "C11CH13301A1",
+      "printer_name": "Epson SureColor SC-P9500 Large Format Printer",
+      "consumables_count": 16,
+      "consumables_ids": [
+        "C13T699700",
+        "C13T44J240",
+        "C13T44Q240",
+        "C13T44J740",
+        "C13T44Q740",
+        "C13T44JB40",
+        "C13T44QB40",
+        "C13T44J940",
+        "C13T44J840",
+        "C13T44JA40",
+        "C13T44QA40",
+        "C13T44JD40",
+        "C13T44QD40",
+        "C13T44J640",
+        "C13T44J440",
+        "C13T44Q440"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CE20001A0",
+      "printer_name": "Epson SureColor SC P20000 Large Format Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T800100",
+        "C13T800200",
+        "C13T800300",
+        "C13T800400",
+        "C13T619300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "CX-02",
+      "printer_name": "Citizen CX02 Digital Photo Printer",
+      "consumables_count": 2,
+      "consumables_ids": [
+        "CX02-MEDIA-4X6",
+        "CX02-MEDIA-6X8"
+      ],
+      "missing_ids_in_db": [
+        "CX02-MEDIA-4X6",
+        "CX02-MEDIA-6X8"
+      ],
+      "handler_rendered_cards": false,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH86401BY",
+      "printer_name": "Epson WorkForce Enterprise WF-C20600 D4TW Multi Function Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T02S100",
+        "C13T02S200",
+        "C13T02S300",
+        "C13T02S400",
+        "C13T671300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH12301A1",
+      "printer_name": "Epson SureColor SC-P7500 24'' Large Format Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T44Q140",
+        "C13T44Q240",
+        "C13T44Q340",
+        "C13T44Q440",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CE40301A0",
+      "printer_name": "Epson SureColor SC-P9000 44'' Large Format Printer",
+      "consumables_count": 23,
+      "consumables_ids": [
+        "C13T54X100",
+        "C13T54X200",
+        "C13T54X300",
+        "C13T54X400",
+        "C13T54X500",
+        "C13T54X600",
+        "C13T54X700",
+        "C13T54X800",
+        "C13T54X900",
+        "C13T54XA00",
+        "C13T54XB00",
+        "C13T55K100",
+        "C13T55K200",
+        "C13T55K300",
+        "C13T55K400",
+        "C13T55K500",
+        "C13T55K600",
+        "C13T55K700",
+        "C13T55K800",
+        "C13T55K900",
+        "C13T55KA00",
+        "C13T55KB00",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CE39301A0",
+      "printer_name": "Epson SureColor SC P7000 Large Format Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T800100",
+        "C13T800200",
+        "C13T800300",
+        "C13T800400",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CE42301A0",
+      "printer_name": "Epson SureColor SC-P8000 Large-Format Inkjet Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T800100",
+        "C13T800200",
+        "C13T800300",
+        "C13T800400",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CE41301A0",
+      "printer_name": "Epson SureColor SC P6000 Large-Format Printer STD",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T800100",
+        "C13T800200",
+        "C13T800300",
+        "C13T800400",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CF66001A4",
+      "printer_name": "Epson SureColor SC P5000 17\" Large Format Printer STD",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T913100",
+        "C13T913200",
+        "C13T913300",
+        "C13T913400",
+        "C13T619300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH37402DA",
+      "printer_name": "Epson SureColor SC P900 Photo Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T47A100",
+        "C13T47A200",
+        "C13T47A300",
+        "C13T47A400",
+        "C12C935711"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH38402DA",
+      "printer_name": "Epson SureColor SC-P700 13\" Photo Printer",
+      "consumables_count": 6,
+      "consumables_ids": [
+        "C13T46S100",
+        "C13T46S200",
+        "C13T46S300",
+        "C13T46S400",
+        "C13T46SD00",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "CY-02",
+      "printer_name": "Citizen CY02 Photo Printer",
+      "consumables_count": 4,
+      "consumables_ids": [
+        "CY-MS46",
+        "CY-MS68",
+        "CY02Bag",
+        "Citizen Pen"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "CX-02W",
+      "printer_name": "Citizen CX-02W 8\" Large Photo Printer",
+      "consumables_count": 2,
+      "consumables_ids": [
+        "CX02-MEDIA-4X6",
+        "CX02-MEDIA-6X8"
+      ],
+      "missing_ids_in_db": [
+        "CX02-MEDIA-4X6",
+        "CX02-MEDIA-6X8"
+      ],
+      "handler_rendered_cards": false,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "CZ-01",
+      "printer_name": "Citizen CZ01 Photo Printer",
+      "consumables_count": 1,
+      "consumables_ids": [
+        "CZ01-MEDIA-4X6"
+      ],
+      "missing_ids_in_db": [
+        "CZ01-MEDIA-4X6"
+      ],
+      "handler_rendered_cards": false,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH87401BY",
+      "printer_name": "Epson WorkForce Enterprise WF-C20750 D4TW Multi Function Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T02S100",
+        "C13T02S200",
+        "C13T02S300",
+        "C13T02S400",
+        "C13T671300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH88401BY",
+      "printer_name": "Epson WorkForce Enterprise WF-C21000 D4TW Multi Function Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T02S100",
+        "C13T02S200",
+        "C13T02S300",
+        "C13T02S400",
+        "C13T671300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CG05201",
+      "printer_name": "Epson WorkForce Pro WF-C5290 Wi-Fi Duplex Inkjet Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T946140",
+        "C13T946240",
+        "C13T946340",
+        "C13T946440",
+        "C13T671600"
+      ],
+      "missing_ids_in_db": [
+        "C13T946240",
+        "C13T946340",
+        "C13T946440"
+      ],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CG02201",
+      "printer_name": "Epson WorkForce Pro WF-C5790 DWF Multifunction Color Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T946140",
+        "C13T946240",
+        "C13T946340",
+        "C13T946440",
+        "C13T671600"
+      ],
+      "missing_ids_in_db": [
+        "C13T946240",
+        "C13T946340",
+        "C13T946440"
+      ],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CG79401BC",
+      "printer_name": "Epson WorkForce Pro WF-C529R Business Printer",
+      "consumables_count": 9,
+      "consumables_ids": [
+        "C13T01C100",
+        "C13T01C200",
+        "C13T01C300",
+        "C13T01C400",
+        "C13T01D100",
+        "C13T01D200",
+        "C13T01D300",
+        "C13T01D400",
+        "C13T671600"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CG77402BC",
+      "printer_name": "Epson WorkForce Pro WF-C579R DTWF Multifunction Printer",
+      "consumables_count": 9,
+      "consumables_ids": [
+        "C13T01C100",
+        "C13T01C200",
+        "C13T01C300",
+        "C13T01C400",
+        "C13T01D100",
+        "C13T01D200",
+        "C13T01D300",
+        "C13T01D400",
+        "C13T671600"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH35402BC",
+      "printer_name": "Epson WorkForce Pro WF-C879R DWF Multifunction Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T05A100",
+        "C13T05A200",
+        "C13T05A300",
+        "C13T05A400",
+        "C13T671400"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH60402BY",
+      "printer_name": "Epson WorkForce Pro WF-C878R DWF Multifunction Color Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T05A100",
+        "C13T05A200",
+        "C13T05A300",
+        "C13T05A400",
+        "C13T671400"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CG07402BY",
+      "printer_name": "Epson WorkForce Pro WF-M5299 Monochrome Printer",
+      "consumables_count": 3,
+      "consumables_ids": [
+        "C13T966140",
+        "C13T965140",
+        "C13T671600"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CG04402BY",
+      "printer_name": "Epson WorkForce Pro WF-M5799 Multifunction Printer",
+      "consumables_count": 3,
+      "consumables_ids": [
+        "C13T966140",
+        "C13T965140",
+        "C13T671600"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CD66301A0",
+      "printer_name": "Epson SureColor SC-T3200 24″ Printer (With Stand)",
+      "consumables_count": 0,
+      "consumables_ids": [],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": false
+    },
+    {
+      "printer_id": "C11CD67301A0",
+      "printer_name": "Epson SureColor SC-T5200 36\" Large Format Printer",
+      "consumables_count": 16,
+      "consumables_ids": [
+        "C13T692100",
+        "C13T692200",
+        "C13T692300",
+        "C13T692400",
+        "C13T692500",
+        "C13T693100",
+        "C13T693200",
+        "C13T693300",
+        "C13T694100",
+        "C13T693500",
+        "C13T693400",
+        "C13T694200",
+        "C13T694300",
+        "C13T694400",
+        "C13T694500",
+        "C13T619300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CD68301A0",
+      "printer_name": "Epson SureColor SC-T7200 44'' Large Format Printer",
+      "consumables_count": 16,
+      "consumables_ids": [
+        "C13T692100",
+        "C13T692200",
+        "C13T692300",
+        "C13T692400",
+        "C13T692500",
+        "C13T693100",
+        "C13T693200",
+        "C13T693300",
+        "C13T694100",
+        "C13T693500",
+        "C13T693400",
+        "C13T694200",
+        "C13T694300",
+        "C13T694400",
+        "C13T694500",
+        "C13T619300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CD67301A2",
+      "printer_name": "Epson SureColor SC-T5200 36'' MFP HDD Large Format Printer",
+      "consumables_count": 0,
+      "consumables_ids": [],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": false
+    },
+    {
+      "printer_id": "C11CD68301A1",
+      "printer_name": "Epson SureColor SC-T7200 44″ MFP Large Format Printer",
+      "consumables_count": 0,
+      "consumables_ids": [],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": false
+    },
+    {
+      "printer_id": "C11CJ55301A1",
+      "printer_name": "Epson SureColor SC-T3405 24\" Wireless Printer (With Stand)",
+      "consumables_count": 0,
+      "consumables_ids": [],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": false
+    },
+    {
+      "printer_id": "C11CJ56301A1",
+      "printer_name": "Epson SureColor SC-T5405 36'' Wireless Printer",
+      "consumables_count": 13,
+      "consumables_ids": [
+        "C13T41E240",
+        "C13T41E340",
+        "C13T41E440",
+        "C13T41E540",
+        "C13T41F240",
+        "C13T41F340",
+        "C13T41F440",
+        "C13T41F540",
+        "C13T41R240",
+        "C13T41R340",
+        "C13T41R440",
+        "C13T41R540",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CE40301A2",
+      "printer_name": "Epson SC-P9000 Large Format Printer Spectro",
+      "consumables_count": 6,
+      "consumables_ids": [
+        "C13T47A100",
+        "C13T47A200",
+        "C13T47A300",
+        "C13T47A400",
+        "C13T47AD00",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CE40301A1",
+      "printer_name": "Epson SureColor SC-P9000 Printer Violet",
+      "consumables_count": 6,
+      "consumables_ids": [
+        "C13T47A100",
+        "C13T47A200",
+        "C13T47A300",
+        "C13T47A400",
+        "C13T47AD00",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CE40301A3",
+      "printer_name": "Epson SC-P9000V Printer Violet Spectro",
+      "consumables_count": 6,
+      "consumables_ids": [
+        "C13T47A100",
+        "C13T47A200",
+        "C13T47A300",
+        "C13T47A400",
+        "C13T47AD00",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH13301A3",
+      "printer_name": "Epson SureColor SC-P9500 Large Format Printer Spectro",
+      "consumables_count": 16,
+      "consumables_ids": [
+        "C13T699700",
+        "C13T44J240",
+        "C13T44Q240",
+        "C13T44J740",
+        "C13T44Q740",
+        "C13T44JB40",
+        "C13T44QB40",
+        "C13T44J940",
+        "C13T44J840",
+        "C13T44JA40",
+        "C13T44QA40",
+        "C13T44JD40",
+        "C13T44QD40",
+        "C13T44J640",
+        "C13T44J440",
+        "C13T44Q440"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CE42301A2",
+      "printer_name": "Epson SureColor SC P8000 Inkjet Printer Spectro",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T800100",
+        "C13T800200",
+        "C13T800300",
+        "C13T800400",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH12301A3",
+      "printer_name": "Epson SureColor SC-P7500 24'' Printer Spectro",
+      "consumables_count": 16,
+      "consumables_ids": [
+        "C13T699700",
+        "C13T44J240",
+        "C13T44Q240",
+        "C13T44J740",
+        "C13T44Q740",
+        "C13T44JB40",
+        "C13T44QB40",
+        "C13T44J940",
+        "C13T44J840",
+        "C13T44JA40",
+        "C13T44QA40",
+        "C13T44JD40",
+        "C13T44QD40",
+        "C13T44J640",
+        "C13T44J440",
+        "C13T44Q440"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CE41301A2",
+      "printer_name": "Epson SureColor P6000 24\" Large-Format Printer Spectro",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T800100",
+        "C13T800200",
+        "C13T800300",
+        "C13T800400",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CF66001A5",
+      "printer_name": "Epson SureColor SC P5000 17\" Large Format Printer Violet",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T913100",
+        "C13T913200",
+        "C13T913300",
+        "C13T913400",
+        "C13T619300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CF66001A6",
+      "printer_name": "Epson SureColor SC P5000 17\" Large Format Printer STD Spectro",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T913100",
+        "C13T913200",
+        "C13T913300",
+        "C13T913400",
+        "C13T619300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CF66001A7",
+      "printer_name": "Epson SureColor SC P5000 17\" Printer Violet Spectro",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T913100",
+        "C13T913200",
+        "C13T913300",
+        "C13T913400",
+        "C13T619300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CD66301A1",
+      "printer_name": "Epson SureColor SC-T3200 24″ Printer (Without Stand)",
+      "consumables_count": 0,
+      "consumables_ids": [],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": false
+    },
+    {
+      "printer_id": "C11CD66301EB",
+      "printer_name": "Epson SureColor SC-T3200-PS Printer (With Adobe Postscript Unit)",
+      "consumables_count": 16,
+      "consumables_ids": [
+        "C13T692100",
+        "C13T692200",
+        "C13T692300",
+        "C13T692400",
+        "C13T692500",
+        "C13T693100",
+        "C13T693200",
+        "C13T693300",
+        "C13T694100",
+        "C13T693500",
+        "C13T693400",
+        "C13T694200",
+        "C13T694300",
+        "C13T694400",
+        "C13T694500",
+        "C13T619300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ55302A1",
+      "printer_name": "Epson SureColor SC-T3405 24\" Wireless Printer (Without Stand)",
+      "consumables_count": 13,
+      "consumables_ids": [
+        "C13T41E240",
+        "C13T41E340",
+        "C13T41E440",
+        "C13T41E540",
+        "C13T41F240",
+        "C13T41F340",
+        "C13T41F440",
+        "C13T41F540",
+        "C13T41R240",
+        "C13T41R340",
+        "C13T41R440",
+        "C13T41R540",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CG77402BS",
+      "printer_name": "Epson WorkForcePro WF-C579R D2TWF Multifunction Printer",
+      "consumables_count": 9,
+      "consumables_ids": [
+        "C13T01C100",
+        "C13T01C200",
+        "C13T01C300",
+        "C13T01C400",
+        "C13T01D100",
+        "C13T01D200",
+        "C13T01D300",
+        "C13T01D400",
+        "C13T671600"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CG77402BY",
+      "printer_name": "Epson WorkForce Pro WF-C579R DWF Multifunction Printer",
+      "consumables_count": 10,
+      "consumables_ids": [
+        "C13T01C100",
+        "C13T01C200",
+        "C13T01C300",
+        "C13T01C400",
+        "C13T01D100",
+        "C13T01D200",
+        "C13T01D300",
+        "C13T01D400",
+        "C13T671600",
+        "C11CG05201"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH35402BS",
+      "printer_name": "Epson WorkForce Pro WF-C879R DTWFC Multifunction Printer",
+      "consumables_count": 9,
+      "consumables_ids": [
+        "C13T05A100",
+        "C13T05A200",
+        "C13T05A300",
+        "C13T05A400",
+        "C13T05B140",
+        "C13T05B240",
+        "C13T05B340",
+        "C13T05B440",
+        "C13T671400"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH35402BZ",
+      "printer_name": "Epson WorkForce Pro WF-C879R D3TWFC Multifunction Printer",
+      "consumables_count": 9,
+      "consumables_ids": [
+        "C13T05A100",
+        "C13T05A200",
+        "C13T05A300",
+        "C13T05A400",
+        "C13T05B140",
+        "C13T05B240",
+        "C13T05B340",
+        "C13T05B440",
+        "C13T671400"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH60402BC",
+      "printer_name": "Epson WorkForce Pro WF-C878R DTWF Multifunction Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T05A100",
+        "C13T05A200",
+        "C13T05A300",
+        "C13T05A400",
+        "C13T671400"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH60402BZ",
+      "printer_name": "Epson WorkForce Pro WF-C878R D3TWFC Multifunction Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T05A100",
+        "C13T05A200",
+        "C13T05A300",
+        "C13T05A400",
+        "C13T671400"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "CY02Bag",
+      "printer_name": "Citizen CY-02 Printer Carry Bag",
+      "consumables_count": 0,
+      "consumables_ids": [],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": false
+    },
+    {
+      "printer_id": "Citizen CX-02 Bag",
+      "printer_name": "Citizen CX-02 Printer Carry Bag",
+      "consumables_count": 2,
+      "consumables_ids": [
+        "CX02-MEDIA-4X6",
+        "CX02-MEDIA-6X8"
+      ],
+      "missing_ids_in_db": [
+        "CX02-MEDIA-4X6",
+        "CX02-MEDIA-6X8"
+      ],
+      "handler_rendered_cards": false,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "CZ01 Carry Bag",
+      "printer_name": "Citizen CZ-01 Printer Carry Bag",
+      "consumables_count": 1,
+      "consumables_ids": [
+        "CZ01-MEDIA-4X6"
+      ],
+      "missing_ids_in_db": [
+        "CZ01-MEDIA-4X6"
+      ],
+      "handler_rendered_cards": false,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ43402BY",
+      "printer_name": "Epson WorkForce Enterprise WF​ AM C4000​ Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T08H100",
+        "C13T08H200",
+        "C13T08H300",
+        "C13T08H400",
+        "C12C937181"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ42402BY",
+      "printer_name": "Epson WorkForce Enterprise​ AM-C5000​ Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T08G100",
+        "C13T08G200",
+        "C13T08G300",
+        "C13T08G400",
+        "C12C937181"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ91402BY",
+      "printer_name": "Epson WorkForce Enterprise​ AM C6000​ Printer",
+      "consumables_count": 6,
+      "consumables_ids": [
+        "C13T08G100",
+        "C13T08G200",
+        "C13T08G300",
+        "C13T08G400",
+        "C12C937181",
+        "C11CG05201"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH37402DR",
+      "printer_name": "Epson SureColor SC-P900 Printer With Roll Adapter",
+      "consumables_count": 11,
+      "consumables_ids": [
+        "C13T47A100",
+        "C13T47A800",
+        "C13T47AD00",
+        "C13T47A200",
+        "C13T47A300",
+        "C13T47A400",
+        "C13T47A500",
+        "C13T47A600",
+        "C13T47A700",
+        "C13T47A900",
+        "C12C935711"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ80301",
+      "printer_name": "Epson SureColor SC F100 Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13S210125",
+        "C13T49N200",
+        "C13T49N400",
+        "C13T49N100",
+        "C13T49N300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CK23402BY",
+      "printer_name": "Epson WorkForce Pro WF-C5890 DWF Printer",
+      "consumables_count": 11,
+      "consumables_ids": [
+        "C12C938211",
+        "C13T11C140",
+        "C13T11C240",
+        "C13T11C340",
+        "C13T11C440",
+        "C13T11D140",
+        "C13T11D240",
+        "C13T11D340",
+        "C13T11D440",
+        "C13T11E140",
+        "C11CG05201"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CF11302A1",
+      "printer_name": "Epson SureColor SC-T3100 – Wireless Printer (With Stand)",
+      "consumables_count": 9,
+      "consumables_ids": [
+        "C13S210057",
+        "C13T40C140",
+        "C13T40C240",
+        "C13T40C340",
+        "C13T40C440",
+        "C13T40D140",
+        "C13T40D240",
+        "C13T40D340",
+        "C13T40D440"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CF12301A1",
+      "printer_name": "Epson SureColor SC-T5100 Wireless Technical Printer (With Stand)",
+      "consumables_count": 0,
+      "consumables_ids": [],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": false
+    },
+    {
+      "printer_id": "C11CF34201",
+      "printer_name": "Epson WorkForce Pro WF-C869R Multifunction Color Printer",
+      "consumables_count": 0,
+      "consumables_ids": [],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": false
+    },
+    {
+      "printer_id": "C11CH84301A1",
+      "printer_name": "Epson SureColor SC T7700DM Multifunction Printer",
+      "consumables_count": 0,
+      "consumables_ids": [],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH79301A0",
+      "printer_name": "Epson SureColor SC T3700E Printer",
+      "consumables_count": 14,
+      "consumables_ids": [
+        "C13S210115",
+        "C13S210116",
+        "C13T50M100",
+        "C13T50M200",
+        "C13T50M300",
+        "C13T50M400",
+        "C13T50M800",
+        "C13T50MF00",
+        "C13T50U100",
+        "C13T50U200",
+        "C13T50U300",
+        "C13T50U400",
+        "C13T50U80N",
+        "C13T50UF00"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH80301A1",
+      "printer_name": "Epson SureColor SC T3700D Printer",
+      "consumables_count": 14,
+      "consumables_ids": [
+        "C13S210115",
+        "C13S210116",
+        "C13T50M100",
+        "C13T50M200",
+        "C13T50M300",
+        "C13T50M400",
+        "C13T50M800",
+        "C13T50MF00",
+        "C13T50U100",
+        "C13T50U200",
+        "C13T50U300",
+        "C13T50U400",
+        "C13T50U80N",
+        "C13T50UF00"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH80302A1",
+      "printer_name": "Epson SureColor SC T3700DE Printer",
+      "consumables_count": 14,
+      "consumables_ids": [
+        "C13S210115",
+        "C13S210116",
+        "C13T50M100",
+        "C13T50M200",
+        "C13T50M300",
+        "C13T50M400",
+        "C13T50M800",
+        "C13T50MF00",
+        "C13T50U100",
+        "C13T50U200",
+        "C13T50U300",
+        "C13T50U400",
+        "C13T50U80N",
+        "C13T50UF00"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH81301A1",
+      "printer_name": "Epson SureColor SC-T5700D Printer",
+      "consumables_count": 7,
+      "consumables_ids": [
+        "C13T50M100",
+        "C13T50M800",
+        "C13T50M200",
+        "C13T50M300",
+        "C13T50M400",
+        "C13T50MF00",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH82301A0",
+      "printer_name": "Epson SureColor SC T5700DM Technical Plotter Printer",
+      "consumables_count": 0,
+      "consumables_ids": [],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH83301A1",
+      "printer_name": "Epson SureColor SC-T7700D Large Format Printer",
+      "consumables_count": 14,
+      "consumables_ids": [
+        "C13S210115",
+        "C13S210116",
+        "C13T50M100",
+        "C13T50M200",
+        "C13T50M300",
+        "C13T50M400",
+        "C13T50M800",
+        "C13T50MF00",
+        "C13T50U100",
+        "C13T50U200",
+        "C13T50U300",
+        "C13T50U400",
+        "C13T50U80N",
+        "C13T50UF00"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ74301A1",
+      "printer_name": "Epson SureColor SC-T7700DL Technical Printer",
+      "consumables_count": 8,
+      "consumables_ids": [
+        "C13S210115",
+        "C13S210116",
+        "C13T53A100",
+        "C13T53A200",
+        "C13T53A300",
+        "C13T53A400",
+        "C13T53A800",
+        "C13T53A900"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C13S090013",
+      "printer_name": "C13S090013 Epson Printer Cleaning Stick (50 pcs)",
+      "consumables_count": 0,
+      "consumables_ids": [],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": false
+    },
+    {
+      "printer_id": "C11CJ50301A1",
+      "printer_name": "Epson SureColor SC-P8500D Large Format Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T44Q140",
+        "C13T44Q240",
+        "C13T44Q340",
+        "C13T44Q440",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ51301A1",
+      "printer_name": "Epson SureColor SC-P8500DM Multifunctional Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T44Q140",
+        "C13T44Q240",
+        "C13T44Q340",
+        "C13T44Q440",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CL14301A1",
+      "printer_name": "Epson SureColor SC P5300 Professional 17\" Photo Printer",
+      "consumables_count": 0,
+      "consumables_ids": [],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ49301A1",
+      "printer_name": "Epson SureColor SC-P6500D Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T44Q140",
+        "C13T44Q240",
+        "C13T44Q340",
+        "C13T44Q440",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ49302A1",
+      "printer_name": "Epson SureColor SC-P6500DE Printer",
+      "consumables_count": 14,
+      "consumables_ids": [
+        "C13S210115",
+        "C13S210116",
+        "C13T48M100",
+        "C13T48M200",
+        "C13T48M300",
+        "C13T48M400",
+        "C13T48M800",
+        "C13T48ME00",
+        "C13T48U100",
+        "C13T48U200",
+        "C13T48U300",
+        "C13T48U400",
+        "C13T48U800",
+        "C13T48UE00"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ48301A1",
+      "printer_name": "Epson SureColor SC-P6500E Printer",
+      "consumables_count": 14,
+      "consumables_ids": [
+        "C13S210115",
+        "C13S210116",
+        "C13T48M100",
+        "C13T48M200",
+        "C13T48M300",
+        "C13T48M400",
+        "C13T48M800",
+        "C13T48ME00",
+        "C13T48U100",
+        "C13T48U200",
+        "C13T48U300",
+        "C13T48U400",
+        "C13T48U800",
+        "C13T48UE00"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CH65301A1",
+      "printer_name": "Epson SureColor SC-T5400M MFP Plotter Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T40D140",
+        "C13T40D240",
+        "C13T40D340",
+        "C13T40D440",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CK99301A1",
+      "printer_name": "Epson SureColor SC P20500 Printer",
+      "consumables_count": 13,
+      "consumables_ids": [
+        "C13T56F100",
+        "C13T56F200",
+        "C13T56F300",
+        "C13T56F400",
+        "C13T56F500",
+        "C13T56F600",
+        "C13T56F700",
+        "C13T56F800",
+        "C13T56F900",
+        "C13T56FA00",
+        "C13T56FB00",
+        "C13T56FD00",
+        "C13T619300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ93402BY",
+      "printer_name": "Epson WorkForce AM-C400 A4 Multifunctional Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T08N140",
+        "C13T08N240",
+        "C13T08N340",
+        "C13T08N440",
+        "C12C937201"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ92402BY",
+      "printer_name": "Epson WorkForce AM-C550 A4 Color Multifunction Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T08Q140",
+        "C13T08Q240",
+        "C13T08Q340",
+        "C13T08Q440",
+        "C12C937201"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CK19401",
+      "printer_name": "Epson WorkForce Pro EM-C800 Color Multifunction Printer",
+      "consumables_count": 4,
+      "consumables_ids": [
+        "C13T11C140",
+        "C13T11D140",
+        "C13T11E140",
+        "C12C938211"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ54301A1",
+      "printer_name": "Epson SureColor SC-T5100M Plotter Printer",
+      "consumables_count": 9,
+      "consumables_ids": [
+        "C13S210057",
+        "C13T40C140",
+        "C13T40C240",
+        "C13T40C340",
+        "C13T40C440",
+        "C13T40D140",
+        "C13T40D240",
+        "C13T40D340",
+        "C13T40D440"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "C11CJ17301A0",
+      "printer_name": "Epson SureColor SC-F500 Dye-Sublimation Printer",
+      "consumables_count": 4,
+      "consumables_ids": [
+        "C13T49N100",
+        "C13T49N200",
+        "C13T49N300",
+        "C13T49N400"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-T7700DL",
+      "printer_name": "Epson SureColor SC-T7700DL Technical Printer",
+      "consumables_count": 8,
+      "consumables_ids": [
+        "C13S210115",
+        "C13S210116",
+        "C13T53A100",
+        "C13T53A200",
+        "C13T53A300",
+        "C13T53A400",
+        "C13T53A800",
+        "C13T53A900"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-T7700D",
+      "printer_name": "Epson SureColor SC-T7700D Large Format Printer",
+      "consumables_count": 14,
+      "consumables_ids": [
+        "C13S210115",
+        "C13S210116",
+        "C13T50M100",
+        "C13T50M200",
+        "C13T50M300",
+        "C13T50M400",
+        "C13T50M800",
+        "C13T50MF00",
+        "C13T50U100",
+        "C13T50U200",
+        "C13T50U300",
+        "C13T50U400",
+        "C13T50U80N",
+        "C13T50UF00"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-T7700DM",
+      "printer_name": "Epson SureColor SC-T7700DM Multifunction Printer",
+      "consumables_count": 7,
+      "consumables_ids": [
+        "C13T50U100",
+        "C13T50U80N",
+        "C13T50U200",
+        "C13T50U300",
+        "C13T50U400",
+        "C13T50UF00",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-T5700DM",
+      "printer_name": "Epson SureColor SC-T5700DM Technical Plotter Printer",
+      "consumables_count": 7,
+      "consumables_ids": [
+        "C13T50M100",
+        "C13T50M800",
+        "C13T50M200",
+        "C13T50M300",
+        "C13T50M400",
+        "C13T50MF00",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-T5700D",
+      "printer_name": "Epson SureColor SC-T5700D Printer",
+      "consumables_count": 7,
+      "consumables_ids": [
+        "C13T50M100",
+        "C13T50M800",
+        "C13T50M200",
+        "C13T50M300",
+        "C13T50M400",
+        "C13T50MF00",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-T5400M",
+      "printer_name": "Epson SureColor SC-T5400M MFP Plotter Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T40D140",
+        "C13T40D240",
+        "C13T40D340",
+        "C13T40D440",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-T5405",
+      "printer_name": "Epson SureColor SC-T5405 36” Wireless Printer",
+      "consumables_count": 13,
+      "consumables_ids": [
+        "C13T41E240",
+        "C13T41E340",
+        "C13T41E440",
+        "C13T41E540",
+        "C13T41F240",
+        "C13T41F340",
+        "C13T41F440",
+        "C13T41F540",
+        "C13T41R240",
+        "C13T41R340",
+        "C13T41R440",
+        "C13T41R540",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-T5100M",
+      "printer_name": "Epson SureColor SC-T5100M Plotter Printer",
+      "consumables_count": 9,
+      "consumables_ids": [
+        "C13S210057",
+        "C13T40C140",
+        "C13T40C240",
+        "C13T40C340",
+        "C13T40C440",
+        "C13T40D140",
+        "C13T40D240",
+        "C13T40D340",
+        "C13T40D440"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-T5100",
+      "printer_name": "Epson SureColor SC-T5100 Wireless Technical Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T40D140",
+        "C13T40D240",
+        "C13T40D340",
+        "C13T40D440",
+        "C13S210057"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-T3700D",
+      "printer_name": "Epson SureColor SC-T3700D Printer",
+      "consumables_count": 14,
+      "consumables_ids": [
+        "C13S210115",
+        "C13S210116",
+        "C13T50M100",
+        "C13T50M200",
+        "C13T50M300",
+        "C13T50M400",
+        "C13T50M800",
+        "C13T50MF00",
+        "C13T50U100",
+        "C13T50U200",
+        "C13T50U300",
+        "C13T50U400",
+        "C13T50U80N",
+        "C13T50UF00"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-T3700DE",
+      "printer_name": "Epson SureColor SC-T3700DE Printer",
+      "consumables_count": 14,
+      "consumables_ids": [
+        "C13S210115",
+        "C13S210116",
+        "C13T50M100",
+        "C13T50M200",
+        "C13T50M300",
+        "C13T50M400",
+        "C13T50M800",
+        "C13T50MF00",
+        "C13T50U100",
+        "C13T50U200",
+        "C13T50U300",
+        "C13T50U400",
+        "C13T50U80N",
+        "C13T50UF00"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-T3700E",
+      "printer_name": "Epson SureColor SC-T3700E Printer",
+      "consumables_count": 14,
+      "consumables_ids": [
+        "C13S210115",
+        "C13S210116",
+        "C13T50M100",
+        "C13T50M200",
+        "C13T50M300",
+        "C13T50M400",
+        "C13T50M800",
+        "C13T50MF00",
+        "C13T50U100",
+        "C13T50U200",
+        "C13T50U300",
+        "C13T50U400",
+        "C13T50U80N",
+        "C13T50UF00"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-T3100",
+      "printer_name": "Epson SureColor SC-T3100 – Wireless Printer",
+      "consumables_count": 9,
+      "consumables_ids": [
+        "C13S210057",
+        "C13T40C140",
+        "C13T40C240",
+        "C13T40C340",
+        "C13T40C440",
+        "C13T40D140",
+        "C13T40D240",
+        "C13T40D340",
+        "C13T40D440"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "EM-C800",
+      "printer_name": "Epson WorkForce Pro EM-C800 Color Multifunction Printer",
+      "consumables_count": 4,
+      "consumables_ids": [
+        "C13T11C140",
+        "C13T11D140",
+        "C13T11E140",
+        "C12C938211"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "AM-C400",
+      "printer_name": "Epson WorkForce AM-C400 A4 Multifunctional Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T08N140",
+        "C13T08N240",
+        "C13T08N340",
+        "C13T08N440",
+        "C12C937201"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "AM-C550",
+      "printer_name": "Epson WorkForce AM-C550 A4 Color Multifunction Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T08Q140",
+        "C13T08Q240",
+        "C13T08Q340",
+        "C13T08Q440",
+        "C12C937201"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "WF-C878R",
+      "printer_name": "Epson WorkForce Pro WF-C878R DWF Multifunction Color Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T05A100",
+        "C13T05A200",
+        "C13T05A300",
+        "C13T05A400",
+        "C13T671400"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "AM-C4000",
+      "printer_name": "Epson WorkForce Enterprise WF AM C4000 Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T08H100",
+        "C13T08H200",
+        "C13T08H300",
+        "C13T08H400",
+        "C12C937181"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "AM-C5000",
+      "printer_name": "Epson WorkForce Enterprise AM-C5000 Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T08G100",
+        "C13T08G200",
+        "C13T08G300",
+        "C13T08G400",
+        "C12C937181"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "AM-C6000",
+      "printer_name": "Epson WorkForce Enterprise AM-C6000 Printer",
+      "consumables_count": 6,
+      "consumables_ids": [
+        "C13T08G100",
+        "C13T08G200",
+        "C13T08G300",
+        "C13T08G400",
+        "C12C937181",
+        "C11CG05201"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-P20500",
+      "printer_name": "Epson SureColor SC P20500 Printer",
+      "consumables_count": 13,
+      "consumables_ids": [
+        "C13T56F100",
+        "C13T56F200",
+        "C13T56F300",
+        "C13T56F400",
+        "C13T56F500",
+        "C13T56F600",
+        "C13T56F700",
+        "C13T56F800",
+        "C13T56F900",
+        "C13T56FA00",
+        "C13T56FB00",
+        "C13T56FD00",
+        "C13T619300"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-P8500DM",
+      "printer_name": "Epson SureColor SC-P8500DM Multifunctional Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T44Q140",
+        "C13T44Q240",
+        "C13T44Q340",
+        "C13T44Q440",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-P8500D",
+      "printer_name": "Epson SureColor SC-P8500D Large Format Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T44Q140",
+        "C13T44Q240",
+        "C13T44Q340",
+        "C13T44Q440",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-P7500",
+      "printer_name": "Epson SureColor SC-P7500 24” Large Format Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T44Q140",
+        "C13T44Q240",
+        "C13T44Q340",
+        "C13T44Q440",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-P6500D",
+      "printer_name": "Epson SureColor SC-P6500D Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T44Q140",
+        "C13T44Q240",
+        "C13T44Q340",
+        "C13T44Q440",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-P6500E",
+      "printer_name": "Epson SureColor SC-P6500E Printer",
+      "consumables_count": 14,
+      "consumables_ids": [
+        "C13S210115",
+        "C13S210116",
+        "C13T48M100",
+        "C13T48M200",
+        "C13T48M300",
+        "C13T48M400",
+        "C13T48M800",
+        "C13T48ME00",
+        "C13T48U100",
+        "C13T48U200",
+        "C13T48U300",
+        "C13T48U400",
+        "C13T48U800",
+        "C13T48UE00"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-P5300",
+      "printer_name": "Epson SureColor SC P5300 Professional 17” Photo Printer",
+      "consumables_count": 5,
+      "consumables_ids": [
+        "C13T47A100",
+        "C13T47A200",
+        "C13T47A300",
+        "C13T47A400",
+        "C12C935711"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    },
+    {
+      "printer_id": "SC-P700",
+      "printer_name": "Epson SureColor SC-P700 13” Photo Printer",
+      "consumables_count": 6,
+      "consumables_ids": [
+        "C13T46S100",
+        "C13T46S200",
+        "C13T46S300",
+        "C13T46S400",
+        "C13T46SD00",
+        "C13T699700"
+      ],
+      "missing_ids_in_db": [],
+      "handler_rendered_cards": true,
+      "handler_rendered_intro": true
+    }
+  ]
+}
