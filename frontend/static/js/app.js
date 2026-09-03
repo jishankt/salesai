@@ -503,16 +503,20 @@ function appendMessage(sender, text, audioUrl = null, timestamp = null) {
                     prodWeb = `https://www.keplertechllc.com/product/${cleanSlug}/`;
                 }
 
-                // Find matching product image from catalog if available
+                // Find matching product image from catalog if available (Exact ID match first)
                 let prodImg = "";
                 const nameClean = prodName.toLowerCase();
-                const found = allCatalogProducts.find(p => 
-                    p._id === prodId || 
-                    (p.sku && p.sku === prodId) || 
-                    p.name.toLowerCase() === nameClean ||
-                    p.name.toLowerCase().includes(nameClean) ||
-                    nameClean.includes(p.name.toLowerCase())
-                );
+                let found = null;
+                if (prodId) {
+                    found = allCatalogProducts.find(p => p._id === prodId || (p.sku && p.sku === prodId));
+                }
+                if (!found) {
+                    found = allCatalogProducts.find(p => 
+                        p.name.toLowerCase() === nameClean ||
+                        p.name.toLowerCase().includes(nameClean) ||
+                        nameClean.includes(p.name.toLowerCase())
+                    );
+                }
                 
                 if (found && found.image_url) {
                     prodImg = found.image_url;
