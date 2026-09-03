@@ -302,10 +302,11 @@
     "website_url": "https://www.keplertechllc.com/product/epson-workforce-enterprise-wf-c20600-d4tw-multi-function-printer/",
     "category": "Business Printer",
     "consumables": [
-      "C13T02Y100",
-      "C13T02Y200",
-      "C13T02Y300",
-      "C13T02Y400"
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
     ]
   },
   {
@@ -327,10 +328,11 @@
     "website_url": "https://www.keplertechllc.com/product/c13t02q100-epson-workforce-enterprise-wf-c20600-black-ink/",
     "category": "Ink Cartridge",
     "consumables": [
-      "C13T02Y100",
-      "C13T02Y200",
-      "C13T02Y300",
-      "C13T02Y400"
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
     ]
   },
   {
@@ -352,10 +354,11 @@
     "website_url": "https://www.keplertechllc.com/product/c13t02q200-epson-workforce-enterprise-wf-c20600-cyan-ink/",
     "category": "Ink Cartridge",
     "consumables": [
-      "C13T02Y100",
-      "C13T02Y200",
-      "C13T02Y300",
-      "C13T02Y400"
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
     ]
   },
   {
@@ -377,10 +380,11 @@
     "website_url": "https://www.keplertechllc.com/product/c13t02q300-epson-workforce-enterprise-wf-c20600-magenta-ink/",
     "category": "Ink Cartridge",
     "consumables": [
-      "C13T02Y100",
-      "C13T02Y200",
-      "C13T02Y300",
-      "C13T02Y400"
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
     ]
   },
   {
@@ -402,10 +406,11 @@
     "website_url": "https://www.keplertechllc.com/product/c13t02q400-epson-workforce-enterprise-wf-c20600-yellow-ink/",
     "category": "Ink Cartridge",
     "consumables": [
-      "C13T02Y100",
-      "C13T02Y200",
-      "C13T02Y300",
-      "C13T02Y400"
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
     ]
   },
   {
@@ -2317,7 +2322,13 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2023/05/Business-Printers.webp",
     "website_url": "https://www.keplertechllc.com/product/epson-workforce-enterprise-wf-c20750-d4tw-multi-function-printer/",
     "category": "Business Printer",
-    "consumables": []
+    "consumables": [
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
+    ]
   },
   {
     "_id": "C13T02S100",
@@ -2337,7 +2348,13 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2018/04/Ink-300x300.jpg",
     "website_url": "https://www.keplertechllc.com/product/c13t02s100-epson-workforce-enterprise-wf-c20750-black-ink/",
     "category": "Ink Cartridge",
-    "consumables": [],
+    "consumables": [
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -2358,7 +2375,13 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2018/04/Ink-300x300.jpg",
     "website_url": "https://www.keplertechllc.com/product/c13t02s300-epson-workforce-enterprise-wf-c20750-magenta-ink/",
     "category": "Ink Cartridge",
-    "consumables": [],
+    "consumables": [
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -2379,7 +2402,13 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2018/04/Ink-300x300.jpg",
     "website_url": "https://www.keplertechllc.com/product/c13t02s200-epson-workforce-enterprise-wf-c20750-cyan-ink/",
     "category": "Ink Cartridge",
-    "consumables": [],
+    "consumables": [
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -2400,7 +2429,13 @@
     "image_url": "https://www.keplertechllc.com/wp-content/uploads/2018/04/Ink-300x300.jpg",
     "website_url": "https://www.keplertechllc.com/product/c13t02s400-epson-workforce-enterprise-wf-c20750-yellow-ink/",
     "category": "Ink Cartridge",
-    "consumables": [],
+    "consumables": [
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
+    ],
     "availability": "Out of Stock"
   },
   {
@@ -2422,10 +2457,11 @@
     "website_url": "https://www.keplertechllc.com/product/c13t02y100-epson-workforce-enterprise-wf-c21000-black-ink/",
     "category": "Ink Cartridge",
     "consumables": [
-      "C13T02Y100",
-      "C13T02Y200",
-      "C13T02Y300",
-      "C13T02Y400"
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
     ],
     "availability": "Out of Stock"
   },
@@ -2448,10 +2484,11 @@
     "website_url": "https://www.keplertechllc.com/product/c13t02y200-epson-workforce-enterprise-wf-c21000-cyan-ink/",
     "category": "Ink Cartridge",
     "consumables": [
-      "C13T02Y100",
-      "C13T02Y200",
-      "C13T02Y300",
-      "C13T02Y400"
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
     ],
     "availability": "Out of Stock"
   },
@@ -2474,10 +2511,11 @@
     "website_url": "https://www.keplertechllc.com/product/c13t02y300-epson-workforce-enterprise-wf-c21000-magenta-ink/",
     "category": "Ink Cartridge",
     "consumables": [
-      "C13T02Y100",
-      "C13T02Y200",
-      "C13T02Y300",
-      "C13T02Y400"
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
     ],
     "availability": "Out of Stock"
   },
@@ -2500,10 +2538,11 @@
     "website_url": "https://www.keplertechllc.com/product/c13t02y400-epson-workforce-enterprise-wf-c21000-yellow-ink/",
     "category": "Ink Cartridge",
     "consumables": [
-      "C13T02Y100",
-      "C13T02Y200",
-      "C13T02Y300",
-      "C13T02Y400"
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
     ],
     "availability": "Out of Stock"
   },
@@ -2526,10 +2565,11 @@
     "website_url": "https://www.keplertechllc.com/product/epson-workforce-enterprise-wf-c21000-d4tw-multi-function-printer/",
     "category": "Business Printer",
     "consumables": [
-      "C13T02Y100",
-      "C13T02Y200",
-      "C13T02Y300",
-      "C13T02Y400"
+      "C13T02S100",
+      "C13T02S200",
+      "C13T02S300",
+      "C13T02S400",
+      "C13T671400"
     ]
   },
   {

@@ -158,7 +158,7 @@ class Product:
                 if is_consumable_query and is_printer_unit and cat not in ("Ink Cartridge", "Maintenance Box", "Inks & Consumables", "Media & Paper", "Accessory"):
                     continue
 
-                # Exact SKU / Product ID / full name match
+                # Exact SKU / Product ID / full name match (Top Priority)
                 if clean_query == pid_l or clean_query == sku_l or clean_query == name_l:
                     if is_printer_intent and cat in ("Ink Cartridge", "Maintenance Box", "Inks & Consumables"):
                         pass # Let the actual printer unit take priority
@@ -166,19 +166,20 @@ class Product:
                         p_copy = dict(p)
                         p_copy["_match_score"] = 100
                         p_copy["_match_mode"] = "CONFIRMED"
-                        scored_results.append((100, p_copy))
+                        scored_results.append((500, p_copy))
                         continue
 
-                if clean_query in name_l:
+                # Full query phrase substring in product title (e.g. 'wf-c20750 d4tw' in title)
+                if clean_query in name_l or clean_query in pid_l:
                     if is_consumable_query and is_printer_unit and cat not in ("Ink Cartridge", "Maintenance Box", "Inks & Consumables", "Media & Paper", "Accessory"):
                         pass
                     elif is_printer_intent and cat in ("Ink Cartridge", "Maintenance Box", "Inks & Consumables"):
                         pass # Don't boost maintenance boxes with printer name in their title
                     else:
                         p_copy = dict(p)
-                        p_copy["_match_score"] = 90
+                        p_copy["_match_score"] = 98
                         p_copy["_match_mode"] = "CONFIRMED"
-                        scored_results.append((90, p_copy))
+                        scored_results.append((400, p_copy))
                         continue
                 
                 score = 0
