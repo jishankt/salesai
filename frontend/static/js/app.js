@@ -498,10 +498,7 @@ function appendMessage(sender, text, audioUrl = null, timestamp = null) {
                 const matchScore = scoreMatch ? scoreMatch[1].trim() : "";
 
                 let prodWeb = webMatch ? webMatch[1].trim() : "";
-                if (!prodWeb || !prodWeb.startsWith("http")) {
-                    const cleanSlug = prodName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-                    prodWeb = `https://www.keplertechllc.com/product/${cleanSlug}/`;
-                }
+                // Will try to resolve from catalog below (after product matching)
 
                 // Find matching product image from catalog if available (Exact ID match first)
                 let prodImg = "";
@@ -538,6 +535,15 @@ function appendMessage(sender, text, audioUrl = null, timestamp = null) {
                     } else {
                         prodImg = "https://www.keplertechllc.com/wp-content/uploads/2023/05/citizen-consumables.webp";
                     }
+                }
+
+                // Resolve web URL: prefer catalog's web_url (from real Kepler sitemap), then auto-generate slug
+                if (found && found.web_url) {
+                    prodWeb = found.web_url;
+                }
+                if (!prodWeb || !prodWeb.startsWith("http")) {
+                    const cleanSlug = prodName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+                    prodWeb = `https://www.keplertechllc.com/product/${cleanSlug}/`;
                 }
 
                 let brandTag = "Genuine OEM";

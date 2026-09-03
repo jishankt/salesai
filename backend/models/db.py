@@ -122,6 +122,7 @@ def load_mem_db():
                     "tags": p.get("tags", []),
                     "image_url": p.get("image_url", ""),
                     "website_url": p.get("website_url", ""),
+                    "web_url": p.get("web_url", ""),
                     "category": p.get("category", "Printers" if "printer" in p["name"].lower() else "Inks & Consumables"),
                     "consumables": p.get("consumables", []),
                     "created_at": created_at,
