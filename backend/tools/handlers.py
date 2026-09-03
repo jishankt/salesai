@@ -124,20 +124,19 @@ def search_products(query: str, tags: list = None) -> str:
             f"📝 *Description:* {r['description']}\n"
             f"🔗 *Website:* {web_url}\n"
             f"🆔 *Product ID:* `{r['_id']}`\n"
-            f"[Draft: {r['_id']}]\n"
             f"━━━━━━━━━━━━━━━━━━━━"
         )
     
     # Conversational footer & action pills
     if is_specific_hardware:
         output.append(
-            f"\nWould you like me to draft an official Proforma Invoice quotation, check UAE delivery options, or show compatible ink sets?\n\n"
-            f"[Options: Draft Quotation | Compatible Inks & Supplies | Check Delivery & Stock]"
+            f"\nWould you like me to check UAE delivery options, inquire about volume discounts, or show compatible ink sets?\n\n"
+            f"[Options: Check Stock & Delivery | Inquire Discount | Compatible Inks & Supplies]"
         )
     else:
         output.append(
-            f"\nWould you like more technical details on any of these units, or would you like to prepare a quotation draft?\n\n"
-            f"[Options: Prepare Quotation | Check Delivery | Request Volume Discount]"
+            f"\nWould you like more technical details on any of these units, or to check delivery and discount terms?\n\n"
+            f"[Options: Check Stock & Delivery | Inquire Discount | Inks & Consumables]"
         )
 
     return "\n\n".join(output)
@@ -269,20 +268,19 @@ def get_printer_consumables(printer_query: str, consumable_filter: str = "all") 
             f"📝 *Description:* {item['description']}\n"
             f"🔗 *Website:* {web_url}\n"
             f"🆔 *Product ID:* `{item['_id']}`\n"
-            f"[Draft: {item['_id']}]\n"
             f"━━━━━━━━━━━━━━━━━━━━"
         )
         
     if has_out_of_stock:
         output.append(
             f"\n📌 *Lead Time Note:* Items marked allocation/out of stock are available on regular manufacturer shipment (typically 2–3 business days across the UAE).\n\n"
-            f"Would you like me to prepare a quotation draft for your review?\n\n"
-            f"[Options: Draft Quotation | Check Stock & Delivery | Inquire Discount]"
+            f"Would you like me to check stock allocation, delivery options, or inquire about discounts?\n\n"
+            f"[Options: Check Stock & Delivery | Inquire Discount | Inks & Consumables]"
         )
     else:
         output.append(
-            f"\nWould you like me to create an official quotation draft, or check same-day UAE delivery terms?\n\n"
-            f"[Options: Draft Quotation | Check Delivery | Request Bulk Discount]"
+            f"\nWould you like me to check same-day UAE delivery terms, or inquire about volume discount rates?\n\n"
+            f"[Options: Check Stock & Delivery | Inquire Discount | Inks & Consumables]"
         )
             
     return "\n\n".join(output)

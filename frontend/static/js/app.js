@@ -568,8 +568,6 @@ function appendMessage(sender, text, audioUrl = null, timestamp = null) {
                                     <i class="fa-solid fa-arrow-up-right-from-square"></i> Web
                                 </a>
                             </div>
-                            
-                            ${prodId ? `<button class="compact-card-draft-btn chat-draft-btn" data-id="${prodId}"><i class="fa-solid fa-file-invoice"></i> Draft Quote</button>` : ''}
                         </div>
                     </div>
                 `;
