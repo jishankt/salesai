@@ -518,10 +518,24 @@ function appendMessage(sender, text, audioUrl = null, timestamp = null) {
                     );
                 }
                 
-                if (found && found.image_url) {
+                if (found && found.image_url && !found.image_url.includes("Ink-300x300.jpg")) {
                     prodImg = found.image_url;
                 } else {
-                    if (nameClean.includes("citizen") || nameClean.includes("cx-02") || nameClean.includes("cz-01")) {
+                    if (nameClean.includes("am-c550")) {
+                        if (nameClean.includes("black") || prodId === "C13T08Q140") prodImg = "https://www.keplertechllc.com/wp-content/uploads/2025/01/C13T08Q140-Epson-WorkForce-AM-C550-Black-Ink.webp";
+                        else if (nameClean.includes("cyan") || prodId === "C13T08Q240") prodImg = "https://www.keplertechllc.com/wp-content/uploads/2025/01/C13T08Q340-Epson-WorkForce-AM-C550-Cyan-Ink.webp";
+                        else if (nameClean.includes("magenta") || prodId === "C13T08Q340") prodImg = "https://www.keplertechllc.com/wp-content/uploads/2025/01/C13T08Q340-Epson-WorkForce-AM-C550-Magenta-Ink.webp";
+                        else if (nameClean.includes("yellow") || prodId === "C13T08Q440") prodImg = "https://www.keplertechllc.com/wp-content/uploads/2025/01/C13T08Q440-Epson-WorkForce-AM-C550-Yellow-Ink.webp";
+                        else if (nameClean.includes("maintenance") || prodId === "C12C937201") prodImg = "https://www.keplertechllc.com/wp-content/uploads/2025/01/C12C937201-Epson-Maintenance-Box-AM-C400550.webp";
+                        else prodImg = "https://www.keplertechllc.com/wp-content/uploads/2025/01/Epson-WorkForce-AM-C550-A4-Color-Multifunction-Printer.webp";
+                    } else if (nameClean.includes("am-c400")) {
+                        if (nameClean.includes("black") || prodId === "C13T08N140") prodImg = "https://www.keplertechllc.com/wp-content/uploads/2025/01/C13T08N140-Epson-WorkForce-AM-C400-Black-Ink.webp";
+                        else if (nameClean.includes("cyan") || prodId === "C13T08N240") prodImg = "https://www.keplertechllc.com/wp-content/uploads/2025/01/C13T08N240-Epson-WorkForce-AM-C400-Cyan-Ink.webp";
+                        else if (nameClean.includes("magenta") || prodId === "C13T08N340") prodImg = "https://www.keplertechllc.com/wp-content/uploads/2025/01/C13T08N340-Epson-WorkForce-AM-C400-Magenta-Ink.webp";
+                        else if (nameClean.includes("yellow") || prodId === "C13T08N440") prodImg = "https://www.keplertechllc.com/wp-content/uploads/2025/01/C13T08N440-Epson-WorkForce-AM-C400-Yellow-Ink.webp";
+                        else if (nameClean.includes("maintenance") || prodId === "C12C937201") prodImg = "https://www.keplertechllc.com/wp-content/uploads/2025/01/C12C937201-Epson-Maintenance-Box-AM-C400550.webp";
+                        else prodImg = "https://www.keplertechllc.com/wp-content/uploads/2025/01/Epson-WorkForce-Enterprise%E2%80%8B-AM-C400-Printer-1.webp";
+                    } else if (nameClean.includes("citizen") || nameClean.includes("cx-02") || nameClean.includes("cz-01")) {
                         prodImg = "https://www.keplertechllc.com/wp-content/uploads/2023/03/Citizen-CX-02-Photo-Printer-Dubai.webp";
                     } else if (nameClean.includes("p9500") || nameClean.includes("p7500") || nameClean.includes("p9000") || nameClean.includes("p20000") || nameClean.includes("sc-p")) {
                         prodImg = "https://www.keplertechllc.com/wp-content/uploads/2023/05/Epson-P9500-Spectro.webp";
@@ -564,7 +578,6 @@ function appendMessage(sender, text, audioUrl = null, timestamp = null) {
                     <div class="compact-product-card">
                         <div class="compact-card-img-wrap" onclick="openImageLightbox('${prodImg}', '${prodName.replace(/'/g, "\\'")}')" title="Click to view large photo">
                             <img src="${prodImg}" alt="${prodName}">
-                            <span style="position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.72); backdrop-filter: blur(4px); color: #fff; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 600;">${prodAvail}</span>
                             ${matchScore ? `<span style="position: absolute; top: 6px; left: 6px; background: #10b981; color: #fff; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 700;">🎯 ${matchScore}</span>` : ''}
                         </div>
                         <div class="compact-card-body">

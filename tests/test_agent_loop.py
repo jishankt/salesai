@@ -5,8 +5,10 @@ from services import agent_loop
 
 
 @pytest.fixture(autouse=True)
-def app_context():
+def app_context(monkeypatch):
+    from config import Config
     from models.db import USE_IN_MEMORY, MEM_DB
+    monkeypatch.setattr(Config, "USE_CONVERSATION_ORCHESTRATOR", False)
     if USE_IN_MEMORY:
         MEM_DB["chat_sessions"].clear()
         MEM_DB["leads"].clear()

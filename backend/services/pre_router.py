@@ -30,6 +30,14 @@ TYPO_CORRECTIONS = {
     r"\bcosumabls?\b": "consumables",
     r"\bconsumabl\b": "consumable",
     r"\bconsumabls\b": "consumables",
+    r"\bconsumbls?\b": "consumables",
+    r"\bconsumbles?\b": "consumables",
+    r"\bconsomables?\b": "consumables",
+    r"\bcunsumables?\b": "consumables",
+    r"\bcomsumables?\b": "consumables",
+    r"\bcartrige?s?\b": "cartridges",
+    r"\bcatridges?\b": "cartridges",
+    r"\bcatridge\b": "cartridge",
     r"\bmainatance\b": "maintenance",
     r"\bmaintanance\b": "maintenance",
     r"\bmaintenence\b": "maintenance",
@@ -88,7 +96,10 @@ def get_conversational_intercept(text: str) -> Tuple[bool, Optional[str]]:
     if re.search(r'\b(?:are you (?:a )?human|are you real|are you a bot|are you an ai|are you robot)\b', t):
         return True, "I'm Kepler Tech's AI sales specialist! I can assist you directly with product specs, live pricing in AED, and instant quotation drafting. If you ever prefer a human colleague, I can connect you anytime. 😊"
 
-    # 2. Feelings & Abstract Chit-Chat
+    # 2. Feelings, Health & Abstract Chit-Chat
+    if re.search(r'\b(?:not (?:feeling|feeeing) well|feeling (?:sick|bad|down|sad|unwell|tired)|i am (?:sick|ill|unwell)|headache|fever)\b', t):
+        return True, "I'm so sorry to hear that! Please take care of yourself and rest up. Whenever you're ready, I'll be right here to help you with anything you need. Wishing you a swift recovery! 🌸"
+
     if re.search(r'\b(?:do you have (?:feelings|feeelings|emotion|emotions)|are you happy|are you good at sales)\b', t):
         return True, "As your Kepler Sales Agent, I'm purely focused on giving you the best technical advice and pricing for printing equipment! What kind of printing project are you working on today? 🎨"
 
@@ -100,23 +111,94 @@ def get_conversational_intercept(text: str) -> Tuple[bool, Optional[str]]:
     if re.search(r'\b(?:where (?:is|are|you) (?:your )?(?:compnay|company|located|office|ocated)|company location|where is kepler|your office|where (?:can|do) i (?:buy|order|purchase|get)|how to (?:buy|order|purchase)|where to buy)\b', t):
         return True, "Kepler Tech LLC is located in Dubai, UAE (Al Maktoum Tower, Deira). We supply, deliver, and install equipment directly across Dubai, Abu Dhabi, Sharjah, and all GCC countries! 🚚\n\nWould you like me to prepare an official Proforma Invoice / Quotation draft with delivery terms?"
 
+    # 4b. Consumables & Supplies Capability Questions
+    # (e.g. "do you provide consumables", "do you provide consumabls", "do you sell consumables", "do you have consumables", "do you provide inks", "do you sell ink", "can you supply paper")
+    if re.search(r'\b(?:do\s+you|can\s+you|can\s+i|do\s+we|are\s+you)\s+(?:provide|supply|sell|carry|have|offer|stock|get)\s+(?:any\s+)?(?:consumables?|supplies|inks?|cartridges?|toners?|maintenance\s+box(?:es)?|waste\s+(?:box|tank)|media(?:\s+rolls?)?|papers?|ribbons?)\b', t) or re.search(r'^(?:do\s+you\s+(?:provide|sell|carry|have|supply)\s+)?(?:consumables?|supplies)$', t) or re.search(r'\b(?:provide|supply|sell)\s+(?:consumables?|supplies|inks?)\b', t):
+        return True, (
+            "Yes, absolutely! We provide 100% genuine OEM consumables for all Epson and Citizen printing equipment, including:\n\n"
+            "• 💧 **Genuine Inks:** Epson UltraChrome PRO12, XD3, and WorkForce high-capacity ink cartridges\n"
+            "• 📦 **Maintenance Boxes:** Original OEM waste ink tanks and replacement pads\n"
+            "• 📜 **Media & Paper Rolls:** Innova fine art smooth cotton papers and Korejet canvas rolls\n"
+            "• 📸 **Citizen Photo Ribbons:** Original ribbon and paper sets for CX-02, CZ-01, and CY-02\n\n"
+            "Which printer model do you need consumables for? Just let me know your model (e.g., *SC-T5700D*, *WF-C21000*, or *SC-P9500*) and I'll find the exact compatible supplies for you! 😊\n\n"
+            "[Options: SureColor SC-P Inks | WorkForce Pro Inks | EcoTank / Dye-Sub | Canvas Rolls]"
+        )
+
+    # 4c. Authorized Distributor / Genuine Products Questions
+    if re.search(r'\b(?:authorized|authorised|official|distributor|dealer)\b.*\b(?:epson|citizen|kepler)\b|\b(?:is\s+it\s+(?:original|genuine)|are\s+(?:they|your\s+products?|your\s+inks?)\s+(?:original|genuine)|are\s+you\s+(?:official|authorized|authorised))\b', t):
+        return True, (
+            "Yes! Kepler Tech LLC is an official authorized distributor for Epson Commercial & Large Format Printing Systems and Citizen Photo Printers across the UAE and Middle East. 🛡️\n\n"
+            "Every printer, UltraChrome ink cartridge, and accessory is 100% genuine OEM with factory warranty and certified local engineer support.\n\n"
+            "What type of equipment or supplies can I assist you with today?\n\n"
+            "[Options: Technical / CAD | Office & Enterprise | Inks & Consumables | Check Stock & Delivery]"
+        )
+
+    # 4d. General Product Range / What do you sell / provide
+    if re.search(r'\b(?:what(?:\s+kind\s+of|\s+type\s+of)?\s+(?:products?|printers?|equipment|plotters?)\s+do\s+you\s+(?:have|sell|provide|carry|offer)|what\s+do\s+you\s+(?:sell|provide|offer|carry)|what\s+products?\s+(?:do\s+you\s+have|are\s+available)|product\s+range)\b', t):
+        return True, (
+            "At Kepler Tech, we provide commercial printing hardware, genuine inks, and media across four core categories: 🖨️\n\n"
+            "• 📐 **Technical & CAD Plotters:** Epson SureColor SC-T series (24\" to 44\" for architectural drawings & GIS maps)\n"
+            "• 🏢 **High-Speed Office MFPs:** Epson WorkForce Enterprise (up to 100 ppm Heat-Free departmental printing)\n"
+            "• 📸 **Photo Booth & Events:** Citizen compact dye-sub photo printers (CX-02, CZ-01, CY-02)\n"
+            "• 🎨 **Photo & Fine Art:** Epson SureColor SC-P series (12-color UltraChrome PRO archival systems)\n"
+            "• 💧 **Genuine Supplies:** UltraChrome inks, maintenance tanks, canvas rolls, and photo media\n\n"
+            "Which category are you interested in exploring today?\n\n"
+            "[Options: Technical / CAD | Office & Enterprise | Photo Booth | Fine Art & Photo]"
+        )
+
+    # 4e. Warranty, Maintenance, Repair & Service inquiries
+    if re.search(r'\b(?:do\s+you\s+(?:provide|offer|give|have)\s+)?(?:warranty|guarantee|maintenance(?:\s+contract)?|amc|service\s+contract|installation|repairs?|servicing|setup|technical\s+support)\b', t) and not any(k in t for k in ["price", "cost", "how much"]):
+        return True, (
+            "Yes! All equipment supplied by Kepler Tech is backed by comprehensive technical support: 🛠️\n\n"
+            "• **Official Factory Warranty:** Direct manufacturer warranty on all Epson and Citizen machines\n"
+            "• **UAE Delivery & On-Site Installation:** Available across Dubai, Abu Dhabi, Sharjah, and all emirates\n"
+            "• **Annual Maintenance Contracts (AMC):** Preventive maintenance visits and certified technician assistance\n"
+            "• **Genuine Spare Parts:** Direct factory replacement parts and printheads\n\n"
+            "Are you looking for service on an existing machine, or considering new equipment with warranty?\n\n"
+            "[Options: Technical / CAD | Office & Enterprise | Inks & Consumables | Connect with Specialist]"
+        )
+
+    # 4f. Showroom / In-person demonstration inquiries
+    if re.search(r'\b(?:showroom|visit\s+(?:your\s+)?(?:office|shop|showroom|store)|see\s+(?:in\s+person|demo|machine|printers?)|demo\s+center|live\s+demo)\b', t):
+        return True, (
+            "You are very welcome to visit our office in Dubai, UAE (Al Maktoum Tower, Deira)! 🏢\n\n"
+            "We offer live equipment demonstrations, sample print testings, and media evaluation for our Epson SureColor plotters, fine art printers, and Citizen photo booth machines.\n\n"
+            "Would you like to schedule a demonstration or speak with our hardware specialist?\n\n"
+            "[Options: Technical / CAD | Office & Enterprise | Check Stock & Delivery | Connect with Specialist]"
+        )
+
+    # 4g. Payment methods / options
+    if re.search(r'\b(?:how\s+(?:can\s+i|to)\s+pay|payment\s+methods?|payment\s+options?|accept\s+card|accept\s+cash|credit\s+card|bank\s+transfer|wire\s+transfer)\b', t):
+        return True, (
+            "We support convenient payment options for both corporate accounts and individual buyers across the UAE: 💳\n\n"
+            "• **Online Card Payment:** Instant secure card checkout (Visa, Mastercard)\n"
+            "• **Bank Wire Transfer:** Direct corporate TT / bank transfer against official Proforma Invoices\n"
+            "• **Cheque / COD:** Available for approved corporate clients and volume delivery orders\n\n"
+            "Would you like me to prepare an official Proforma Invoice / quotation draft for your equipment or supplies?\n\n"
+            "[Options: Draft Quotation | Check Stock & Delivery | Contact Specialist]"
+        )
+
     # 5. Delivery & Territory Questions & Stock Checks
     if re.search(r'\b(?:check stock & delivery|check delivery & stock|check stock|check delivery|delivery options?|delivery terms?)\b', t) or (
         re.search(r'\b(?:delivery|deliver|shipping|ship|do you deliver|can you deliver|deliver to|ship to)\b.*\b(?:abu dhabi|sharjah|dubai|al ain|ajman|rak|fujairah|uae|musaffah|gcc|saudi)\b|\b(?:where do you deliver|delivery areas|delivery locations)\b', t)
     ):
         return True, "🚚 **Kepler Tech Delivery & Stock Information:**\n\n• **Direct Dispatch:** All in-stock printers, genuine inks, and maintenance supplies ship directly from our Dubai central warehouse.\n• **UAE Delivery:** 24–48 hours across Dubai, Abu Dhabi, Sharjah, Ajman, RAK, and Al Ain.\n• **GCC Freight:** Regular dispatch to Saudi Arabia, Oman, Qatar, Bahrain, and Kuwait.\n• **Complimentary Delivery:** Included on qualifying commercial hardware and volume supply orders.\n\nWould you like me to check stock availability or show compatible inks and supplies?\n\n[Options: Inquire Discount | Compatible Inks & Supplies | Check Stock & Delivery]"
 
-    # 6. Discount & Commercial Pricing Policy
-    if re.search(r'\b(?:inquire discount|request (?:bulk|volume) discount|give me (?:a )?discounts?|any discount|discount for products?|best price|special offer|what discount|discount do you give|bulk discount|who give you the (?:permission|prermisssion))\b', t):
-        return True, "💼 **Kepler Tech Commercial Discount Policy:**\n\n• **Standard Catalog Orders:** Transparent live pricing in AED.\n• **Volume Discount:** Automatic **10% discount** applied on orders of 5+ units / full cartridge supply bundles.\n• **Commercial Project Pricing:** Special enterprise & studio rates available on complete hardware + consumable setups.\n\nWould you like me to assist you with equipment specs, delivery terms, or compatible inks?\n\n[Options: Check Stock & Delivery | Compatible Inks & Supplies | Inquire Discount]"
+    # 6. Price / Cost / How-much questions — redirect to website
+    if re.search(r'\b(?:what(?:\s+is|\s+are)?\s+(?:the\s+)?(?:price|cost|rate|pricing|fee|fees)|how\s+much|price\s+(?:of|for)|cost\s+(?:of|for)|any\s+price|what\s+(?:is\s+)?(?:your\s+)?price|tell\s+me\s+(?:the\s+)?price|give\s+me\s+(?:the\s+)?price|i\s+want\s+to\s+know\s+(?:the\s+)?price|price\s+list|price\s+details?|pricing\s+(?:for|of|details?)|aed\s+price|check\s+price|price\s+check|how\s+much\s+(?:does|is|it\s+costs?))\b', t):
+        return True, "For the latest pricing, please tap the 🔗 **Website** link on any product card to view current AED pricing directly on our official Kepler Tech store!\n\nWould you like me to help you find the right product first?\n\n[Options: Technical / CAD | Office & Enterprise | Photo Booth | Fine Art & Photo]"
+
+    # 6b. Discount questions — redirect to website
+    if re.search(r'\b(?:inquire discount|request (?:bulk|volume) discount|give me (?:a )?discounts?|any discount|discount for products?|best price|special offer|what discount|discount do you give|bulk discount|volume discount|any offer|any deal|best deal)\b', t):
+        return True, "For the best pricing and any ongoing offers, please visit the product page directly on our official website — all current prices and deals are listed there! 🔗\n\nWould you like me to help you find the right product?\n\n[Options: Technical / CAD | Office & Enterprise | Photo Booth | Fine Art & Photo]"
 
     # 7. Conversational Clarification on Single-Word Confusion ("what", "huh", "pardon", "sorry")
     if t in ("what", "what?", "huh", "huh?", "pardon", "sorry?", "i don't understand", "idk"):
         return True, "I'm here to help you find the right printing equipment or supplies at Kepler Tech! 😊\n\nWould you like to check live equipment stock, delivery terms, or view compatible inks?\n\n[Options: Check Stock & Delivery | Inquire Discount | Inks & Consumables]"
 
-    # 8. Compliments & General pleasantries
-    if re.search(r'\b(?:good ai|good model|nice bot|great job|you are good|well done|thank you|thanks)\b', t) and not any(k in t for k in ["price", "cost", "printer", "ink", "canvas"]):
-        return True, "Thank you! I'm here to ensure you get the exact right printing solution. Let me know what you need or if you'd like me to recommend a setup."
+    # 8. Compliments, Product Praise & General pleasantries
+    if re.search(r'\b(?:good (?:product|printer|quality|ai|model|bot|job)|nice (?:product|printer|bot)|great (?:product|printer|job)|you are good|well done|thank you|thanks|looks good|this is good|i like this)\b', t) and not any(k in t for k in ["price", "cost", "how much"]):
+        return True, "Thank you! It is indeed one of our most dependable, high-performance solutions. Would you like me to prepare an official Proforma Invoice / Quotation draft with delivery terms, or show compatible supplies?\n\n[Options: Draft Quotation | Check Stock & Delivery | Inquire Discount]"
 
     # 9. Customer Frustration / Annoyance / Complaint Handling with sincere apology
     if re.search(r'\b(?:angry|annoyed|frustrated|irritated|upset|terrible|horrible|useless|bad service|worst service|stupid bot|waste of time|not helping|stop repeating|you don\'t understand|you dont understand|nonsense|disappointed)\b', t):
@@ -251,7 +333,7 @@ def resolve_conversational_subject(session_id: str, user_text: str) -> str:
     # Check if user is asking for ink/consumables for the previously discussed printer
     is_asking_for_maint = any(k in t for k in ["maintenance", "maintenance box", "waste box", "waste ink", "maintenance tank", "tank"])
     is_asking_for_inks = any(k in t for k in ["ink", "inks", "cartridge", "cartridges", "bottle", "bottles", "ribbon", "media", "paper"]) and not is_asking_for_maint
-    is_asking_for_all = any(k in t for k in ["consumables", "consumable", "supplies", "supply", "full set", "all consumables"])
+    is_asking_for_all = any(k in t for k in ["consumables", "consumable", "consumbls", "consumble", "consumabls", "supplies", "supply", "full set", "all consumables"]) or bool(re.search(r'\bcons?u?m[a-z]*bl[a-z]*\b', t))
     is_asking_for_ink = is_asking_for_maint or is_asking_for_inks or is_asking_for_all
     
     cons_sub_type = "maintenance" if is_asking_for_maint else ("inks" if is_asking_for_inks else "all")
@@ -279,10 +361,12 @@ def resolve_conversational_subject(session_id: str, user_text: str) -> str:
         if "budget" in prev_bot_msg or "price" in prev_bot_msg:
             return f"printer under {t} AED"
 
+    _PRINTER_MODEL_PATTERN = r'\b(WF-[A-Z0-9]+(?:\s+[A-Z0-9]+)?|EM-[A-Z0-9]+|SC-[A-Z0-9]+|AM-[A-Z0-9]+|P\d{3,5}[A-Z0-9]*|T\d{3,5}[A-Z0-9]*|F\d{3,4}[A-Z0-9]*|C\d{4,5}[A-Z0-9]*|CX-02W|CX-02|CX02|CZ-01|CY-02|L\d{4}[A-Z0-9]*)\b'
+
     # Check negative correction intent (e.g. "these are not F100 inks", "not for this printer", "wrong inks")
     is_correction = any(k in t for k in ["these are not", "this is not", "not f100", "wrong ink", "not the ink", "not for f100", "not for sc-f100", "incorrect ink", "different ink"])
     if is_correction:
-        m = re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|AM-[A-Z0-9]+|P\d{3,5}[A-Z0-9]*|T\d{3,5}[A-Z0-9]*|F\d{3,4}[A-Z0-9]*|C\d{4,5}[A-Z0-9]*|CX-02W|CX-02|CX02|CZ-01|CY-02)\b', user_text, re.IGNORECASE)
+        m = re.search(_PRINTER_MODEL_PATTERN, user_text, re.IGNORECASE)
         if m:
             printer_code = m.group(1).upper()
             return f"get_printer_consumables for {printer_code}|type={cons_sub_type}"
@@ -293,10 +377,15 @@ def resolve_conversational_subject(session_id: str, user_text: str) -> str:
 
     # If user mentions specific printer + ink / supplies / maintenance in a single phrase e.g. "maintenance box for f100" or "cx-02 consumables"
     if is_asking_for_ink:
-        m = re.search(r'\b(WF-[A-Z0-9]+|EM-[A-Z0-9]+|SC-[A-Z0-9]+|AM-[A-Z0-9]+|P\d{3,5}[A-Z0-9]*|T\d{3,5}[A-Z0-9]*|F\d{3,4}[A-Z0-9]*|C\d{4,5}[A-Z0-9]*|CX-02W|CX-02|CX02|CZ-01|CY-02)\b', user_text, re.IGNORECASE)
+        m = re.search(_PRINTER_MODEL_PATTERN, user_text, re.IGNORECASE)
         if m:
             printer_code = m.group(1).upper()
             return f"get_printer_consumables for {printer_code}|type={cons_sub_type}"
+        m_for = re.search(r'(?:for|of)\s+([A-Za-z0-9\-]+)', t)
+        if m_for:
+            code = m_for.group(1).strip().upper()
+            if len(code) >= 3 and code.lower() not in ("it", "that", "this", "printer", "plotter", "machine", "me", "my"):
+                return f"get_printer_consumables for {code}|type={cons_sub_type}"
         if re.search(r'\b(?:it|that|this|the printer|my printer)\b', t):
             session = ChatSession.get_or_create(session_id)
             last_prod = extract_last_mentioned_product_from_history(session.get("messages", []))

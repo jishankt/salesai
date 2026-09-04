@@ -1502,3 +1502,22 @@ tr:last-child td {
     transform: scale(0.98);
 }
 
+[data-theme="light"] .compact-product-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .compact-card-title {
+    color: #0f172a;
+}
+
+[data-theme="light"] .compact-card-desc {
+    color: #64748b;
+}
+
+[data-theme="light"] .compact-card-footer {
+    border-top: 1px solid #f1f5f9;
+}
+
+

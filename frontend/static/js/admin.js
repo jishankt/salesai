@@ -1200,7 +1200,6 @@ function formatWhatsAppText(text) {
                 <div style="flex: 0 0 210px; width: 210px; background: rgba(0, 0, 0, 0.28); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: flex; flex-direction: column;">
                     <div style="width: 100%; height: 95px; background: #ffffff; display: flex; align-items: center; justify-content: center; padding: 4px; position: relative;">
                         <img src="${prodImg}" alt="${prodName}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
-                        <span style="position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.72); color: #fff; font-size: 0.6rem; padding: 1px 4px; border-radius: 3px; font-weight: 600;">${prodAvail}</span>
                         ${matchScore ? `<span style="position: absolute; top: 4px; left: 4px; background: #10b981; color: #fff; font-size: 0.6rem; padding: 1px 4px; border-radius: 3px; font-weight: 700;">🎯 ${matchScore}</span>` : ''}
                     </div>
                     <div style="padding: 8px; display: flex; flex-direction: column; flex: 1;">

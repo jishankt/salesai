@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kepler Tech — Professional Printing Solutions & Official Distributor</title>
+    <meta name="description" content="Kepler Tech is the premier authorized distributor for Epson commercial printers, Citizen photo printers, Innova media, and genuine supplies in Dubai & UAE.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #0098d4;
+            --primary-dark: #007bb0;
+            --primary-light: #e0f2fe;
+            --secondary: #0a2540;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            --bg-body: #ffffff;
+            --bg-gray: #f8fafc;
+            --border-light: #e2e8f0;
+            --border-darker: #cbd5e1;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.05);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* ---------------- TOP UTILITY BAR ---------------- */
+        .top-bar {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-light);
+            padding: 7px 40px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            gap: 20px;
+        }
+
+        .top-bar a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .top-bar a:hover {
+            color: var(--primary);
+        }
+
+        .top-bar-divider {
+            color: var(--border-darker);
+        }
+
+        /* ---------------- MAIN HEADER ---------------- */
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-light);
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .header-logo img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-item.active a,
+        .nav-item a:hover {
+            color: var(--primary);
+        }
+
+        .nav-item .menu-icon {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .action-icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-size: 1.15rem;
+            position: relative;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s;
+        }
+
+        .action-icon-btn:hover {
+            color: var(--primary);
+        }
+
+        .cart-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+        .cart-icon-wrap {
+            position: relative;
+            font-size: 1.25rem;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -8px;
+            background: var(--primary);
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-amount {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        /* ---------------- HERO SLIDER ---------------- */
+        .hero-section {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-light);
+            padding: 40px 40px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-slider-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 420px;
+        }
+
+        .hero-slide {
+            display: none;
+            grid-template-columns: 1.1fr 1fr;
+            align-items: center;
+            gap: 40px;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .hero-slide.active {
+            display: grid;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-text-col {
+            padding: 20px 0;
+        }
+
+        .hero-heading {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #0f172a;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: #475569;
+            font-weight: 400;
+            margin-bottom: 28px;
+            line-height: 1.5;
+            max-width: 480px;
+        }
+
+        .hero-cta-btn {
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 14px rgba(0, 152, 212, 0.3);
+            text-decoration: none;
+        }
+
+        .hero-cta-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .hero-image-col {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image-col img {
+            max-width: 100%;
+            max-height: 380px;
+            object-fit: contain;
+            filter: drop-shadow(0 12px 24px rgba(0,0,0,0.06));
+        }
+
+        /* Slider Indicators */
+        .slider-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 30px;
+        }
+
+        .slider-dot {
+            height: 8px;
+            border-radius: 4px;
+            background: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            width: 8px;
+        }
+
+        .slider-dot.active {
+            background: var(--primary);
+            width: 28px;
+        }
+
+        /* ---------------- BRAND SECTION ---------------- */
+        .brand-section {
+            padding: 40px 40px 50px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
+        }
+
+        .brand-card {
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 24px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            min-height: 90px;
+        }
+
+        .brand-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .brand-card img {
+            max-width: 100%;
+            max-height: 38px;
+            object-fit: contain;
+            filter: grayscale(10%);
+            transition: filter 0.2s;
+        }
+
+        .brand-card:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* ---------------- CATEGORY SHOWCASE ---------------- */
+        .showcase-section {
+            background: var(--bg-gray);
+            padding: 50px 40px;
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .showcase-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .showcase-card {
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .showcase-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            border-color: #cbd5e1;
+        }
+
+        .showcase-img-wrap {
+            height: 220px;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-light);
+            position: relative;
+        }
+
+        .showcase-img-wrap img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+
+        .showcase-card:hover .showcase-img-wrap img {
+            transform: scale(1.04);
+        }
+
+        .showcase-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .showcase-content {
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .showcase-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .showcase-desc {
+            font-size: 0.87rem;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .showcase-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .btn-view-store {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-view-store:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .btn-ask-ai {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border: none;
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-ask-ai:hover {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        /* ---------------- VALUE PILLARS ---------------- */
+        .pillars-section {
+            padding: 50px 40px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .pillar-box {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+        }
+
+        .pillar-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        .pillar-text h4 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 2px;
+        }
+
+        .pillar-text p {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        /* ---------------- FOOTER ---------------- */
+        .footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 50px 40px 24px;
+            font-size: 0.88rem;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            filter: brightness(0) invert(1);
+            margin-bottom: 16px;
+        }
+
+        .footer-col h5 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        /* ---------------- FLOATING CHATBOT ICON (EXACT HEADSET AS IN SCREENSHOT) ---------------- */
+        #kepler-chat-widget-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: #0098d4;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.45rem;
+            box-shadow: 0 6px 20px rgba(0, 152, 212, 0.45);
+            cursor: pointer;
+            z-index: 9999;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s;
+            border: 2px solid #ffffff;
+        }
+
+        #kepler-chat-widget-btn:hover {
+            transform: scale(1.08);
+            background: #0084b8;
+        }
+
+        /* Pulse ring */
+        .widget-pulse-ring {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid #0098d4;
+            opacity: 0.7;
+            animation: pulseWidget 2.4s infinite cubic-bezier(0.24, 0, 0.38, 1);
+            pointer-events: none;
+        }
+
+        @keyframes pulseWidget {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.22); opacity: 0; }
+            100% { transform: scale(1.22); opacity: 0; }
+        }
+
+        /* Chat prompt tooltip */
+        #widget-callout-bubble {
+            position: fixed;
+            bottom: 92px;
+            right: 24px;
+            background: #ffffff;
+            color: #0f172a;
+            padding: 10px 16px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            font-size: 0.84rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 9998;
+            cursor: pointer;
+            border: 1px solid var(--border-light);
+            animation: bounceIn 0.5s ease;
+        }
+
+        #widget-callout-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: 22px;
+            width: 12px;
+            height: 12px;
+            background: #ffffff;
+            transform: rotate(45deg);
+            border-bottom: 1px solid var(--border-light);
+            border-right: 1px solid var(--border-light);
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: translateY(10px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ---------------- CHATBOT SLIDE-UP MODAL ---------------- */
+        #chat-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            display: none;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 24px;
+        }
+
+        #chat-modal-overlay.active {
+            display: flex;
+            animation: overlayFade 0.2s ease-out;
+        }
+
+        @keyframes overlayFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #chat-modal-window {
+            width: 440px;
+            height: 680px;
+            max-width: calc(100vw - 32px);
+            max-height: calc(100vh - 48px);
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 60px -12px rgba(15, 23, 42, 0.35), 0 0 0 1px rgba(15, 23, 42, 0.08);
+            border: none;
+            animation: modalSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalSlideUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        #chat-iframe {
+            flex: 1 1 100%;
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            border: none;
+            display: block;
+            background: #ffffff;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .brand-grid { grid-template-columns: repeat(3, 1fr); }
+            .showcase-grid { grid-template-columns: 1fr; }
+            .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-container { grid-template-columns: 1fr 1fr; }
+            .hero-heading { font-size: 2.8rem; }
+        }
+
+        @media (max-width: 768px) {
+            .top-bar { padding: 6px 16px; font-size: 0.75rem; }
+            .header { padding: 12px 16px; }
+            .nav-menu { display: none; }
+            .hero-section { padding: 24px 16px; }
+            .hero-slide { grid-template-columns: 1fr; gap: 20px; }
+            .hero-heading { font-size: 2.2rem; }
+            .brand-section { padding: 30px 16px; }
+            .brand-grid { grid-template-columns: repeat(2, 1fr); }
+            .showcase-section { padding: 30px 16px; }
+            .pillars-section { padding: 30px 16px; }
+            .pillars-grid { grid-template-columns: 1fr; }
+            .footer { padding: 30px 16px; }
+            .footer-container { grid-template-columns: 1fr; gap: 24px; }
+            #chat-modal-overlay { padding: 0; }
+            #chat-modal-window { width: 100vw; height: 100vh; max-width: 100vw; max-height: 100vh; border-radius: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. TOP UTILITY BAR (Exact match to screenshot) -->
+    <div class="top-bar">
+        <a href="https://www.keplertechllc.com/track-your-order/" target="_blank">Track Your Order</a>
+        <span class="top-bar-divider">|</span>
+        <a href="https://www.keplertechllc.com/my-account/" target="_blank">My Account</a>
+    </div>
+
+    <!-- 2. MAIN HEADER (Logo, Menu, Wishlist & Cart) -->
+    <header class="header">
+        <a href="/landing" class="header-logo">
+            <img src="https://www.keplertechllc.com/wp-content/uploads/2023/03/logo-kepler-1x.png" alt="Kepler Tech LLC Logo">
+        </a>
+
+        <ul class="nav-menu">
+            <li class="nav-item active">
+                <a href="/landing"><i class="fa-solid fa-bars menu-icon"></i> Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.keplertechllc.com/about-us/" target="_blank">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.keplertechllc.com/shop/" target="_blank">Shop</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.keplertechllc.com/erp-solutions/" target="_blank">ERP Solutions</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.keplertechllc.com/blog/" target="_blank">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.keplertechllc.com/contact-us/" target="_blank">Contact Us</a>
+            </li>
+        </ul>
+
+        <div class="header-actions">
+            <a href="https://www.keplertechllc.com/wishlist/" class="action-icon-btn" title="Wishlist" target="_blank">
+                <i class="fa-regular fa-heart"></i>
+            </a>
+
+            <a href="https://www.keplertechllc.com/cart/" class="cart-wrapper" target="_blank">
+                <div class="cart-icon-wrap">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-badge">0</span>
+                </div>
+                <span class="cart-amount">AED 0.00</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- 3. HERO SLIDER (Exact match to screenshot banner) -->
+    <section class="hero-section">
+        <div class="hero-slider-container">
+            <!-- Slide 1: Professional Photo Printer (Exact as user screenshot) -->
+            <div class="hero-slide active" id="slide-0">
+                <div class="hero-text-col">
+                    <h1 class="hero-heading">Professional<br>Photo Printer</h1>
+                    <p class="hero-subtitle">Designed for event photographers, picture booths & retail kiosks.</p>
+                    <button class="hero-cta-btn" onclick="openChatWithPrompt('Show me Citizen photo printers for photo booth')">
+                        <i class="fa-solid fa-comment-dots"></i> Find Photo Printers
+                    </button>
+                </div>
+                <div class="hero-image-col">
+                    <img src="https://www.keplertechllc.com/wp-content/uploads/2023/10/Banner.webp" alt="Citizen Professional Photo Printer">
+                </div>
+            </div>
+
+            <!-- Slide 2: Commercial CAD & Large Format -->
+            <div class="hero-slide" id="slide-1">
+                <div class="hero-text-col">
+                    <h1 class="hero-heading">Commercial CAD &<br>Technical Plotters</h1>
+                    <p class="hero-subtitle">High-speed Epson SureColor plotters for architects, engineers, and GIS offices.</p>
+                    <button class="hero-cta-btn" onclick="openChatWithPrompt('I need an A0 CAD printer for engineering drawings')">
+                        <i class="fa-solid fa-comment-dots"></i> Explore CAD Plotters
+                    </button>
+                </div>
+                <div class="hero-image-col">
+                    <img src="https://www.keplertechllc.com/wp-content/uploads/2023/08/Epson-printers.webp" alt="Epson SureColor Technical Printers">
+                </div>
+            </div>
+
+            <!-- Slide Indicators -->
+            <div class="slider-controls">
+                <div class="slider-dot active" onclick="switchSlide(0)"></div>
+                <div class="slider-dot" onclick="switchSlide(1)"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. "Select your brand from here" SECTION (Exact match to screenshot) -->
+    <section class="brand-section">
+        <div class="section-header">
+            <h2 class="section-title">Select your brand from here</h2>
+        </div>
+
+        <div class="brand-grid">
+            <div class="brand-card" onclick="openChatWithPrompt('Show me all Epson commercial printers')" title="Explore Epson Printers">
+                <img src="https://www.keplertechllc.com/wp-content/uploads/2023/03/brand-epson.png" alt="Epson Brand">
+            </div>
+
+            <div class="brand-card" onclick="openChatWithPrompt('Show me Citizen photo booth printers')" title="Explore Citizen Printers">
+                <img src="https://www.keplertechllc.com/wp-content/uploads/2023/03/brand-citizen.png" alt="Citizen Brand">
+            </div>
+
+            <div class="brand-card" onclick="openChatWithPrompt('Tell me about Innova fine art media papers')" title="Explore Innova Art">
+                <img src="https://www.keplertechllc.com/wp-content/uploads/2023/03/brand-innova.png" alt="Innova Art">
+            </div>
+
+            <div class="brand-card" onclick="openChatWithPrompt('What Olmec photo papers do you have?')" title="Explore Olmec">
+                <img src="https://www.keplertechllc.com/wp-content/uploads/2023/03/brand-olmec.png" alt="Olmec Brand">
+            </div>
+
+            <div class="brand-card" onclick="openChatWithPrompt('Show me KoreJet sublimation inks')" title="Explore KoreJet">
+                <img src="https://www.keplertechllc.com/wp-content/uploads/2023/06/brand-korejet1.png" alt="KoreJet Brand">
+            </div>
+
+            <div class="brand-card" onclick="openChatWithPrompt('Tell me about AirCastPro wireless print server')" title="Explore AirCastPro">
+                <img src="https://www.keplertechllc.com/wp-content/uploads/2024/10/AirCastPro-3-Brand-Logo.png" alt="AirCastPro Brand">
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PRODUCT CATEGORY SHOWCASE -->
+    <section class="showcase-section">
+        <div class="showcase-container">
+            <div class="section-header">
+                <h2 class="section-title">Popular Commercial Printing Systems</h2>
+            </div>
+
+            <div class="showcase-grid">
+                <!-- Card 1: Citizen Photo Printers -->
+                <div class="showcase-card">
+                    <div class="showcase-img-wrap">
+                        <span class="showcase-tag">Event & Kiosk</span>
+                        <img src="https://www.keplertechllc.com/wp-content/uploads/2023/03/Citizen-CX-02-Photo-Printer-Dubai-300x300.webp" alt="Citizen CX-02">
+                    </div>
+                    <div class="showcase-content">
+                        <h3 class="showcase-title">Citizen CX-02 Photo Printer</h3>
+                        <p class="showcase-desc">Ultra-compact 6-inch dye-sublimation printer producing studio-quality prints in under 13 seconds. The industry standard for event photo booths.</p>
+                        <div class="showcase-actions">
+                            <a href="https://www.keplertechllc.com/product/citizen-cx-02-photo-printer/" target="_blank" class="btn-view-store">
+                                Official Page <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                            <button class="btn-ask-ai" onclick="openChatWithPrompt('Tell me about Citizen CX-02 specifications and supplies')">
+                                <i class="fa-solid fa-robot"></i> Consult AI
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Technical CAD Plotters -->
+                <div class="showcase-card">
+                    <div class="showcase-img-wrap">
+                        <span class="showcase-tag">CAD & GIS</span>
+                        <img src="https://www.keplertechllc.com/wp-content/uploads/2024/01/Epson-Sure-Color-SC-T5700D-Printer-300x300.webp" alt="Epson SC-T5700D">
+                    </div>
+                    <div class="showcase-content">
+                        <h3 class="showcase-title">Epson SureColor SC-T5700D</h3>
+                        <p class="showcase-desc">36-inch dual-roll production technical printer with UltraChrome XD3 ink, red ink gamut, and Adobe PostScript 3 for precision blueprints.</p>
+                        <div class="showcase-actions">
+                            <a href="https://www.keplertechllc.com/product/epson-surecolor-sc-t5700d-dual-roll-technical-printer/" target="_blank" class="btn-view-store">
+                                Official Page <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                            <button class="btn-ask-ai" onclick="openChatWithPrompt('Do you have SC-T5700D? Give me full specifications')">
+                                <i class="fa-solid fa-robot"></i> Consult AI
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: High-Speed Office MFPs -->
+                <div class="showcase-card">
+                    <div class="showcase-img-wrap">
+                        <span class="showcase-tag">WorkForce Enterprise</span>
+                        <img src="https://www.keplertechllc.com/wp-content/uploads/2025/01/Epson-WorkForce-AM-C550-A4-Color-Multifunction-Printer-300x300.webp" alt="Epson AM-C550">
+                    </div>
+                    <div class="showcase-content">
+                        <h3 class="showcase-title">Epson WorkForce AM-C550</h3>
+                        <p class="showcase-desc">High-speed 55ppm A4 color multifunction printer with Heat-Free inkjet technology, delivering ultra-low power consumption and high monthly duty cycles.</p>
+                        <div class="showcase-actions">
+                            <a href="https://www.keplertechllc.com/product/epson-wf-am-c550-a4-multifunction-printer/" target="_blank" class="btn-view-store">
+                                Official Page <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                            <button class="btn-ask-ai" onclick="openChatWithPrompt('i want consumabls for AM-C550')">
+                                <i class="fa-solid fa-robot"></i> Consult AI
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. VALUE PILLARS -->
+    <section class="pillars-section">
+        <div class="pillars-grid">
+            <div class="pillar-box">
+                <div class="pillar-icon"><i class="fa-solid fa-certificate"></i></div>
+                <div class="pillar-text">
+                    <h4>100% Genuine OEM</h4>
+                    <p>Direct manufacturer supplies</p>
+                </div>
+            </div>
+
+            <div class="pillar-box">
+                <div class="pillar-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="pillar-text">
+                    <h4>Official UAE Warranty</h4>
+                    <p>Certified local coverage</p>
+                </div>
+            </div>
+
+            <div class="pillar-box">
+                <div class="pillar-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                <div class="pillar-text">
+                    <h4>Fast UAE Dispatch</h4>
+                    <p>Next-day express delivery</p>
+                </div>
+            </div>
+
+            <div class="pillar-box">
+                <div class="pillar-icon"><i class="fa-solid fa-headset"></i></div>
+                <div class="pillar-text">
+                    <h4>Technical Support</h4>
+                    <p>Certified printer specialists</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <img src="https://www.keplertechllc.com/wp-content/uploads/2023/03/logo-kepler-1x.png" alt="Kepler Tech">
+                </div>
+                <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6;">
+                    Kepler Tech LLC is a leading distributor of professional printing solutions, large format plotters, and fine art media in Dubai and across the GCC.
+                </p>
+            </div>
+
+            <div class="footer-col">
+                <h5>Product Range</h5>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="openChatWithPrompt('CAD Technical Plotters')">Technical CAD Plotters</a></li>
+                    <li><a href="#" onclick="openChatWithPrompt('WorkForce Enterprise MFPs')">Office WorkForce MFPs</a></li>
+                    <li><a href="#" onclick="openChatWithPrompt('Citizen Photo Printers')">Citizen Photo Printers</a></li>
+                    <li><a href="#" onclick="openChatWithPrompt('Fine Art and Photography Printers')">Photo & Fine Art Printers</a></li>
+                    <li><a href="#" onclick="openChatWithPrompt('Genuine Inks & Consumables')">Genuine Inks & Supplies</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="https://www.keplertechllc.com/about-us/" target="_blank">About Kepler Tech</a></li>
+                    <li><a href="https://www.keplertechllc.com/shop/" target="_blank">Official Online Store</a></li>
+                    <li><a href="https://www.keplertechllc.com/track-your-order/" target="_blank">Track Your Order</a></li>
+                    <li><a href="https://www.keplertechllc.com/contact-us/" target="_blank">Contact Specialist</a></li>
+                    <li><a href="/" target="_blank">Full-Screen AI Chat</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Dubai Office</h5>
+                <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6; margin-bottom: 12px;">
+                    Kepler Tech LLC<br>
+                    Dubai, United Arab Emirates<br>
+                    Email: info@keplertechllc.com
+                </p>
+                <button class="btn-ask-ai" style="padding: 8px 16px; font-size: 0.85rem;" onclick="openChat()">
+                    <i class="fa-solid fa-headset"></i> Open AI Assistant
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>&copy; 2026 Kepler Tech LLC. All rights reserved.</div>
+            <div style="display: flex; gap: 16px;">
+                <span>Authorized Epson & Citizen Partner</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- 8. FLOATING CHATBOT BUTTON (MATCHING THE BLUE HEADSET IN SCREENSHOT) -->
+    <!-- ------------------------------------------------------------------ -->
+    <div id="widget-callout-bubble" onclick="openChat()">
+        <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--primary);"></i>
+        <span>Need a printer or ink? Ask our AI Specialist!</span>
+    </div>
+
+    <div id="kepler-chat-widget-btn" onclick="toggleChat()" title="Chat with Kepler Sales Assistant">
+        <div class="widget-pulse-ring"></div>
+        <i class="fa-solid fa-headset"></i>
+    </div>
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- 9. CHATBOT MODAL POPUP (CLEAN SINGLE-HEADER EMBED)                  -->
+    <!-- ------------------------------------------------------------------ -->
+    <div id="chat-modal-overlay" onclick="handleBackdropClick(event)">
+        <div id="chat-modal-window">
+            <iframe id="chat-iframe" src="/?embed=1" allow="microphone" style="width: 100% !important; height: 100% !important; min-height: 100% !important; flex: 1 1 100% !important; border: none !important; display: block !important;"></iframe>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- 10. JAVASCRIPT CONTROLLER                                          -->
+    <!-- ------------------------------------------------------------------ -->
+    <script>
+        // Global close hook for iframe inner close button
+        window.closeKeplerChat = function() {
+            closeChat();
+        };
+
+        window.addEventListener('message', (e) => {
+            if (e.data && (e.data.type === 'CLOSE_CHAT' || e.data.type === 'CLOSE_MODAL')) {
+                closeChat();
+            }
+        });
+        // Hero Slider Logic
+        let currentSlide = 0;
+        const slides = [document.getElementById('slide-0'), document.getElementById('slide-1')];
+        const dots = document.querySelectorAll('.slider-dot');
+
+        function switchSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        // Auto-cycle slider every 6 seconds
+        setInterval(() => {
+            const next = (currentSlide + 1) % slides.length;
+            switchSlide(next);
+        }, 6000);
+
+        // Modal Controls
+        const overlay = document.getElementById('chat-modal-overlay');
+        const iframe = document.getElementById('chat-iframe');
+        const callout = document.getElementById('widget-callout-bubble');
+
+        // Auto-fade callout bubble after 7 seconds
+        setTimeout(() => {
+            if (callout) {
+                callout.style.transition = 'opacity 0.4s';
+                callout.style.opacity = '0';
+                setTimeout(() => callout.style.display = 'none', 400);
+            }
+        }, 7000);
+
+        function openChat() {
+            overlay.classList.add('active');
+            if (callout) callout.style.display = 'none';
+        }
+
+        function closeChat() {
+            overlay.classList.remove('active');
+        }
+
+        function toggleChat() {
+            if (overlay.classList.contains('active')) {
+                closeChat();
+            } else {
+                openChat();
+            }
+        }
+
+        function handleBackdropClick(e) {
+            if (e.target === overlay) {
+                closeChat();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                closeChat();
+            }
+        });
+
+        // Open chat and automatically send/fill query
+        function openChatWithPrompt(promptText) {
+            openChat();
+            setTimeout(() => {
+                try {
+                    iframe.contentWindow.postMessage({
+                        type: 'SEND_QUERY',
+                        query: promptText
+                    }, '*');
+                } catch (err) {
+                    console.warn('postMessage error:', err);
+                }
+            }, 300);
+        }
+    </script>
+</body>
+</html>

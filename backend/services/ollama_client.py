@@ -143,9 +143,9 @@ def chat_completion(messages, tools=None, temperature=0.2, format=None):
         
         # If all Groq models exhausted, fallback to deterministic reply or Ollama
 
-    # Fast Connectivity Probing for local Ollama to avoid 45-second blocking when server is offline
+    # Fast Connectivity Probing for local Ollama to avoid blocking when server is offline
     url = f"{Config.OLLAMA_API_URL}/api/chat"
-    timeout_sec = min(int(getattr(Config, "OLLAMA_TIMEOUT_SECONDS", 12)), 15)
+    timeout_sec = int(getattr(Config, "OLLAMA_TIMEOUT_SECONDS", 45))
 
     # Check connection quickly (1.5s) before attempting deep model generation
     try:
@@ -155,7 +155,7 @@ def chat_completion(messages, tools=None, temperature=0.2, format=None):
     except Exception as e:
         raise OllamaError(f"Ollama server unreachable at {Config.OLLAMA_API_URL}: {e}")
 
-    candidate_models = [Config.OLLAMA_MODEL, "qwen2.5:14b", "qwen2.5:latest", "llama3.1:latest"]
+    candidate_models = [Config.OLLAMA_MODEL, "gpt-oss:20b", "qwen2.5:14b", "qwen2.5:latest", "llama3.1:latest"]
     
     last_err = None
     for target_model in candidate_models:
@@ -167,7 +167,7 @@ def chat_completion(messages, tools=None, temperature=0.2, format=None):
             "stream": False,
             "options": {
                 "temperature": temperature,
-                "num_predict": 250,       # Snappy sales agent responses
+                "num_predict": 512,       # Snappy sales agent responses
                 "num_ctx": 2048,          # Faster context window
             },
         }
@@ -181,7 +181,14 @@ def chat_completion(messages, tools=None, temperature=0.2, format=None):
             if res.status_code == 404 and "not found" in res.text.lower():
                 continue # Try next locally available model while target is pulling
             res.raise_for_status()
-            return res.json()
+            data = res.json()
+            # If a thinking model (like gpt-oss / deepseek) outputs empty content and only thinking, extract it or fallback
+            msg = data.get("message", {})
+            if not msg.get("content") and msg.get("thinking"):
+                think = msg.get("thinking", "").strip()
+                # If there's clean text at the end of thinking, use it
+                msg["content"] = think.split("\n\n")[-1] if think else ""
+            return data
         except requests.exceptions.RequestException as e:
             last_err = e
 

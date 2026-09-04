@@ -65,8 +65,8 @@ class IntentRouter:
             )
 
         # 6. Inks & Consumables Lookup
-        # (e.g. "SC T3700DE just check this models inks", "ink for that printer", "maintenance box for cx02")
-        is_consumable_keyword = bool(re.search(r'\b(?:inks?|cartridges?|maintenance box|waste box|ribbons?|media roll|paper roll|toner|printhead)\b', t_low))
+        # (e.g. "SC T3700DE just check this models inks", "ink for that printer", "maintenance box for cx02", "consumables for WF-C21000")
+        is_consumable_keyword = bool(re.search(r'\b(?:consumables?|supplies?|inks?|cartridges?|maintenance box|waste box|ribbons?|media roll|paper roll|toner|printhead)\b', t_low))
         if is_consumable_keyword:
             return RouteDecision(
                 intent="consumables",
@@ -113,9 +113,11 @@ class IntentRouter:
             extracted_entities.get("print_size") or 
             extracted_entities.get("scan_required") is not None or 
             extracted_entities.get("daily_volume") or
-            (state.category and state.last_question_field)
+            extracted_entities.get("monthly_volume") or
+            extracted_entities.get("use_case") or
+            (state.category and state.last_question_field and len(state.asked_fields) <= 3)
         )
-        if category or is_qualification_answer or re.search(r'\b(?:recommend|looking for|need a printer|printer for|which printer|best printer|plotter|photo printer|cad printer)\b', t_low):
+        if is_qualification_answer or re.search(r'\b(?:recommend|looking for|need a printer|printer for|which printer|best printer|plotter|photo printer|cad printer)\b', t_low):
             return RouteDecision(
                 intent="product_discovery",
                 category=category or state.category,

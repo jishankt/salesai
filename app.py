@@ -97,7 +97,19 @@ def _valid_session_id(session_id) -> bool:
 
 @app.route("/")
 def index():
+    if request.args.get("embed") or request.args.get("chat"):
+        return render_template("index.html")
+    return render_template("landing.html")
+
+
+@app.route("/chat")
+def chat_view():
     return render_template("index.html")
+
+
+@app.route("/landing")
+def landing():
+    return render_template("landing.html")
 
 
 @app.route("/widget-demo")

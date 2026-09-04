@@ -26,6 +26,8 @@ TYPO_CORRECTIONS = {
     r"\bcosumables?\b": "consumables",
     r"\bcosumeables?\b": "consumables",
     r"\bcosumabls?\b": "consumables",
+    r"\bconsumbls?\b": "consumables",
+    r"\bconsumble\b": "consumable",
     r"\bconsumabl\b": "consumable",
     r"\bconsumabls\b": "consumables",
     r"\bmainatance\b": "maintenance",

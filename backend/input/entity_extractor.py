@@ -12,6 +12,7 @@ if TYPE_CHECKING:
 # Known models & SKU regex patterns
 MODEL_PATTERNS = [
     r'\b(?:sc-?)?(?:t[0-9]{4}[a-z0-9]*|p[0-9]{4,5}[a-z0-9]*|f[0-9]{3,4}[a-z0-9]*|v[0-9]{3,4}[a-z0-9]*|l[0-9]{4}[a-z0-9]*)\b',
+    r'\b(?:wf-?[a-z0-9]{4,6}|am-?c[0-9]{3,5}|em-?c[0-9]{3,5})\b',
     r'\b(?:cx-?02|cy-?02|cz-?01|op-?900ii)\b',
     r'\b(?:c13[a-z0-9]{7,8}|c11[a-z0-9]{8,10})\b',
 ]
@@ -62,6 +63,11 @@ def extract_entities(text: str, state: Optional[ConversationAIState] = None) -> 
         entities["scan_required"] = True
     elif re.search(r'\b(?:no scanner|print only|printer only|without scanner)\b', t_low):
         entities["scan_required"] = False
+    elif state and getattr(state, "last_question_field", None) == "scan_required":
+        if re.search(r'\b(?:yes|yeah|yep|sure|yup|affirmative|i do|we do|needed|required)\b', t_low):
+            entities["scan_required"] = True
+        elif re.search(r'\b(?:no|nope|nah|not needed|not required|don\'t need|dont need)\b', t_low):
+            entities["scan_required"] = False
 
     # 5. Category detection
     if re.search(r'\b(?:cad|gis|architect|engineering|blueprints?|line drawings?|technical drawings?)\b', t_low):
@@ -84,6 +90,26 @@ def extract_entities(text: str, state: Optional[ConversationAIState] = None) -> 
             entities["budget"] = float(budget_match.group(1))
         except (ValueError, IndexError):
             pass
+
+    # 7. Volume (Daily / Monthly) & Qualification values
+    vol_match = re.search(r'\b(?:around|about|approx|approx\.)?\s*(\d+)\s*(?:drawings?|plans?|prints?|pages?|copies|docs?|sheets?)\b', t_low)
+    if not vol_match and state and getattr(state, "last_question_field", None) in ("daily_volume", "monthly_volume"):
+        vol_match = re.search(r'\b(\d+)\b', t_low)
+    if vol_match:
+        try:
+            vol_val = int(vol_match.group(1))
+            if state and getattr(state, "last_question_field", None) == "monthly_volume":
+                entities["monthly_volume"] = vol_val
+            else:
+                entities["daily_volume"] = vol_val
+        except (ValueError, IndexError):
+            pass
+
+    # 8. Use Case (e.g. canvas, fine art, apparel, mugs)
+    if re.search(r'\b(?:canvas|fine art cotton|cotton rag|photo glossy|luster)\b', t_low):
+        entities["use_case"] = t_clean = text.strip()
+    elif re.search(r'\b(?:mugs?|gifts?|apparel|sportswear|textile|signage)\b', t_low):
+        entities["use_case"] = text.strip()
 
     return entities
 

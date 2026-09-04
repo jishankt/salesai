@@ -36,9 +36,9 @@ def get_conversational_intercept(text: str) -> Tuple[bool, Optional[str]]:
     if re.search(r'\b(?:where (?:is|are|you) (?:your )?(?:compnay|company|located|office|ocated)|company location|where is kepler|your office)\b', t):
         return True, "Kepler Tech LLC is located in Dubai, UAE (Al Maktoum Tower, Deira). We supply, deliver, and install equipment directly across Dubai, Abu Dhabi, Sharjah, and all GCC countries! 🚚\n\nWould you like me to prepare an official Proforma Invoice / Quotation draft with delivery terms?"
 
-    # 5. Customer Frustration & Escalation (Rule 9: Apologize sincerely)
-    if re.search(r'\b(?:annoying|annoyed|terrible|horrible|useless|stupid|worst|bad service|angry|frustrated|waste of time|hate this|stop repeating|ridiculous|pathetic)\b', t):
-        return True, "I am truly sorry for the frustration and inconvenience! 🙏 That is certainly not the experience we want you to have. I am here to assist you accurately—please let me know what you need, or if you prefer, I can connect you directly with a member of our human sales team."
+    # 5. Customer Frustration & Escalation (Rule 9: Apologize sincerely & clarify AI nature)
+    if re.search(r'\b(?:annoying|annoyed|terrible|horrible|useless|stupid|worst|bad service|angry|frustrated|waste of time|hate this|stop repeating|ridiculous|pathetic|dont answer|not answering|care fully|carefully|listen to me|pay attention|bullshit|nonsense|crap|what (?:you|are you) saying|rubbish|wrong)\b', t):
+        return True, "I am truly sorry for the misunderstanding! 🙏 As an AI sales assistant at Kepler Tech, I am here to help you directly. Please let me know the specific printer model, ink, paper roll, or requirements you are looking for and I will assist you immediately!"
 
     # 6. Gratitude / Closure
     if re.search(r'^(?:thanks|thank you|thx|great thanks|appreciate it|ok thanks|okay thanks)$', t):

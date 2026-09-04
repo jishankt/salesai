@@ -83,6 +83,12 @@ class ConversationOrchestrator:
             state.print_size = entities["print_size"]
         if entities.get("scan_required") is not None:
             state.scan_required = entities["scan_required"]
+        if entities.get("daily_volume"):
+            state.daily_volume = entities["daily_volume"]
+        if entities.get("monthly_volume"):
+            state.monthly_volume = entities["monthly_volume"]
+        if entities.get("use_case"):
+            state.use_case = entities["use_case"]
         if entities.get("category"):
             state.category = entities["category"]
         if entities.get("budget"):
@@ -118,7 +124,7 @@ class ConversationOrchestrator:
         elif action in ("calculate_price", "prepare_quote"):
             pid = action_params.get("product_id") or state.selected_product_id
             qty = action_params.get("quantity") or state.quantity or 1
-            node_result = run_pricing_quote(pid, qty, state)
+            node_result = run_pricing_quote(pid, qty, state, raw_query=resolved_text)
 
         elif action == "ask_qualification":
             q_rule = action_params.get("question_rule", {})
@@ -136,6 +142,11 @@ class ConversationOrchestrator:
             node_result = "I am connecting you right now with our senior technical sales team at Kepler Tech. One of our specialists will assist you directly! 🤝"
 
         elif action == "support_rag":
+            from nodes.support import support_node
+            node_result = support_node(resolved_text)
+
+        elif action == "general_chat":
+            # For open questions like "is it good?", "tell me more", let LLM answer conversationally
             from nodes.support import support_node
             node_result = support_node(resolved_text)
 

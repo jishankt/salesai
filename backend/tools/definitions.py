@@ -73,6 +73,23 @@ OLLAMA_TOOLS = [
     {
         "type": "function",
         "function": {
+            "name": "scrape_kepler_website",
+            "description": "Live scrape product specifications, overview, features, or company details directly from the official Kepler Tech website (https://www.keplertechllc.com) for in-depth information.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query_or_url": {
+                        "type": "string",
+                        "description": "The product name, model (e.g. 'SC-P9500', 'Citizen CX-02'), category, or specific Kepler website page URL to fetch."
+                    }
+                },
+                "required": ["query_or_url"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
             "name": "get_shipping_info",
             "description": "Provide official shipping terms, delivery schedules (Dubai, Abu Dhabi, Northern Emirates, GCC), and free delivery thresholds.",
             "parameters": {

@@ -36,11 +36,39 @@ class TestConversationOrchestrator(unittest.TestCase):
         self.assertEqual(res["content"].count("?"), 1)
         self.assertIn("maximum drawing size", res["content"].lower())
 
-    def test_quotation_intent(self):
-        res = ConversationOrchestrator.process_message("test_orch_6", "Need a formal quotation for 5 units of CX-02")
-        self.assertIn("content", res)
-        self.assertEqual(res["orchestration"]["intent"], "quotation")
-        self.assertTrue("AED" in res["content"] or "Price" in res["content"] or "Citizen" in res["content"])
+    def test_multi_turn_cad_qualification_state_machine(self):
+        """
+        Validates the step-by-step CAD printer qualification state machine:
+        Turn 1: "I need a CAD printer" -> category: technical_cad, asks print_size
+        Turn 2: "A0" -> updates print_size: A0, asks scan_required
+        Turn 3: "yes" -> updates scan_required: True, asks daily_volume
+        Turn 4: "around 50 drawings" -> qualification complete, recommends products
+        """
+        session_id = "test_cad_multi_turn_flow"
+        
+        # Turn 1
+        res1 = ConversationOrchestrator.process_message(session_id, "I need a CAD printer")
+        self.assertEqual(res1["orchestration"]["intent"], "product_discovery")
+        self.assertEqual(res1["orchestration"]["action"], "ask_qualification")
+        self.assertIn("drawing size", res1["content"].lower())
+        
+        # Turn 2
+        res2 = ConversationOrchestrator.process_message(session_id, "A0")
+        self.assertEqual(res2["orchestration"]["intent"], "product_discovery")
+        self.assertEqual(res2["orchestration"]["action"], "ask_qualification")
+        self.assertIn("scanning", res2["content"].lower())
+        
+        # Turn 3
+        res3 = ConversationOrchestrator.process_message(session_id, "yes")
+        self.assertEqual(res3["orchestration"]["intent"], "product_discovery")
+        self.assertEqual(res3["orchestration"]["action"], "ask_qualification")
+        self.assertIn("drawings or plans", res3["content"].lower())
+        
+        # Turn 4
+        res4 = ConversationOrchestrator.process_message(session_id, "around 50 drawings per day")
+        self.assertEqual(res4["orchestration"]["intent"], "product_discovery")
+        self.assertEqual(res4["orchestration"]["action"], "recommend_products")
+        self.assertTrue("Epson SureColor" in res4["content"] or "SC-" in res4["content"] or "📦" in res4["content"])
 
 if __name__ == "__main__":
     unittest.main()

@@ -181,6 +181,7 @@ def _deterministic_product_prefetch(session_id: str, user_message_text: str) -> 
         ChatSession.add_message(session_id, "tool", str(tool_result), name="get_printer_consumables")
         return True
 
+    clean_q = re.sub(r'^(?:what\s+is\s+the\s+(?:price|cost)\s+(?:of|for)|how\s+much\s+is\s+(?:the)?|tell\s+me\s+the\s+price\s+of)\s+', '', clean_q, flags=re.IGNORECASE).strip()
     for prefix in _INTENT_PHRASES:
         clean_q = clean_q.replace(prefix, "")
     clean_q = re.sub(r'^\s*\d+\s+', '', clean_q)
@@ -212,10 +213,18 @@ def _manual_parse_tool_call(content_text: str):
         cleaned = re.sub(r'^```[a-zA-Z]*\s*', '', cleaned)
         cleaned = re.sub(r'\s*```$', '', cleaned).strip()
 
-    if not (cleaned.startswith("{") or "arguments" in cleaned or "name" in cleaned):
+    if not (cleaned.startswith("{") or "arguments" in cleaned or "name" in cleaned or "search_products" in cleaned or "get_printer_consumables" in cleaned):
         return None, content_text
 
     try:
+        # Check natural language tool call phrases (e.g. "Let's call search_products with query '...'")
+        nl_match = re.search(r'(?:call|run|execute)\s+(search_products|get_printer_consumables|recommend_products|get_price|check_stock)\s+(?:with\s+query\s+|for\s+)?["\']([^"\']+)["\']', cleaned, re.IGNORECASE)
+        if nl_match:
+            fn_name = nl_match.group(1)
+            arg_val = nl_match.group(2)
+            arg_key = "printer_query" if fn_name == "get_printer_consumables" else "query"
+            return [{"function": {"name": fn_name, "arguments": {arg_key: arg_val}}}], ""
+
         start_idx = cleaned.find("{")
         end_idx = cleaned.rfind("}")
         if start_idx == -1 or end_idx == -1 or end_idx <= start_idx:
@@ -275,6 +284,7 @@ def validate_tool_arguments(func_name: str, args: dict) -> tuple[bool, str]:
         "check_stock": {"required": ["product_id"], "types": {"product_id": str}},
         "get_price": {"required": ["product_id"], "types": {"product_id": str, "qty": int}},
         "get_product_specs": {"required": ["product_id"], "types": {"product_id": str}},
+        "scrape_kepler_website": {"required": ["query_or_url"], "types": {"query_or_url": str}},
         "get_shipping_info": {"required": [], "types": {"emirate_or_city": str}},
         "get_warranty_and_support": {"required": [], "types": {"product_query": str}},
         "track_order": {"required": ["order_or_session_id"], "types": {"order_or_session_id": str}},
@@ -669,6 +679,14 @@ def process_chat_message(session_id: str, user_message_text: str, channel: str =
 
     from services.pre_router import get_conversational_intercept, resolve_conversational_subject
 
+    # Conversational capability, policy, company info, consumables, and chit-chat intercept
+    is_intercepted, intercept_reply = get_conversational_intercept(user_message_english)
+    if is_intercepted and intercept_reply:
+        reply_translated = translate_text(intercept_reply, language)
+        ChatSession.add_message(session_id, "user", user_message_english, original_content=user_message_text)
+        ChatSession.add_message(session_id, "assistant", intercept_reply, original_content=reply_translated)
+        return format_reply(reply_translated)
+
     # Needs Discovery & Broad Category Intercept (e.g. "i want to know about printers", "need ink", "paper")
     # Only trigger if we haven't already just asked the discovery question in the previous turn
     from services.discovery_engine import is_broad_query, get_discovery_question
@@ -685,14 +703,6 @@ def process_chat_message(session_id: str, user_message_text: str, channel: str =
         reply_translated = translate_text(discovery_reply, language)
         ChatSession.add_message(session_id, "user", user_message_english, original_content=user_message_text)
         ChatSession.add_message(session_id, "assistant", discovery_reply, original_content=reply_translated)
-        return format_reply(reply_translated)
-
-    # Conversational chit-chat / meta / company info intercept
-    is_intercepted, intercept_reply = get_conversational_intercept(user_message_english)
-    if is_intercepted and intercept_reply:
-        reply_translated = translate_text(intercept_reply, language)
-        ChatSession.add_message(session_id, "user", user_message_english, original_content=user_message_text)
-        ChatSession.add_message(session_id, "assistant", intercept_reply, original_content=reply_translated)
         return format_reply(reply_translated)
 
     # Save user message to session history first
@@ -751,6 +761,9 @@ def process_chat_message(session_id: str, user_message_text: str, channel: str =
         # Strip any leaked role header prefix like 'assistant\n\n' or 'assistant:'
         if content_text:
             content_text = re.sub(r'^(?:assistant|system|bot)\s*[:\n\-]+\s*', '', content_text, flags=re.IGNORECASE).strip()
+            # Strip reasoning / scratchpad artifacts (e.g. <think>...</think>, <thought>...</thought>, "But we need to interpret: ...")
+            content_text = re.sub(r'<(?:think|thought)>[\s\S]*?</(?:think|thought)>', '', content_text, flags=re.IGNORECASE).strip()
+            content_text = re.sub(r'^(?:But\s+we\s+need\s+to\s+interpret|Thinking\s+Process|Scratchpad|Reasoning)\s*:[\s\S]*?(?=\n\n[A-Z]|\n\n[👋📦✨]|Hello|Hi|Sure|Dear|$)', '', content_text, flags=re.IGNORECASE).strip()
 
         if not tool_calls:
             parsed_calls, cleaned_text = _manual_parse_tool_call(content_text)
@@ -822,17 +835,25 @@ def process_chat_message(session_id: str, user_message_text: str, channel: str =
                 })
                 continue
 
-            reply_english = ensure_payment_link(session_id, content, channel=channel)
-            reply_english = _ensure_details_in_reply(reply_english, session_id)
-
-            # Response validation & anti-hallucination guard
-            from services.response_validator import validate_ai_response
             # Retrieve the most recent tool execution payload in this turn or session
             last_tool_payload = None
             for m in reversed(messages):
                 if m.get("role") == "tool" and m.get("content"):
                     last_tool_payload = m.get("content")
                     break
+
+            reply_english = ensure_payment_link(session_id, content, channel=channel)
+
+            # If a product catalog tool was executed in this turn, ensure clean single card carousel output
+            if tool_called_this_request and last_tool_payload and ("📦" in last_tool_payload or "💧" in last_tool_payload):
+                # If model generated a repetitive markdown table or duplicated card summary, replace with verified card payload
+                if "| Model |" in reply_english or "━━━━━━━━━━━━━━━━━━━━" in content:
+                    reply_english = last_tool_payload
+
+            reply_english = _ensure_details_in_reply(reply_english, session_id)
+
+            # Response validation & anti-hallucination guard
+            from services.response_validator import validate_ai_response
 
             is_valid, val_reason, sanitized_reply = validate_ai_response(reply_english, last_tool_result=last_tool_payload)
             if not is_valid and not nudged_already:

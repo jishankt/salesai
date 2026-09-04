@@ -26,3 +26,6 @@ dist/
 db.json
 *.jsonl
 match_eval_logs.jsonl
+static/audio/
+scratch_*
+

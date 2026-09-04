@@ -17,7 +17,7 @@ def build_working_product_url(prod: dict) -> str:
     """
     Constructs the canonical direct product URL format: https://www.keplertechllc.com/product/<slug>/
     """
-    web_url = prod.get("website_url")
+    web_url = prod.get("web_url") or prod.get("website_url")
     if web_url and web_url.startswith("http"):
         return web_url
     
@@ -49,7 +49,7 @@ def _stock_badge(stock: int) -> str:
     return f"🟢 In Stock ({stock} pcs)"
 
 
-def search_products(query: str, tags: list = None) -> str:
+def search_products(query: str, tags: list = None, category: str = None, **kwargs) -> str:
     """Searches the product catalog for matching items, or triggers consultative discovery if broad."""
     clean_q = query.strip()
     
@@ -57,6 +57,21 @@ def search_products(query: str, tags: list = None) -> str:
     is_broad, broad_cat = is_broad_query(clean_q)
     if is_broad and broad_cat:
         return get_discovery_question(broad_cat)
+
+    # Safety Check: If query is asking for consumables / supplies / inks / maintenance for a specific model
+    cons_match = re.search(r'\b(?:consumables?|consumbls?|consumbles?|supplies|inks?|cartridges?|toners?|maintenance\s+box(?:es)?|waste\s+box|ribbons?|media|papers?)\s+(?:for|of)\s+([A-Za-z0-9\-\s]+)', clean_q, re.IGNORECASE)
+    if cons_match:
+        printer_target = cons_match.group(1).strip()
+        printer_target = re.sub(r'\s+(?:printer|plotter|machine)$', '', printer_target, flags=re.IGNORECASE).strip()
+        if len(printer_target) >= 3 and printer_target.lower() not in ("it", "that", "this", "printer", "plotter", "machine"):
+            return get_printer_consumables(printer_target)
+
+    # Also handle '<model> consumables/inks' pattern
+    model_cons_match = re.search(r'\b([A-Za-z0-9\-]{3,15})\s+(?:consumables?|consumbls?|consumbles?|supplies|inks?|cartridges?|toners?|maintenance\s+box(?:es)?)\b', clean_q, re.IGNORECASE)
+    if model_cons_match:
+        printer_target = model_cons_match.group(1).strip()
+        if printer_target.lower() not in ("epson", "citizen", "canon", "printer", "plotter", "machine"):
+            return get_printer_consumables(printer_target)
 
     results = Product.search_products(query)
     if tags:
@@ -133,7 +148,7 @@ def search_products(query: str, tags: list = None) -> str:
     if is_specific_hardware:
         results = [results[0]]
     elif is_category_query:
-        # Filter results to only include items from the correct category, then show all
+        # Filter results to only include items from the correct category, then show ALL of them
         filtered = [r for r in results if matched_cat_filter(r)]
         # Deduplicate by product name (keep first occurrence with highest score)
         seen_names = set()
@@ -143,9 +158,9 @@ def search_products(query: str, tags: list = None) -> str:
             if name_key not in seen_names:
                 seen_names.add(name_key)
                 deduped.append(r)
-        results = deduped if deduped else results[:10]
+        results = deduped if deduped else results
     else:
-        results = results[:10]
+        results = results[:4]
 
     # Instrument query-match logging for evaluation set generation
     try:
@@ -169,7 +184,7 @@ def search_products(query: str, tags: list = None) -> str:
     if top_mode == "NEEDS_CONFIRMATION":
         output.append(f"🔍 I found these close matches for *'{query}'* — did you mean one of these?\n")
     elif is_specific_hardware:
-        output.append(f"Here is the official specification and live pricing for the **{results[0]['name']}**:\n")
+        output.append(f"Here are the official specifications and details for the **{results[0]['name']}**:\n")
     elif is_category_query:
         # Friendly category name for the header
         cat_names = {"scanner": "Scanners", "flatbed": "Flatbed Scanners", "document scanner": "Document Scanners",
@@ -187,17 +202,13 @@ def search_products(query: str, tags: list = None) -> str:
         output.append(f"Here are the top printing equipment options matching your request:\n")
 
     for r in results:
-        stock_label, live_qty = _get_live_availability(r)
         satisfaction = compute_satisfaction_score(r, query)
         web_url = build_working_product_url(r)
         output.append(
             f"━━━━━━━━━━━━━━━━━━━━\n"
-            f"🎯 *Match Satisfaction: {satisfaction}%*\n"
             f"📦 *{r['name']}*\n"
-            f"💵 *Price:* {r['price']:.2f} AED\n"
-            f"📊 *Availability:* {stock_label}\n"
             f"📝 *Description:* {r['description']}\n"
-            f"🔗 *Website:* {web_url}\n"
+            f"🔗 *Website:* {web_url} — tap to view pricing\n"
             f"🆔 *Product ID:* `{r['_id']}`\n"
             f"━━━━━━━━━━━━━━━━━━━━"
         )
@@ -205,13 +216,13 @@ def search_products(query: str, tags: list = None) -> str:
     # Conversational footer & action pills
     if is_specific_hardware:
         output.append(
-            f"\nWould you like me to check UAE delivery options, inquire about volume discounts, or show compatible ink sets?\n\n"
-            f"[Options: Check Stock & Delivery | Inquire Discount | Compatible Inks & Supplies]"
+            f"\nFor pricing, tap the 🔗 Website link on any product card to view the latest AED price on our official store.\n\n"
+            f"[Options: Compatible Inks & Supplies | Technical Specs | Contact Specialist]"
         )
     else:
         output.append(
-            f"\nWould you like more technical details on any of these units, or to check delivery and discount terms?\n\n"
-            f"[Options: Check Stock & Delivery | Inquire Discount | Inks & Consumables]"
+            f"\nFor pricing on any of these models, tap the 🔗 **Website** link on the product card to view the latest AED price on our official Kepler Tech store.\n\n"
+            f"[Options: Compatible Inks & Supplies | Technical Specs | Contact Specialist]"
         )
 
     return "\n\n".join(output)
@@ -327,36 +338,28 @@ def get_printer_consumables(printer_query: str, consumable_filter: str = "all") 
     else:
         output.append(f"💧 **Genuine Compatible Consumables & Supplies for {target_printer['name']}:**\n")
     
-    has_out_of_stock = False
     for item in items:
-        stock_label, live_qty = _get_live_availability(item)
-        if live_qty == 0 or "Out of Stock" in stock_label:
-            has_out_of_stock = True
         satisfaction = 100
         web_url = build_working_product_url(item)
         output.append(
             f"━━━━━━━━━━━━━━━━━━━━\n"
             f"🎯 *Match Satisfaction: {satisfaction}%*\n"
             f"📦 *{item['name']}*\n"
-            f"💵 *Price:* {item['price']:.2f} AED\n"
-            f"📊 *Availability:* {stock_label}\n"
             f"📝 *Description:* {item['description']}\n"
-            f"🔗 *Website:* {web_url}\n"
+            f"🔗 *Website:* {web_url} — tap to view pricing\n"
             f"🆔 *Product ID:* `{item['_id']}`\n"
             f"━━━━━━━━━━━━━━━━━━━━"
         )
         
-    if has_out_of_stock:
-        output.append(
-            f"\n📌 *Lead Time Note:* Items marked allocation/out of stock are available on regular manufacturer shipment (typically 2–3 business days across the UAE).\n\n"
-            f"Would you like me to check stock allocation, delivery options, or inquire about discounts?\n\n"
-            f"[Options: Check Stock & Delivery | Inquire Discount | Inks & Consumables]"
-        )
+    if consumable_filter == "maintenance":
+        options_str = "[Options: Technical Specs | Ink Cartridges | Contact Specialist]"
     else:
-        output.append(
-            f"\nWould you like me to check same-day UAE delivery terms, or inquire about volume discount rates?\n\n"
-            f"[Options: Check Stock & Delivery | Inquire Discount | Inks & Consumables]"
-        )
+        options_str = "[Options: Technical Specs | Maintenance Box | Contact Specialist]"
+
+    output.append(
+        f"\nFor pricing on any supplies, tap the 🔗 **Website** link to view current pricing on our official Kepler Tech store.\n\n"
+        f"{options_str}"
+    )
             
     return "\n\n".join(output)
 
@@ -377,7 +380,7 @@ def check_stock(product_id: str) -> str:
     stock_label, live_qty = _get_live_availability(prod)
     web_url = build_working_product_url(prod)
 
-    msg = f"**{prod['name']}**\n📊 **Availability:** {stock_label}\n💵 **Price:** {prod['price']:.2f} AED\n🔗 **Link:** {web_url}"
+    msg = f"**{prod['name']}**\n📊 **Status:** {stock_label}\n🔗 **Website:** {web_url} — tap to view pricing"
     
     if live_qty == 0 or "Out of Stock" in stock_label:
         # Find closest in-stock alternative in same category
@@ -385,32 +388,26 @@ def check_stock(product_id: str) -> str:
         candidates = Product.search_products(tags[0] if tags else "printer")
         in_stock_alts = [c for c in candidates if c.get("_id") != prod.get("_id") and (c.get("stock", 0) > 0 or c.get("availability") == "In Stock")][:2]
         if in_stock_alts:
-            msg += "\n\n💡 *In-Stock Alternatives:* " + ", ".join([f"**{a['name']}** ({a['price']:.2f} AED)" for a in in_stock_alts])
+            msg += "\n\n💡 *In-Stock Alternatives:* " + ", ".join([f"**{a['name']}**" for a in in_stock_alts])
     
     return msg
 
 
 def get_price(product_id: str, qty: int = 1) -> str:
-    """Calculate total price for a quantity, applying the 10% bulk discount at qty >= 5."""
+    """Redirects price inquiries to official store link per business policy."""
     prod = Product.find_by_id(product_id)
     if not prod:
-        # Fallback to search if the LLM passed a name or hallucinated SKU
         searched = Product.search_products(product_id)
         if searched:
             prod = searched[0]
-        else:
-            return f"Product with ID or query '{product_id}' not found. Please verify the model name."
 
-    unit_price = prod["price"]
-    total = unit_price * qty
-    if qty >= 5:
-        discount = 0.10 * total
-        total -= discount
+    if prod:
+        web_url = build_working_product_url(prod)
         return (
-            f"**{prod['name']}** — {unit_price:.2f} AED/unit.\n"
-            f"Bulk order ({qty} pcs): 10% discount applied → **{total:.2f} AED** total (saved {discount:.2f} AED)."
+            f"For current pricing and volume availability for **{prod['name']}**, please visit our official store:\n\n"
+            f"🔗 {web_url} — tap the link to view pricing directly."
         )
-    return f"**{prod['name']}** — {unit_price:.2f} AED/unit. Total for {qty} pc(s): **{total:.2f} AED** (no discount — bulk discount applies for 5+ units)."
+    return "For live pricing and current offers, please tap the 🔗 **Website** link on any product card to view prices on our official store."
 
 
 def recommend_products(context: str = "") -> str:
@@ -437,15 +434,12 @@ def recommend_products(context: str = "") -> str:
     top = sorted(candidates, key=lambda p: (p.get("availability") == "In Stock" or p.get("stock", 0) > 0, p.get("stock", 0)), reverse=True)[:3]
     output = ["*Here are our top recommendations right now:*"]
     for p in top:
-        stock_label = _stock_badge(p["stock"])
         web_url = build_working_product_url(p)
         output.append(
             f"━━━━━━━━━━━━━━━━━━━━\n"
             f"📦 *{p['name']}*\n"
-            f"💵 *Price:* {p['price']:.2f} AED\n"
-            f"📊 *Availability:* {stock_label}\n"
             f"📝 *Description:* {p['description']}\n"
-            f"🔗 *Website:* {web_url}\n"
+            f"🔗 *Website:* {web_url} — tap to view pricing\n"
             f"🆔 *Product ID:* `{p['_id']}`\n"
             f"[Draft: {p['_id']}]\n"
             f"━━━━━━━━━━━━━━━━━━━━"
@@ -475,7 +469,6 @@ def get_product_specs(product_id: str) -> str:
         f"📋 *Official Technical Specifications: {prod['name']}*",
         f"━━━━━━━━━━━━━━━━━━━━",
         f"🆔 *SKU / Product ID:* `{prod['_id']}`",
-        f"💵 *Official Price:* {prod['price']:.2f} AED (VAT Included / Free UAE Delivery)",
         f"📊 *Live Inventory Status:* {stock_label}",
         f"📝 *Engineering Overview:* {prod['description']}",
         f"🏷️ *Category:* {prod.get('category', 'Printing Equipment')}",
@@ -484,9 +477,87 @@ def get_product_specs(product_id: str) -> str:
         output.append(f"🔍 *Keywords / Features:* {', '.join(prod['tags'][:6])}")
     if prod.get("consumables"):
         output.append(f"💧 *Linked OEM Consumables:* {len(prod['consumables'])} verified cartridge/supply SKUs")
-    output.append(f"🔗 *Official Direct Portal:* {web_url}")
+    output.append(f"🔗 *Official Direct Portal:* {web_url} — tap to view pricing")
     output.append(f"━━━━━━━━━━━━━━━━━━━━")
     return "\n".join(output)
+
+
+def scrape_kepler_website(query_or_url: str) -> str:
+    """
+    Live scrapes product technical data, features, applications, and overview from the official
+    Kepler Tech website (https://www.keplertechllc.com) to provide rich, grounded replies.
+    """
+    import requests
+    from bs4 import BeautifulSoup
+
+    target_url = (query_or_url or "").strip()
+    
+    # If not a full URL, resolve via product catalog or search slug
+    if not target_url.startswith("http"):
+        prod = Product.find_by_id(target_url)
+        if not prod:
+            search_res = Product.search_products(target_url)
+            if search_res:
+                prod = search_res[0]
+        
+        if prod:
+            target_url = build_working_product_url(prod)
+        else:
+            # Fallback search URL on Kepler website
+            clean_q = urllib.parse.quote_plus(target_url)
+            target_url = f"https://www.keplertechllc.com/?s={clean_q}&post_type=product"
+
+    try:
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        }
+        res = requests.get(target_url, headers=headers, timeout=8)
+        if res.status_code != 200:
+            return f"Unable to reach Kepler website page (HTTP {res.status_code}): {target_url}"
+
+        soup = BeautifulSoup(res.text, "html.parser")
+
+        # Extract product title
+        title_el = soup.find("h1", class_="product_title") or soup.find("h1")
+        title = title_el.get_text(strip=True) if title_el else "Kepler Product Overview"
+
+        # Extract short description & full description
+        short_desc_el = soup.find("div", class_="woocommerce-product-details__short-description")
+        short_desc = short_desc_el.get_text(strip=True) if short_desc_el else ""
+
+        full_desc_el = soup.find("div", id="tab-description") or soup.find("div", class_="woocommerce-Tabs-panel--description")
+        full_desc = full_desc_el.get_text(" ", strip=True) if full_desc_el else ""
+
+        # Extract specifications table if present
+        specs_table = soup.find("table", class_="woocommerce-product-attributes")
+        specs_text = ""
+        if specs_table:
+            rows = []
+            for tr in specs_table.find_all("tr"):
+                th = tr.find("th")
+                td = tr.find("td")
+                if th and td:
+                    rows.append(f"• **{th.get_text(strip=True)}:** {td.get_text(strip=True)}")
+            specs_text = "\n".join(rows[:10])
+
+        content_parts = [
+            f"🌐 **Official Kepler Tech Website Live Content:**",
+            f"━━━━━━━━━━━━━━━━━━━━",
+            f"🏷️ **Product:** {title}",
+        ]
+        if short_desc:
+            content_parts.append(f"📝 **Summary:** {short_desc[:600]}")
+        if full_desc and full_desc != short_desc:
+            content_parts.append(f"🔍 **Detailed Specifications & Features:** {full_desc[:1200]}")
+        if specs_text:
+            content_parts.append(f"⚙️ **Technical Parameters:**\n{specs_text}")
+        content_parts.append(f"🔗 **Source URL:** {target_url}")
+        content_parts.append(f"━━━━━━━━━━━━━━━━━━━━")
+
+        return "\n\n".join(content_parts)
+
+    except Exception as e:
+        return f"Error reading live Kepler website data: {e}"
 
 
 def get_shipping_info(emirate_or_city: str = "Dubai") -> str:
@@ -735,6 +806,7 @@ TOOL_MAP = {
     "check_stock": check_stock,
     "get_price": get_price,
     "get_product_specs": get_product_specs,
+    "scrape_kepler_website": scrape_kepler_website,
     "get_shipping_info": get_shipping_info,
     "get_warranty_and_support": get_warranty_and_support,
     "track_order": track_order,
